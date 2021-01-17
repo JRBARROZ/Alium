@@ -224,7 +224,7 @@
     display: table;
     clear: both;
 }
-.contact-form form input[type=text], textarea{
+.contact-form form input[type=text],form input[type=password], textarea{
     width: 376px;
     height:37px;
     background-color: #EBF2FF;
@@ -278,3 +278,4 @@
     display: table;
     clear: both;
 }
+
