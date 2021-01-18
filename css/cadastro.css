@@ -131,5 +131,40 @@ font-family: 'Asgalt';
     cursor: pointer;
     transition: 1s;
     margin-top: 10px;
+    border-style: solid;
+    opacity: 0.5;
 
+}
+.text-register{
+    font-family: "Asgalt";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 72px;
+    line-height: 65px;
+    color: #FFC30B;
+
+}
+.subtext-register{
+    font-family: "Nunito-light";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    color: #FAFCFF;
+}
+.title-register{
+    font-family: "Asgalt";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 48px;
+    line-height: 43px;
+    color: #0E2548;
+
+}
+.traco-register{
+    position: absolute;
+    width: 65px;
+    height: 3px;
+    background: #FFC30B;
 }
