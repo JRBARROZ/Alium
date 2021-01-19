@@ -1,41 +1,155 @@
-*{
-    padding:0;
-    margin:0;
-}
-@font-face{
-    font-family : 'Asgalt';
-    src:url('../font/Asgalt-Regular.ttf');
-}
-@font-face{
-    font-family : 'Nunito-Light';
-    src:url('../font/Nunito-LightItalic.ttf');
-}
-@font-face{
-    font-family : 'Nunito-Regular';
-    src:url('../font/Nunito-Regular.ttf');
-}
-.contact{
+* {
+    padding: 0;
+    margin: 0;
+  }
+  
+  @font-face {
+    font-family: 'Asgalt';
+    src: url('../font/Asgalt-Regular.ttf');
+  }
+  
+  @font-face {
+    font-family: 'Nunito-Light';
+    src: url('../font/Nunito-LightItalic.ttf');
+  }
+  
+  @font-face {
+    font-family: 'Nunito-Regular';
+    src: url('../font/Nunito-Regular.ttf');
+  }
+  
+  html,
+  body {
+    height: 100%;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .header {
+    background-color: #0E2548;
+    /* padding: 10px 0px 10px 0px; */
     width: 100%;
-    height:auto;
-    padding: 30px 0px 30px 0px;
-    background-color: #4989ff0a;
-}
-.contact-container{
-    max-width: 1200px;
+  }
+  
+  .header-container {
+    padding-left: 11.8%;
     margin: 0 auto;
-}
-.contact-form{
-    float: left;
-}
-.contact-information{
-    float: right;
-}
-.contact-container::before, .contact-container::after{
-    content:'';
+    /* max-width: 1200px; */
+  }
+  
+  .header-container::before,
+  .header-container::after {
+    content: "";
     display: table;
     clear: both;
+  }
+  .signin{
+      min-height: 825px;
+      /* width: 40%; */
+  }
+  .bg-image-signin{
+    width: 50%;
+    background: linear-gradient(0deg, rgba(14, 37, 72, 0.65), rgba(14, 37, 72, 0.65)), url('../images/backgrounds/register.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .signin-container{
+    /* width: 1200px; */
+    padding: 350px 0 0 30px;
+    margin: auto 20%;
+  }
+
+.signinin{
+    font-family: 'Asgalt';
 }
-.contact-form form input[type=text],form input[type=password], textarea{
+
+.signingin-container{
+    margin: 0 auto;
+}
+
+/* .signinup-container::before, .signinup-container::after{
+    content: "";
+    display: table;
+    clear: both;
+} */
+
+.text-signin{
+    font-family: "Asgalt";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 72px;
+    line-height: 65px;
+    color: #FFC30B;
+}
+
+.signin-form input[type=submit]{
+    width: 150px;
+    height: 41px;
+    color: white;
+    font-family: 'Asgalt';
+    font-size: 24px;
+    border-color: #FFC30B;
+    padding: 8px;
+    outline: none;
+    cursor: pointer;
+    margin-top: 10px;
+    border-style: solid;
+    background-color: transparent;
+}
+
+.subtext-signin{
+    font-family: "Nunito-light";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    padding: 0 0 0 30px;
+    width: 70%;
+    color: #FAFCFF;
+}
+
+.signin-button{
+    padding-left: 25%;
+}
+.signup{
+    width: 45%;
+    margin: 0 auto;
+    padding: 30px 0px 30px 50px;
+}
+
+.signin, .signup {
+    float:left;
+}
+
+.title-signup{
+    font-family: "Asgalt";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 48px;
+    line-height: 43px;
+    color: #0E2548;
+}
+
+.traco-signup{
+    position: relative;
+    width: 165px;
+    height: 3px;
+    background: #FFC30B;
+}
+
+.signup-form form input[type=text],form input[type=password], textarea{
     width: 376px;
     height:37px;
     background-color: #EBF2FF;
@@ -43,15 +157,15 @@
     padding: 10px;
     border: none;
     font-family: "Nunito-light";
+    padding-top: 30px;
 }
-.contact-form label{
+
+.signup-form label{
     font-family: "Asgalt";
     font-size: 1.75em;
 }
-.contact-form textarea{
-    height: 100px;
-}
-.contact-form input[type=submit]{
+
+.signup-form input[type=submit]{
     width: 150px;
     height: 41px;
     background-color: #0E2548;
@@ -65,106 +179,19 @@
     transition: 1s;
     margin-top: 10px;
 }
-.contact-form input[type=submit]:hover{
-    transition: 1s;
-    background-color: #4D6180;
-}
-.contact-information{
-    font-family: "Nunito-Light";
-    font-size: 1.5em;
-    margin-top: 80px;
-}
-.footer{
+
+.footer {
+    /* flex-shrink: 0; */
     background-color: #0E2548;
     padding: 10px 0px 10px 0px;
     width: 100%;
-}
-.footer-container{
+    height: 3.75em;
+
+  }
+  
+  .footer-container {
     margin: 0 auto;
     max-width: 1200px;
-}
-.footer-container::before, .footer-container::after{
-    content:'';
-    display: table;
-    clear: both;
-}
+  }
+  
 
-.header{
-    background-color: #0E2548;
-    padding: 10px 0px 10px 0px;
-    width: 100%;
-}
-.header-container{
-    margin: 0 auto;
-    max-width: 1200px;
-}
-.header-container::before, .header-container::after{
-    content:"";
-    display: table;
-    clear: both;
-
-}
-.conectar{
-
-font-family: 'Asgalt';
-}
-.conectar-container{
-    margin: 0 auto;
-    max-width: 1200px;
-
-}
-.conectar-container::before, .conectar-container::after{
-    content: "";
-    display: table;
-    clear: both;
-}
-.conectar-form input[type=submit]{
-    width: 150px;
-    height: 41px;
-    color: white;
-    font-family: 'Asgalt';
-    font-size: 24px;
-    border:absolute 3px;
-    border-color: #FFC30B;
-    padding: 8px;
-    outline: none;
-    cursor: pointer;
-    transition: 1s;
-    margin-top: 10px;
-    border-style: solid;
-    opacity: 0.5;
-
-}
-.text-register{
-    font-family: "Asgalt";
-    font-style: normal;
-    font-weight: normal;
-    font-size: 72px;
-    line-height: 65px;
-    color: #FFC30B;
-
-}
-.subtext-register{
-    font-family: "Nunito-light";
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 21px;
-    text-align: center;
-    color: #FAFCFF;
-}
-.title-register{
-    font-family: "Asgalt";
-    font-style: normal;
-    font-weight: normal;
-    font-size: 48px;
-    line-height: 43px;
-    color: #0E2548;
-
-}
-.traco-register{
-    position: absolute;
-    width: 65px;
-    height: 3px;
-    background: #FFC30B;
-}
