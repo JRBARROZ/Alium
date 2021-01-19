@@ -23,12 +23,8 @@
                 <h1 class="text-login">Novo por aqui?</h1>
                 <div class="subtext-login">
                     <p>Se inscreva e conheça o melhor que a ALIUM tem a oferecer ;)</p>
-                    <div class="register-form">
-                        <form action="cadastro.php" method="POST">
-                            <input type="submit" value="REGISTRE-SE" />
-                        </form>
-                    </div>
-                </div>
+                </div><br><br>
+                <a class="register-form" href="signup.html">REGISTRE-SE</a>
             </div>
         </section>
         <section class="conectar">
@@ -36,13 +32,12 @@
                 <h1 class="title-login">Conectar</h1>
                 <div class="traco-login"></div>
                 <div class="conectar-form">
-                    <form method="POST">
-                        <label for="Email">Email:</label><br>
-                        <input type="text" id="Email" name="Email" value=""><br>
-                        <label for="Senha">Senha:</label><br>
-                        <input type="password" id="senha" name="senha" value=""><br>
+                    <form action="validate-user.php" method="POST">
+                        <label for="email">E-mail:</label><br>
+                        <input type="mail" id="email" name="email"><br>
+                        <label for="password">Senha:</label><br>
+                        <input type="password" id="password" name="password"><br>
                         <a href="">Esqueceu sua senha?</a><br>
-                        <br>
                         <input type="submit" value="ENTRAR">
                     </form>
                 </div>
