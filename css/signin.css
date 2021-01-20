@@ -178,16 +178,17 @@ form input[type=password] {
 
 .register {
   /* min-height: 100%; */
-  width: 52%;
+  width: 60%;
   display: flex;
   justify-content: center;
+  clip-path: polygon(0 0, 100% 0, 93% 100%, 0 100%);
 }
 
 .register-container,
 .conectar-container {
   /* width: 1200px; */
   padding: 30px 0 0 30px;
-  margin: auto 13%;
+  margin: auto 5%;
 }
 .conectar-form {
   font-family: 'Asgalt';
