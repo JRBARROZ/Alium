@@ -24,7 +24,10 @@ html {
 }
 
 body {
-  margin-bottom: 3.75em;
+  /* margin-bottom: 3.75em; */
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 4.95em auto 3.75em;
 }
 
 .content {
@@ -37,11 +40,11 @@ body {
 
 .footer {
   background-color: #0E2548;
-  padding: 10px 0px 10px 0px;
-  position: absolute;
-  bottom: 0;
+  /* padding: 10px 0px 10px 0px; */
+  /* position: absolute; */
+  /* bottom: 0; */
   width: 100%;
-  height: 3.75em;
+  /* height: 3.75em; */
 }
 
 .footer-container {
@@ -103,6 +106,10 @@ body {
   background: #FFC30B;
 }
 
+.conectar-form input[type=submit]:hover {
+  background-color: #4D6180;
+}
+
 .conectar-form input[type=submit] {
   width: 150px;
   height: 41px;
@@ -117,7 +124,7 @@ body {
   transition: 1s;
   margin-top: 10px;
   border-style: solid;
-  background-color: #4D6180;
+  background-color: #0E2548;
 }
 
 form input[type=text],
@@ -139,19 +146,21 @@ form input[type=password] {
 
 .register-form {
   text-decoration: none;
+  /* appearance: button; */
   width: 150px;
-  height: 41px;
+  /* height: 41px; */
   color: white;
   font-family: 'Asgalt';
   font-size: 24px;
   border: absolute 3px;
   border-color: #FFC30B;
-  padding: 8px;
+  padding: 12px 30px 7px;
   outline: none;
   cursor: pointer;
   transition: 1s;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   border-style: solid;
+  text-align: center;
   background-color: transparent;
 }
 
@@ -168,8 +177,10 @@ form input[type=password] {
 }
 
 .register {
-  min-height: 100%;
-  width: 50%;
+  /* min-height: 100%; */
+  width: 52%;
+  display: flex;
+  justify-content: center;
 }
 
 .register-container,
