@@ -57,6 +57,7 @@ body {
 .signin {
   height: 100%;
   display: flex;
+  clip-path: polygon(0 0, 100% 0, 93% 100%, 0 100%);
   /* width: 60%; */
 }
 
