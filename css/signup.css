@@ -157,7 +157,7 @@ body {
 }
 
 .signup-form form input[type=text],
-form input[type=password],
+form input[type=password], input[type=email],
 textarea {
   width: 376px;
   /* height:37px; */

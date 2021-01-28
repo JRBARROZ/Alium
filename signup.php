@@ -11,6 +11,13 @@
 </head>
 
 <body>
+    <?php
+        if(isset($_SESSION['success'])){
+            unset($_SESSION['success']);
+            echo "Sucesso";
+        }
+    ?>
+
     <div class="header">
         <div class="header-container">
             <header>
@@ -42,24 +49,35 @@
                 <h1 class="title-signup">Registro</h1>
                 <div class="traco-signup"></div>
                 <div class="signup-form">
-                    <form action="">
-                        <label for="CPF/CNPJ">CPF/CNPJ:</label><br>
-                        <input type="text" id="CPF/CNPJ" name="CPF/CNPJ" value=""><br>
-                        <label for="Nome">Nome:</label><br>
-                        <input type="text" id="Nome" name="Nome" value=""><br>
-                        <label for="Email">Email:</label><br>
-                        <input type="text" id="Email" name="Email" value=""><br>
-                        <label for="Telefone">Telefone:</label><br>
-                        <input type="text" id="telefone" name="telefone" value=""><br>
-                        <label for="Senha">Senha:</label><br>
-                        <input type="password" id="Senha" name="Senha" value=""><br>
-                        <label for="RSenha">Repetir a Senha:</label><br>
-                        <input type="password" id="RSenha" name="RSenha" value=""><br>
+                    <form action="add_user.php" method="POST">
+                        <label for="name">Nome:</label><br>
+                        <input type="text" id="name" name="name" value=""><br>
+                        <label for="cpf_cnpj">CPF/CNPJ:</label><br>
+                        <input type="text" id="cpf_cnpj" name="cpf_cnpj" value=""><br>
+                        <label for="email">E-mail:</label><br>
+                        <input type="email" id="email" name="email" value=""><br>
+                        <label for="phone">Telefone:</label><br>
+                        <input type="text" id="phone" name="phone" value=""><br>
+                        <label for="username">Nome de usuário:</label><br>
+                        <input type="text" id="username" name="username" value=""><br>
+                        <label for="password">Senha:</label><br>
+                        <input type="password" id="password" name="password" value=""><br>
+                        <label for="confirm_password">Repetir a Senha:</label><br>
+                        <input type="password" id="confirm_password" name="confirm_password" value=""><br>
                         <label for="cep">CEP:</label><br>
                         <input type="text" id="cep" name="cep" value=""><br>
-                        <input type="checkbox" id="servico" name="servico" value="">
-                        <label for="servico"> Prestador de Serviço</label><br>
-
+                        <label for="address">Rua:</label><br>
+                        <input type="text" id="address" name="address" value=""><br>
+                        <label for="address_number">Número:</label><br>
+                        <input type="text" id="address_number" name="address_number" value=""><br>
+                        <label for="neighborhood">Bairro:</label><br>
+                        <input type="text" id="neighborhood" name="neighborhood" value=""><br>
+                        <label for="city">Cidade:</label><br>
+                        <input type="text" id="city" name="city" value=""><br>
+                        <label for="state">Estado:</label><br>
+                        <input type="text" id="state" name="state" value=""><br>
+                        <label for="job"> Prestador de Serviço</label><br>
+                        <input type="checkbox" id="job" name="job" value=""><br>
                         <input type="submit" value="CADASTRAR">
                     </form>
                 </div>

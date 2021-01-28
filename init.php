@@ -59,9 +59,6 @@ function login($username, $password)
   return false;
 }
 
-if (login('username', 'password')) {
-  echo "credenciais inválidas";
-} else {
-  $teste = login('teste', 'abc');
-  echo $teste['email'];
+function redirect($url){
+  header('location:' . $url);
 }
