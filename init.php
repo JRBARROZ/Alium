@@ -40,25 +40,24 @@ function isAdmin()
 
 function login($username, $password)
 {
-  $usrnm = trim(addslashes($username));
-  $passwd = sha1(trim(addslashes($password)));
 
-  $query = "SELECT * FROM usuario WHERE `email` = ? OR `username` = ? AND `password` = ?";
-  
+  $query = "SELECT * FROM usuario WHERE `username` = ? AND `password` = ? OR `email` = ? AND `password` = ?";
+
   $stmt = $GLOBALS['pdo']->prepare($query);
-  
-  $stmt->execute([$usrnm, $usrnm, $passwd]);
+
+  $stmt->execute([$username, $password, $username, $password]);
   $user = $stmt->fetch();
- 
+
   $row = $stmt->rowCount();
 
   if ($row == 1) {
-    // isLogged($user);
-    return $user;
+    $_SESSION['user'] = $user;
+    return true;
   }
   return false;
 }
 
-function redirect($url){
+function redirect($url)
+{
   header('location:' . $url);
 }

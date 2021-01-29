@@ -108,6 +108,9 @@ body {
 
 .conectar-form input[type=submit]:hover {
   background-color: #4D6180;
+  border-color: #FFC30B;
+  border: absolute 3px;
+  border-style: solid;
 }
 
 .conectar-form input[type=submit] {
@@ -116,13 +119,13 @@ body {
   color: white;
   font-family: 'Asgalt';
   font-size: 24px;
-  border: absolute 3px;
-  border-color: #FFC30B;
   padding: 8px;
   outline: none;
   cursor: pointer;
   transition: 1s;
   margin-top: 10px;
+  border-color: transparent;
+  border: absolute 3px;
   border-style: solid;
   background-color: #0E2548;
 }

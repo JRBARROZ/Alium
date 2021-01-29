@@ -16,7 +16,7 @@
         <a href="#" class="menu-logo"><img src="images/icons/logo.svg" alt=""></a>
         <nav class="menu-nav">
           <ul>
-            <li><a href="signin.html">Logar/Registrar</a></li>
+            <li><a href="signin.php">Logar/Registrar</a></li>
           </ul>
         </nav>
       </div>

@@ -14,7 +14,7 @@
     <div class="header">
         <div class="header-container">
             <header>
-                <a href="index.html" class="menu-logo"><img src="images/icons/logo.svg" alt=""></a>
+                <a href="index.php" class="menu-logo"><img src="images/icons/logo.svg" alt=""></a>
             </header>
         </div>
     </div>
@@ -25,7 +25,7 @@
                 <div class="subtext-login">
                     <p>Se inscreva e conheça o melhor que a ALIUM tem a oferecer ;)</p>
                 </div><br><br>
-                <a class="register-form" href="signup.html">REGISTRE-SE</a>
+                <a class="register-form" href="signup.php">REGISTRE-SE</a>
             </div>
         </section>
         <section class="conectar">
@@ -33,12 +33,12 @@
                 <h1 class="title-login">Conectar</h1>
                 <div class="traco-login"></div>
                 <div class="conectar-form">
-                    <form action="validate-user.php" method="POST">
+                    <form action="validate_user.php" method="POST">
                         <label for="email">E-mail:</label><br>
-                        <input type="mail" id="email" name="email"><br>
+                        <input type="text" id="email" name="email" required><br>
                         <label for="password">Senha:</label><br>
-                        <input type="password" id="password" name="password"><br>
-                        <a href="">Esqueceu sua senha?</a><br>
+                        <input type="password" id="password" name="password" required><br>
+                        <a href="forgot_password.php">Esqueceu sua senha?</a><br>
                         <input type="submit" value="ENTRAR">
                     </form>
                 </div>

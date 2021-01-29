@@ -12,16 +12,16 @@
 
 <body>
     <?php
-        if(isset($_SESSION['success'])){
-            unset($_SESSION['success']);
-            echo "Sucesso";
-        }
+        // if(isset($_SESSION['success'])){
+        //     unset($_SESSION['success']);
+        //     echo "Sucesso";
+        // }
     ?>
 
     <div class="header">
         <div class="header-container">
             <header>
-                <a href="index.html" class="menu-logo"><img src="images/icons/logo.svg" alt=""></a>
+                <a href="index.php" class="menu-logo"><img src="images/icons/logo.svg" alt=""></a>
             </header>
         </div>
     </div>
@@ -34,7 +34,7 @@
                         <div class="signin-form">
                             <p class="subtext-signin">Que bom que você já faz parte do nosso time
                             <div class="signin-button">
-                                <form action="signin.html">
+                                <form action="signin.php">
                                     <input type="submit" value="CONECTAR-SE" />
                                 </form>
                             </div>
@@ -51,33 +51,33 @@
                 <div class="signup-form">
                     <form action="add_user.php" method="POST">
                         <label for="name">Nome:</label><br>
-                        <input type="text" id="name" name="name" value=""><br>
+                        <input type="text" id="name" name="name" required><br>
                         <label for="cpf_cnpj">CPF/CNPJ:</label><br>
-                        <input type="text" id="cpf_cnpj" name="cpf_cnpj" value=""><br>
+                        <input type="text" id="cpf_cnpj" name="cpf_cnpj" minlength="11" maxlength="14" required><br>
                         <label for="email">E-mail:</label><br>
-                        <input type="email" id="email" name="email" value=""><br>
+                        <input type="email" id="email" name="email" required><br>
                         <label for="phone">Telefone:</label><br>
-                        <input type="text" id="phone" name="phone" value=""><br>
+                        <input type="text" id="phone" name="phone" required><br>
                         <label for="username">Nome de usuário:</label><br>
-                        <input type="text" id="username" name="username" value=""><br>
+                        <input type="text" id="username" name="username" required><br>
                         <label for="password">Senha:</label><br>
-                        <input type="password" id="password" name="password" value=""><br>
+                        <input type="password" id="password" name="password" required><br>
                         <label for="confirm_password">Repetir a Senha:</label><br>
-                        <input type="password" id="confirm_password" name="confirm_password" value=""><br>
+                        <input type="password" id="confirm_password" name="confirm_password" required><br>
                         <label for="cep">CEP:</label><br>
-                        <input type="text" id="cep" name="cep" value=""><br>
+                        <input type="text" id="cep" name="cep" required><br>
                         <label for="address">Rua:</label><br>
-                        <input type="text" id="address" name="address" value=""><br>
+                        <input type="text" id="address" name="address" required><br>
                         <label for="address_number">Número:</label><br>
-                        <input type="text" id="address_number" name="address_number" value=""><br>
+                        <input type="text" id="address_number" name="address_number" required><br>
                         <label for="neighborhood">Bairro:</label><br>
-                        <input type="text" id="neighborhood" name="neighborhood" value=""><br>
+                        <input type="text" id="neighborhood" name="neighborhood" required><br>
                         <label for="city">Cidade:</label><br>
-                        <input type="text" id="city" name="city" value=""><br>
+                        <input type="text" id="city" name="city" required><br>
                         <label for="state">Estado:</label><br>
-                        <input type="text" id="state" name="state" value=""><br>
-                        <label for="job"> Prestador de Serviço</label><br>
-                        <input type="checkbox" id="job" name="job" value=""><br>
+                        <input type="text" id="state" name="state" required><br>
+                        <label for="job"> Prestador de Serviço</label>
+                        <input type="checkbox" id="job" name="job"><br>
                         <input type="submit" value="CADASTRAR">
                     </form>
                 </div>
