@@ -48,6 +48,10 @@
             <div>
                 <h1 class="title-signup">Registro</h1>
                 <div class="traco-signup"></div>
+                <?php if(isset($_SESSION['error'])):?>
+                    <div class="error-message">As senhas não conferem :/</div>
+                    <?php unset($_SESSION['error'])?>
+                <?php endif ?>
                 <div class="signup-form">
                     <form action="add_user.php" method="POST">
                         <label for="name">Nome:</label><br>
@@ -75,9 +79,9 @@
                         <label for="city">Cidade:</label><br>
                         <input type="text" id="city" name="city" required><br>
                         <label for="state">Estado:</label><br>
-                        <input type="text" id="state" name="state" required><br>
-                        <label for="job"> Prestador de Serviço</label>
-                        <input type="checkbox" id="job" name="job"><br>
+                        <input type="text" id="state" name="state" required><br><br>
+                        <label for="job" style="font-family:Nunito-Light;font-size:16px;"> Prestador de Serviço</label>
+                        <input type="checkbox" id="job" name="job"><br><br>
                         <input type="submit" value="CADASTRAR">
                     </form>
                 </div>

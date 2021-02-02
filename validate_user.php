@@ -1,12 +1,14 @@
 <?php
 require_once 'init.php';
-
+if(!isset($_POST['email'])){
+  redirect('signin.php');
+  exit();
+}
 $email = addslashes(trim($_POST['email']));
 $password = sha1(addslashes(trim($_POST['password'])));
 
 if (login($email, $password)) {
-  $user = $_SESSION['user'];
-  echo 'logado com sucesso';
+  redirect('index.php');
 } else {
   echo "credenciais inválidas";
 }

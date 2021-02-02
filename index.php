@@ -1,6 +1,6 @@
+<?php require_once('init.php') ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,14 @@
         <a href="#" class="menu-logo"><img src="images/icons/logo.svg" alt=""></a>
         <nav class="menu-nav">
           <ul>
-            <li><a href="signin.php">Logar/Registrar</a></li>
+            <?php if(isset($_SESSION['user'])):?>
+              <li><a>Bem-vindo(a), </a></li>
+              <li><a href=""><?= $_SESSION['user']['nome']?></a></li>
+              <li><a href="logout.php" class="text-color-yellow">Sair</a></li>
+            <?php else :?>
+              <li><a href="signup.php">Registrar-se</a></li>
+              <li><a href="signin.php">Entrar</a></li>
+            <?php endif;?>
           </ul>
         </nav>
       </div>

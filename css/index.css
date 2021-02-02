@@ -284,4 +284,6 @@
     display: table;
     clear: both;
 }
-
+.text-color-yellow{
+    color:#FFC30B !important;
+}

@@ -1,8 +1,16 @@
 <?php
 require_once "init.php";
+if(!isset($_POST['password'])){
+    redirect('signup.php');
+    exit();
+}
+if($_POST['password'] != $_POST['confirm_password']){
+    $_SESSION['error'] = true;
+    redirect('signup.php');
+    exit();
+}
 
 $user = [];
-
 $user[] = addslashes(trim($_POST['name']));
 $user[] = addslashes(trim($_POST['cpf_cnpj']));
 $user[] = addslashes(trim($_POST['email']));
@@ -24,9 +32,10 @@ $stmt = $GLOBALS['pdo']->prepare($query);
 try{
     $stmt->execute($user);
     $_SESSION['success'] = true;
+    redirect("signin.php?");
 }
 catch (PDOException $e) {
     echo $e->getMessage();
+    redirect("signup.php");
 }
-redirect("signup.php");
 ?>

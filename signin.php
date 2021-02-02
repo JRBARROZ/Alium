@@ -31,7 +31,13 @@
         <section class="conectar">
             <div class="conectar-container">
                 <h1 class="title-login">Conectar</h1>
+                <div class=></div>
                 <div class="traco-login"></div>
+                <?php if(isset($_SESSION['success'])) :?>
+                    <div class="success-message">Você foi registrado com sucesso!</div>
+                    <?php unset($_SESSION['success'])?>
+                <?php endif ?>
+                <!-- <div class="error-message">Houve um erro no seu registro</div> -->
                 <div class="conectar-form">
                     <form action="validate_user.php" method="POST">
                         <label for="email">E-mail:</label><br>

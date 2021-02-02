@@ -209,3 +209,27 @@ form input[type=password] {
   /* float: left; */
   width: 50%;
 }
+
+/* Feedbacks */
+.success-message{
+  background-color:#e7ffe6;
+  max-width: 280px;
+  margin: 20px 0px 10px 0px;
+  color: #4e994b;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #cfffcf;
+  border-radius:5px;
+  font-family: 'Nunito-Light';
+}
+.error-message{
+  background-color:#ffe6e6;
+  max-width: 280px;
+  margin: 20px 0px 10px 0px;
+  color: #994b4b;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ffcfcf;
+  border-radius:5px;
+  font-family: 'Nunito-Light';
+}
