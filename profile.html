@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="./css/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body>
     <div class="header">
         <div class="header-container">
@@ -18,27 +16,33 @@
         </div>
     </div>
 
+
     <div class="content-profile">
-        <section class="profile">
-            <div class="profile-container">
-                <div class="profile-title">
-                    <p>Sobre</p>
-                </div>
-                <div class="profile-title">
-                    <p>Nota Geral</p>
-                </div>
-                <div class="profile-title">
-                    <p>Contatos</p>
-                </div>
+        <div class="perfil-provider">
+            <div class="perfil-img">
+                <img src="./images/profile/perfilImage.jpg" alt="">
             </div>
-        </section>
-
-
-        <section class="profile-edit profile">
+            <p>Pamela Isley, Igarassu BR<br>Pintor</p>
+        </div>
+        <div class="profile-nav">
+            <div class="profile-item">
+                <p>Sobre</p>
+            </div>
+            <div class="profile-item">
+                <p>Nota Geral</p>
+            </div>
+            <div class="profile-item">
+                <p>Contatos</p>
+            </div>
+        </div>
+        <!-- <div class="profile-container">
+        </div> -->
+        <section class="profile-edit">
             <div class="profile-form">
                 <div class="profile-text-edit">
+                    <h1>Editar Perfil</h1>
                     <form action="" method="POST">
-                        <p>Editar Perfil</p><br><br>
+                        <br>
                         <label for="cpf_cnpj">CPF/CNPJ:</label><br>
                         <input type="text" id="cpf_cnpj" name="cpf_cnpj" minlength="11" maxlength="14" required><br>
                         <label for="name">Nome:</label><br>
@@ -49,15 +53,15 @@
                         <input type="text" id="phone" name="phone" required><br>
                         <label for="cep">CEP:</label><br>
                         <input type="text" id="cep" name="cep" required><br>
-                        <label for="sobre">Nome:</label><br>
+                        <label for="sobre">Sobre:</label><br>
                         <input type="text" id="sobre" name="sobre" required><br>
                         <label for="profession">Tipo de Serviço:</label><br>
                         <select id="profession" name="profession">
-          <option value="Pintor(a)">Pintor(a)</option>
-          <option value=""></option>
-          <option value=""></option>
-          <option value=""></option>
-        </select><br><br>
+                            <option value="Pintor(a)">Pintor(a)</option>
+                            <option value=""></option>
+                            <option value=""></option>
+                            <option value=""></option>
+                        </select><br><br>
                         <label for="portfolio">Portifólio:</label><br><br>
                         <input type="file" id="portfolio" name="portfolio"><br><br>
                         <input type="submit" value="Atualizar">
@@ -66,6 +70,10 @@
             </div>
         </section>
     </div>
+
+
+
+
     <section class="footer">
         <div class="footer-container">
             <div class="logo-footer">
@@ -73,7 +81,5 @@
             </div>
         </div>
     </section>
-
 </body>
-
 </html>
