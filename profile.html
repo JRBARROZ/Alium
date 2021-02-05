@@ -51,8 +51,9 @@
         <section class="profile-edit">
             <div class="profile-form">
                 <div class="profile-text-edit">
-                    <h3>Editar Perfil</h3>
-                    <form action="" method="POST">
+                    <h3 id="text" style="max-width: 500px;line-height:2em;">Olá, Pamela seja bem vindo(a) ao Alium :)<br>Por favor, finalize seu cadastro abaixo.<br><a href="#" class="btn" onclick="showForm(this)">Atualizar Cadastro</a></h3>
+                    <h3 id="edit" style="display: none;">Editar Perfil</h3>
+                    <form action="" method="POST" id="form">
                         <br>
                         <label for="cpf_cnpj">CPF/CNPJ:</label><br>
                         <input type="text" id="cpf_cnpj" name="cpf_cnpj" minlength="11" maxlength="14" required><br>
@@ -92,5 +93,13 @@
             </div>
         </div>
     </section>
+    <script>
+        function showForm(e){
+            e.style.display = "none";
+            document.getElementById('text').style.display="none";
+            document.getElementById('form').style.display="block";
+            document.getElementById('edit').style.display="block";
+        }
+    </script>
 </body>
 </html>

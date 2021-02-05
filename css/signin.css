@@ -233,3 +233,21 @@ form input[type=password] {
   border-radius:5px;
   font-family: 'Nunito-Light';
 }
+.btn{
+
+  width: 150px;
+  height: 41px;
+  color: white;
+  font-family: 'Asgalt';
+  font-size: 24px;
+  padding: 8px;
+  outline: none;
+  cursor: pointer;
+  transition: 1s;
+  margin-top: 10px;
+  border-color: transparent;
+  border: absolute 3px;
+  border-style: solid;
+  background-color: #0E2548;
+
+}

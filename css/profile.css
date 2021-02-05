@@ -229,3 +229,30 @@ textarea,select,input[type=file]{
 .checked{
     color:#FFC30B !important;
 }
+.btn{
+
+    width: 150px;
+    height: 41px;
+    color: white;
+    font-family: 'Nunito-Regular';
+    font-size: .8em;
+    padding: 8px;
+    outline: none;
+    cursor: pointer;
+    transition: 1s;
+    margin-top: 10px;
+    border-color: transparent;
+    border: absolute 3px;
+    border-style: solid;
+    background-color: #0E2548;
+    text-decoration: none;
+}
+.btn:hover{
+    background-color: #4D6180;
+    border-color: #FFC30B;
+    border: absolute 3px;
+    border-style: solid;
+}
+#form{
+    display: none;
+}
