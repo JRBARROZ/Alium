@@ -86,9 +86,9 @@ body {
 }
 
 .profile-form form input[type=text],
-form input[type=password],
+form input[type=password],  
 input[type=email],
-textarea {
+textarea,select,input[type=file]{
     width: 376px;
     /* height:37px; */
     background-color: #EBF2FF;
@@ -98,7 +98,6 @@ textarea {
     font-family: "Nunito-light";
     /* padding-top: 30px; */
 }
-
 .profile-text-edit {
     font-family: "Gasalt-Regular";
     font-size: 1.75em;
@@ -108,19 +107,67 @@ textarea {
     letter-spacing: 0em;
     text-align: left;
 }
-
 .content-profile {
-    max-width: 1020px;
+    /* max-width: 1020px; */
     margin: 0 auto;
     display: flex;
+    flex-wrap: wrap;
     /* flex-direction: row; */
-    /* justify-content: space-between; */
+    /* align-items: center; */
+    /* flex-direction: row; */
+    justify-content: space-around;
 }
-
-.profile-edit {
-    width: 45%;
-    margin: 0 auto;
-    padding: 30px 0px 30px 50px;
+.perfil-provider{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: left;
+    padding-right: 125px;
+    
+}
+.profile-edit{
+    margin-top: 65px;
+}
+.profile-item{
+    max-width: 300px;
+}
+.profile-item h3{
+    font-size: 1.25em;
+}
+.profile-item ul{
+    margin-top: 20px;
+    list-style-type: none;
+}
+.profile-item ul li{
+    color: #637EA6;
+    font-size: 1.125em;
+    line-height: 2;
+    align-items: center;
+}
+.profile-item ul li i {
+    font-size: 1.5em;
+}
+.perfil-img{
+    display:flex;
+    /* flex:2; */
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 40px;
+    /* flex-basis: 2 1 300px; */
+    /* max-width: 300px; */
+    height: 100px;
+    margin-left: 20px;
+    /* flex: 1 1 260px; */
+}
+.perfil-img p {
+    margin-left: 26px;
+    color: #637EA6;
+    font-family: "Nunito-Light";
+    font-weight: bold;
+}
+.name{
+    font-size: 1.25rem;
+    color: #0E2548;
 }
 
 /* .profile {
@@ -134,20 +181,33 @@ textarea {
     margin: 0 auto;
 } */
 
-.perfil-provider{
-    display:flex;
-}
+
 .profile-item {
     font-family: 'Nunito-Regular';
-    font-size: 20px;
+    /* font-size: 20px; */
     font-style: normal;
     font-weight: 400;
     line-height: 30px;
     letter-spacing: 0em;
-    text-align: center;
+    color: #0E2548;
+    /* text-align: center; */
     margin: 10% 0 10% 0;
 }
-
+.profile-item span{
+    font-size: 18px;
+    color: #E5EFFF;
+}
+.profile-nav .profile-item h3 {
+    font-size: 1.25em;
+    margin-left: 15;
+    
+}
+.profile-nav .profile-item p {
+    font-size: 1em;
+    font-family: "Nunito-Light";
+    color: #637EA6;
+    
+}
 .profile-text {
     font-family: "Nunito-Regular";
     font-size: 18px;
@@ -157,8 +217,15 @@ textarea {
     letter-spacing: 0em;
     text-align: left;
 }
-
+.profile-text-edit h3{
+    font-family: "Nunito-Regular";
+    font-size: .8em;
+    color: #0E2548;
+}
 .profile-form label {
     font-family: "Gasalt-Regular";
     font-size: 1em;
+}
+.checked{
+    color:#FFC30B !important;
 }

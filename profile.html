@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,32 +15,43 @@
             </header>
         </div>
     </div>
-
-
     <div class="content-profile">
         <div class="perfil-provider">
             <div class="perfil-img">
-                <img src="./images/profile/perfilImage.jpg" alt="">
+                <div class="img">
+                    <img src="./images/profile/perfilImage.jpg" alt="">
+                </div>
+                <br>
+                <p><span class="name">Pamela</span><br><i class="fa fa-map-marker" aria-hidden="true"></i> Igarassu BR, <br>Pintor</p>
             </div>
-            <p>Pamela Isley, Igarassu BR<br>Pintor</p>
+            <div class="profile-nav">
+                <div class="profile-item">
+                    <h3>Sobre</h3>
+                    <p>Id et consequat sit veniam exercitation eiusmod. d et consequat sit veniam exercitation eiusmod</p>
+                </div>
+                <div class="profile-item">
+                    <h3>Avaliação</h3>
+                    <p>4.5 / 5.0 - Ótimo</p>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star-half-o checked"></span>
+                </div>
+                <div class="profile-item">
+                    <h3>Contatos</h3>
+                    <ul>
+                        <li><i class="fa fa-whatsapp" aria-hidden="true"></i> (81) 95264-4647</li>
+                        <li><i class="fa fa-instagram" aria-hidden="true"></i> @pamisley</li>
+                        <li><i class="fa fa-twitter" aria-hidden="true"></i> @pam_painter</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="profile-nav">
-            <div class="profile-item">
-                <p>Sobre</p>
-            </div>
-            <div class="profile-item">
-                <p>Nota Geral</p>
-            </div>
-            <div class="profile-item">
-                <p>Contatos</p>
-            </div>
-        </div>
-        <!-- <div class="profile-container">
-        </div> -->
         <section class="profile-edit">
             <div class="profile-form">
                 <div class="profile-text-edit">
-                    <h1>Editar Perfil</h1>
+                    <h3>Editar Perfil</h3>
                     <form action="" method="POST">
                         <br>
                         <label for="cpf_cnpj">CPF/CNPJ:</label><br>
@@ -62,7 +73,7 @@
                             <option value=""></option>
                             <option value=""></option>
                         </select><br><br>
-                        <label for="portfolio">Portifólio:</label><br><br>
+                        <label for="portfolio">Portfólio:</label><br><br>
                         <input type="file" id="portfolio" name="portfolio"><br><br>
                         <input type="submit" value="Atualizar">
                     </form>
