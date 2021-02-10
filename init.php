@@ -11,7 +11,7 @@ function connectDatabase()
   $host = 'localhost';
   $db = 'alium';
   $user = 'root';
-  $pass = '';
+  $pass = 'root';
   $dsn = "mysql:host=$host;dbname=$db;charset=utf8";
 
   $opt = [
@@ -28,9 +28,9 @@ function connectDatabase()
 }
 connectDatabase();
 
-function isLogged($user)
+function isLogged()
 {
-  return $user;
+  return isset($_SESSION['user']);
 }
 
 function isAdmin()

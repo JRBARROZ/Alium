@@ -32,7 +32,7 @@ $stmt = $GLOBALS['pdo']->prepare($query);
 try{
     $stmt->execute($user);
     $_SESSION['success'] = true;
-    redirect("signin.php?");
+    redirect("signin.php");
 }
 catch (PDOException $e) {
     echo $e->getMessage();

@@ -18,7 +18,7 @@
           <ul>
             <?php if(isset($_SESSION['user'])):?>
               <li><a>Bem-vindo(a), </a></li>
-              <li><a href=""><?= $_SESSION['user']['nome']?></a></li>
+              <li><a href="profile.php"><?= $_SESSION['user']['nome']?></a></li>
               <li><a href="logout.php" class="text-color-yellow">Sair</a></li>
             <?php else :?>
               <li><a href="signup.php">Registrar-se</a></li>
