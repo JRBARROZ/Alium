@@ -1,31 +1,40 @@
-$("#cpf_cnpj").focus(function() {
-    $("#phone").inputmask('remove');
-    console.log('focus:', $(this).val().length, $(this).val());
-});
+function addCpfCnpjMask(element) {
+    var value = element.value;
+    var size = value.length;
 
-$("#cpf_cnpj").blur(function() {
-    console.log('blur:', $(this).val().length, $(this).val());
+    if (size == 11) {
+        element.value = format('xxx.xxx.xxx-xx', value);
+    } else if (size > 11) {
+        element.value = format('xx.xxx.xxx/xxxx-xx', value);
+    }
+}
 
-    // var size = $("#cpf_cnpj").val().length;
-    // console.log($("#cpf_cnpj").val());
-    // console.log('size:', size);
-    // if (size > 11) {
-    //     $("#cpf_cnpj").inputmask("99.999.999/9999-99");
-    // } else if (size == 11) {
-    //     $("#cpf_cnpj").inputmask("999.999.999-99");
-    // }
-});
+function addPhoneMask(element) {
+    var value = element.value;
+    var size = value.length;
 
-$("#phone").keyup(function() {
+    if (size == 11) {
+        element.value = format('(xx) xxxxx-xxxx', value);
+    } else if (size == 10) {
+        element.value = format('(xx) xxxx-xxxx', value);
+    }
+}
 
-    $("#phone").inputmask('remove');
+function removeMask(element) {
+    console.log(element.value);
+    element.value = element.value.replaceAll('.', '');
+    element.value = element.value.replaceAll('-', '');
+    element.value = element.value.replaceAll('/', '');
+    element.value = element.value.replaceAll('(', '');
+    element.value = element.value.replaceAll(')', '');
+    element.value = element.value.replaceAll(' ', '');
+}
 
-    $("#phone").inputmask("(99) 9999[9]-9999");
-});
-
-$("#cep").keyup(function() {
-
-    $("#cep").inputmask('remove');
-
-    $("#cep").inputmask("99.999-999");
-});
+function format(mask, number) {
+    var s = '' + number;
+    var r = '';
+    for (var im = 0, is = 0; im < mask.length && is < s.length; im++) {
+        r += mask.charAt(im) == 'x' ? s.charAt(is++) : mask.charAt(im);
+    }
+    return r;
+}

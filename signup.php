@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/signup.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-    <script src="js/jquery.inputmask.min.js"></script>
     <title>Cadastro</title>
 </head>
 
@@ -59,11 +57,11 @@
                         <label for="name">Nome:</label><br>
                         <input type="text" id="name" name="name" required><br>
                         <label for="cpf_cnpj">CPF/CNPJ:</label><br>
-                        <input type="text" id="cpf_cnpj" name="cpf_cnpj" minlength="11" maxlength="14" required><br>
+                        <input type="text" id="cpf_cnpj" name="cpf_cnpj" onfocus="removeMask(this);" onblur="addCpfCnpjMask(this);" minlength="11" maxlength="18" required><br>
                         <label for="email">E-mail:</label><br>
                         <input type="email" id="email" name="email" required><br>
                         <label for="phone">Telefone:</label><br>
-                        <input type="text" id="phone" name="phone" required><br>
+                        <input type="text" id="phone" name="phone" onfocus="removeMask(this);" onblur="addPhoneMask(this);" required><br>
                         <label for="username">Nome de usuário:</label><br>
                         <input type="text" id="username" name="username" required><br>
                         <label for="password">Senha:</label><br>

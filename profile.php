@@ -16,8 +16,6 @@ $user = $stmt->fetch();
     <title>Perfil</title>
     <link rel="stylesheet" href="./css/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="js/jquery-3.5.1.min.js"></script>
-    <script src="js/jquery.inputmask.min.js"></script>
 </head>
 <body>
     <div class="header">
@@ -68,13 +66,13 @@ $user = $stmt->fetch();
                     <form action="update_profile.php" method="POST" id="form">
                         <br>
                         <label for="cpf_cnpj">CPF/CNPJ:</label><br>
-                        <input type="text" id="cpf_cnpj" name="cpf_cnpj" value="<?= $user['cpf_cnpj'] ?>" required><br>
+                        <input type="text" id="cpf_cnpj" name="cpf_cnpj" onfocus="removeMask(this);" onblur="addCpfCnpjMask(this);" value="<?= $user['cpf_cnpj'] ?>" required><br>
                         <label for="name">Nome:</label><br>
                         <input type="text" id="name" name="name" value="<?= $user['nome'] ?>" required><br>
                         <label for="email">E-mail:</label><br>
                         <input type="email" id="email" name="email" value="<?= $user['email'] ?>" required><br>
                         <label for="phone">Telefone:</label><br>
-                        <input type="text" id="phone" name="phone" value="<?= $user['telefone'] ?>" required><br>
+                        <input type="text" id="phone" name="phone" onfocus="removeMask(this);" onblur="addPhoneMask(this);" value="<?= $user['telefone'] ?>" required><br>
                         <label for="cep">CEP:</label><br>
                         <input type="text" id="cep" name="cep" value="<?= $user['cep'] ?>"  size="10" maxlength="9" onblur="pesquisacep(this.value);" required><br>
                         <label for="address">Endereço:</label><br>

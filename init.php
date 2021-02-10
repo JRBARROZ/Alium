@@ -52,6 +52,9 @@ function login($username, $password)
 
   if ($row == 1) {
     $_SESSION['user'] = $user;
+    $data = explode(' ', $user['nome']);
+    
+    $_SESSION['logged-user'] = trim($data[0]) . " " . trim($data[sizeof($data)-1]);
     return true;
   }
   return false;
