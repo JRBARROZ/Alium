@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/signup.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="js/jquery.inputmask.min.js"></script>
     <title>Cadastro</title>
 </head>
 
@@ -69,7 +71,7 @@
                         <label for="confirm_password">Repetir a Senha:</label><br>
                         <input type="password" id="confirm_password" name="confirm_password" required><br>
                         <label for="cep">CEP:</label><br>
-                        <input type="text" id="cep" name="cep" required><br>
+                        <input type="text" id="cep" name="cep" size="10" maxlength="9" onblur="pesquisacep(this.value);" required><br>
                         <label for="address">Rua:</label><br>
                         <input type="text" id="address" name="address" required><br>
                         <label for="address_number">Número:</label><br>
@@ -98,5 +100,6 @@
         </section>
     </footer>
 </body>
-
+<script src="js/cep.js"></script>
+<script src="js/masks.js"></script>
 </html>
