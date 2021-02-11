@@ -1,4 +1,10 @@
-<?php session_start() ?>
+<?php require_once('init.php') ?>
+<?php
+    if (isLogged()) {
+        redirect('index.php');
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,6 +42,10 @@
                 <?php if(isset($_SESSION['success'])) :?>
                     <div class="success-message">Você foi registrado com sucesso!</div>
                     <?php unset($_SESSION['success'])?>
+                <?php endif ?>
+                <?php if(isset($_SESSION['error-login'])) :?>
+                    <div class="error-message">Credenciais inválidas!</div>
+                    <?php unset($_SESSION['error-login'])?>
                 <?php endif ?>
                 <!-- <div class="error-message">Houve um erro no seu registro</div> -->
                 <div class="conectar-form">

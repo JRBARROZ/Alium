@@ -1,12 +1,22 @@
 <?php
 require_once 'init.php';
 
+if(!isLogged()) {
+    redirect('signin.php');
+    exit();
+}
+
 $user_id = $_SESSION['user']['id_usuario'];
 
 $query = "SELECT * FROM `usuario` WHERE `id_usuario` = ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
+
+$query = "SELECT * FROM `tipo_servico`";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute();
+$services = $stmt->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -14,15 +24,25 @@ $user = $stmt->fetch();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
-    <link rel="stylesheet" href="./css/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/profile.css">
 </head>
 <body>
     <div class="header">
-        <div class="header-container">
-            <header>
-                <a href="index.php" class="menu-logo"><img src="images/icons/logo.svg" alt=""></a>
-            </header>
+        <div class="menu-container">
+            <a href="index.php" class="menu-logo"><img src="images/icons/logo.svg" alt=""></a>
+            <nav class="menu-nav">
+                <ul>
+                    <?php if(isset($_SESSION['user'])):?>
+                        <!-- <li><a>Bem-vindo(a),</a></li> -->
+                        <li><a href="profile.php"><?= $_SESSION['logged-user']?></a></li>
+                        <li><a href="logout.php" class="text-color-yellow">Sair</a></li>
+                    <?php else :?>
+                        <li><a href="signup.php">Registrar-se</a></li>
+                        <li><a href="signin.php">Entrar</a></li>
+                    <?php endif;?>
+                </ul>
+            </nav>
         </div>
     </div>
     <div class="content-profile">
@@ -61,7 +81,7 @@ $user = $stmt->fetch();
         <section class="profile-edit">
             <div class="profile-form">
                 <div class="profile-text-edit">
-                    <h3 id="text" style="max-width: 500px;line-height:2em;">Olá, <?= $user['nome'] ?> seja bem vindo(a) ao Alium :)<br>Por favor, finalize seu cadastro abaixo.<br><a href="#" class="btn" onclick="showForm(this)">Atualizar Cadastro</a></h3>
+                    <h3 id="text" style="max-width: 500px;line-height:2em;">Olá, <?= $_SESSION['logged-user'] ?>, seja bem-vindo(a) ao Alium :)<br>Por favor, finalize seu cadastro abaixo.<br><a href="#" class="btn" onclick="showForm(this)">Atualizar Cadastro</a></h3>
                     <h3 id="edit" style="display: none;">Editar Perfil</h3>
                     <form action="update_profile.php" method="POST" id="form">
                         <br>
@@ -86,14 +106,11 @@ $user = $stmt->fetch();
                         <label for="state">Estado:</label><br>
                         <input type="text" id="state" name="state" value="<?= $user['estado'] ?>" required><br>
                         <input type="hidden" name="user_id" value="<?= $user['id_usuario'] ?>"><br>
-                        <!-- <label for="sobre">Sobre:</label><br>
-                        <input type="text" id="sobre" name="sobre" value="<?= $user['descricao'] ?>" required><br> -->
                         <label for="profession">Tipo de Serviço:</label><br>
-                        <select id="profession" name="profession">
-                            <option value="Pintor(a)">Pintor(a)</option>
-                            <option value=""></option>
-                            <option value=""></option>
-                            <option value=""></option>
+                        <select id="profession" name="profession" multiple>
+                            <?php foreach ($services as $service): ?>
+                                <option value="<?= $service['tipo_servico'] ?>"><?= $service['tipo_servico'] ?></option>
+                            <?php endforeach ?>
                         </select><br>
                         <label for="portfolio">Portfólio:</label><br>
                         <input type="file" id="portfolio" name="portfolio"><br>

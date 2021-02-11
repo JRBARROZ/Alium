@@ -17,7 +17,7 @@
         <nav class="menu-nav">
           <ul>
             <?php if(isset($_SESSION['user'])):?>
-              <li><a>Bem-vindo(a), </a></li>
+              <!-- <li><a>Bem-vindo(a), </a></li> -->
               <li><a href="profile.php"><?= $_SESSION['logged-user']?></a></li>
               <li><a href="logout.php" class="text-color-yellow">Sair</a></li>
             <?php else :?>
@@ -43,9 +43,9 @@
       <p class="titleCategory">Mais Procurados</p>
       <div class="category-icons">
         <ul>
-          <li><a href=""><img src="images/icons/serrote.svg" alt=""></a></li>
-          <li><a href=""><img src="images/icons/mechanic.svg" alt=""> </a></li>
-          <li><a href=""><img src="images/icons/pinter.svg" alt=""></a></li>
+          <li><a href="provider_list.php"><img src="images/icons/serrote.svg" alt=""></a></li>
+          <li><a href="provider_list.php"><img src="images/icons/mechanic.svg" alt=""> </a></li>
+          <li><a href="provider_list.php"><img src="images/icons/pinter.svg" alt=""></a></li>
         </ul>
       </div>
     </section>

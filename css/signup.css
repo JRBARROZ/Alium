@@ -28,6 +28,21 @@ body {
   flex-direction: column;
 }
 
+.menu-nav{
+  float:right;
+  margin-right: 10px;
+}
+.menu-nav li {
+  display: inline-block;
+}
+.menu-nav a {
+  padding: 10px;
+  font-size: 3em;
+  color: white;
+  text-decoration: none;
+  display: block;
+  font-family: Asgalt;
+}
 
 .content {
   display: flex;

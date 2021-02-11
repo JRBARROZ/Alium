@@ -1,4 +1,10 @@
-<?php session_start() ?>
+<?php require_once 'init.php' ?>
+<?php
+    if (isLogged()) {
+        redirect('index.php');
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,13 +17,6 @@
 </head>
 
 <body>
-    <?php
-        // if(isset($_SESSION['success'])){
-        //     unset($_SESSION['success']);
-        //     echo "Sucesso";
-        // }
-    ?>
-
     <div class="header">
         <div class="header-container">
             <header>
@@ -34,7 +33,7 @@
                         <div class="signin-form">
                             <p class="subtext-signin">Que bom que você já faz parte do nosso time
                             <div class="signin-button">
-                                <form action="signin.php">
+                                <form action="signin.php" method="POST">
                                     <input type="submit" value="CONECTAR-SE" />
                                 </form>
                             </div>

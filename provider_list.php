@@ -1,3 +1,4 @@
+<?php require_once 'init.php' ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,15 +9,23 @@
   <title>Alium</title>
 </head>
 <body>
-  <!-- <p><sub>R$</sub>25</p> -->
   <div class="header">
-    <div class="header-container">
-        <header>
-          
-            <a href="index.php" class="menu-logo"><img src="images/icons/logo.svg" alt=""></a>
-        </header>
+    <div class="menu-container">
+      <a href="index.php" class="menu-logo"><img src="images/icons/logo.svg" alt=""></a>
+        <nav class="menu-nav">
+          <ul>
+            <?php if(isset($_SESSION['user'])):?>
+              <!-- <li><a>Bem-vindo(a), </a></li> -->
+              <li><a href="profile.php"><?= $_SESSION['logged-user']?></a></li>
+              <li><a href="logout.php" class="text-color-yellow">Sair</a></li>
+            <?php else :?>
+              <li><a href="signup.php">Registrar-se</a></li>
+              <li><a href="signin.php">Entrar</a></li>
+            <?php endif;?>
+          </ul>
+        </nav>
+      </div>
     </div>
-  </div>
   <h1 class="provider-title">Teste</h1>
   <div class="provider">
     <div class="provider-item">
@@ -129,12 +138,12 @@
     </div>
     
   </div>
-  <!-- <section class="footer">
+  <section class="footer">
     <div class="footer-container">
         <div class="logo-footer">
             <img src="images/icons/logo-footer.svg" alt="">
         </div>
     </div>
-  </section> -->
+  </section>
 </body>
 </html>

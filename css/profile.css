@@ -35,6 +35,35 @@ body {
     grid-template-rows: 4.95em auto 3.75em;
 }
 
+.menu-container{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.menu-container::after, .menu-container::before{
+    content:'';
+    display: table;
+    clear: both;
+}
+.menu-logo{
+    float: left;
+    margin-left: 10px;
+}
+.menu-nav{
+    float:right;
+    margin-right: 10px;
+}
+.menu-nav li {
+    display: inline-block;
+}
+.menu-nav a {
+    padding: 20px;
+    font-size: 3em;
+    color: white;
+    text-decoration: none;
+    display: block;
+    font-family: Asgalt;
+}
+
 .footer {
     background-color: #0E2548;
     /* padding: 10px 0px 10px 0px; */
@@ -230,7 +259,6 @@ textarea,select,input[type=file]{
     color:#FFC30B !important;
 }
 .btn{
-
     width: 150px;
     height: 41px;
     color: white;
@@ -255,4 +283,7 @@ textarea,select,input[type=file]{
 }
 #form{
     display: none;
+}
+.text-color-yellow{
+    color:#FFC30B !important;
 }
