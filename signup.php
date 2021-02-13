@@ -56,11 +56,11 @@
                         <label for="name">Nome:</label><br>
                         <input type="text" id="name" name="name" required><br>
                         <label for="cpf_cnpj">CPF/CNPJ:</label><br>
-                        <input type="text" id="cpf_cnpj" name="cpf_cnpj" onfocus="removeMask(this);" onblur="addCpfCnpjMask(this);" minlength="11" maxlength="18" required><br>
+                        <input type="text" id="cpf_cnpj" name="cpf_cnpj" onfocus="removeMask(this);" onblur="addCpfCnpjMask(this);" minlength="11" maxlength="14" required><br>
                         <label for="email">E-mail:</label><br>
                         <input type="email" id="email" name="email" required><br>
                         <label for="phone">Telefone:</label><br>
-                        <input type="text" id="phone" name="phone" onfocus="removeMask(this);" onblur="addPhoneMask(this);" required><br>
+                        <input type="text" id="phone" name="phone" onfocus="removeMask(this);" onblur="addPhoneMask(this);" minlength="10" maxlength="11" required><br>
                         <label for="username">Nome de usuário:</label><br>
                         <input type="text" id="username" name="username" required><br>
                         <label for="password">Senha:</label><br>
