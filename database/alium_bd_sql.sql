@@ -46,7 +46,6 @@ CREATE TABLE IF NOT EXISTS `alium`.`usuario` (
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `alium`.`tipo_servico`
 -- -----------------------------------------------------
@@ -55,8 +54,8 @@ DROP TABLE IF EXISTS `alium`.`tipo_servico` ;
 CREATE TABLE IF NOT EXISTS `alium`.`tipo_servico` (
   `id_tp_servico` INT NOT NULL AUTO_INCREMENT,
   `tipo_servico` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`id_tp_servico`)),
-  UNIQUE INDEX `tipo_servico_UNIQUE` (`tipo_servico` ASC)
+  PRIMARY KEY (`id_tp_servico`),
+  UNIQUE INDEX `tipo_servico_UNIQUE` (`tipo_servico` ASC))
 ENGINE = InnoDB;
 
 
