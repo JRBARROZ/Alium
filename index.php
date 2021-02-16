@@ -30,10 +30,13 @@
       <div class="menu-content-container">
         <p class='title'>ALIUM, Encontre o seu cliente <br>ou prestador de serviços.</p>
         <p class='subtitle'>Ser contratado/contratar nunca foi tão fácil.</p>
-        <form>
-          <input type="text" class="inputBox" placeholder="Procurar Profissional ou trabalho..." value="">
-          <button type="submit" class="inputButton">PROCURAR</button>
+        <form action="search.php" id="formSearch" method="post">
+          <input type="text" class="inputBox" name="search" placeholder="Procurar Profissional ou trabalho..."  oninput=procurar(this.value)>
+          <button type="submit"  class="inputButton">PROCURAR</button>
         </form>
+        <ul class='listSearch'>
+         
+        </ul>
       </div>
     </div>
   </header>
@@ -124,6 +127,32 @@
       </div>
     </div>
   </section>
+  <script>
+  function procurar(value) {
+    fetch('search.php',{
+      method:   'POST',
+      body: new URLSearchParams('search='+value)
+    })
+      .then(res=> res.json())
+      .then(res=>showFetchResults(res))
+      .catch(e => console.error('Error:'+ e))
+  }function showFetchResults(value){
+    const dataContainer = document.querySelector('.listSearch');
+    dataContainer.style.display="block";
+    dataContainer.innerHTML = "";
+    for(let i = 0; i <value.length;i++){
+      const li = document.createElement("li");
+      li.innerHTML = value[i]['tipo_servico'];
+      dataContainer.appendChild(li);
+      li.onclick = function (){
+        document.querySelector('.inputBox').value = this.innerHTML;
+        document.querySelector('#formSearch').submit();
+      }
+
+    }
+    
+  }
+  </script>
 </body>
 
 </html>
