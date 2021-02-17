@@ -4,6 +4,28 @@ require_once 'init.php';
 if (!isLogged() || !isset($_POST['name'])) {
   redirect('index.php');
 }
+
+// $query = "SELECT * FROM `tipo_servico`";
+// $stmt = $GLOBALS['pdo']->prepare($query);
+// $stmt->execute();
+// $services = $stmt->fetchAll();
+
+
+// foreach ($services as $key => $service) {
+  
+//   if(isset(filter_input_array(INPUT_POST)[$service["tipo_servico"]])){
+      
+//     $query= "INSERT INTO `servico_has_usuario` (`id_servico`, `id_usuario`) VALUES (?, ?)";
+//     $stmt= $GLOBALS["pdo"]->prepare($query);
+//     $stmt-> execute([$service["id_tp_servico"], $_SESSION["user"]["id_usuario"]]);
+//     echo $_SESSION["user"]["id_usuario"];
+//     exit();
+
+//   }
+  
+// }
+
+
 $data = [];
 
 $data[] = addslashes(trim($_POST['name']));

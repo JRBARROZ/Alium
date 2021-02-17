@@ -106,12 +106,15 @@ $services = $stmt->fetchAll();
                         <label for="state">Estado:</label><br>
                         <input type="text" id="state" name="state" value="<?= $user['estado'] ?>" required><br>
                         <input type="hidden" name="user_id" value="<?= $user['id_usuario'] ?>"><br>
-                        <label for="profession">Tipo de Serviço:</label><br>
-                        <select id="profession" name="profession" multiple>
-                            <?php foreach ($services as $service): ?>
-                                <option value="<?= $service['tipo_servico'] ?>"><?= $service['tipo_servico'] ?></option>
+                        <!-- <label for="profession">Tipo de Serviço:</label><br> -->
+                        
+                            <?php foreach ($services as $i => $service): ?>
+                                <input id=<?=$i?> type="checkbox" name="<?= $service['tipo_servico'] ?>" value="<?=$service['tipo_servico']?>">
+                                <label for=<?=$i?>><?= $service['tipo_servico'] ?></label><br>
                             <?php endforeach ?>
-                        </select><br>
+                            <label for="other">Outro:</label><br>
+                            <input type="text" id="other" name="other_service">
+                        <br>
                         <label for="portfolio">Portfólio:</label><br>
                         <input type="file" id="portfolio" name="portfolio"><br>
                         <input type="submit" value="Atualizar"><br><br>
