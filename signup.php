@@ -68,7 +68,7 @@
                         <label for="confirm_password">Repetir a Senha:</label><br>
                         <input type="password" id="confirm_password" name="confirm_password" required><br>
                         <label for="cep">CEP:</label><br>
-                        <input type="text" id="cep" name="cep" size="10" maxlength="9" onblur="pesquisacep(this.value);" required><br>
+                        <input type="text" id="cep" name="cep" size="10" maxlength="9" onblur="searchPostalCode(this.value);" required><br>
                         <label for="address">Rua:</label><br>
                         <input type="text" id="address" name="address" required><br>
                         <label for="address_number">Número:</label><br>

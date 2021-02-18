@@ -142,7 +142,7 @@
     dataContainer.innerHTML = "";
     for(let i = 0; i <value.length;i++){
       const li = document.createElement("li");
-      li.innerHTML = value[i]['tipo_servico'];
+      li.innerHTML = value[i]['service'];
       dataContainer.appendChild(li);
       li.onclick = function (){
         document.querySelector('.inputBox').value = this.innerHTML;

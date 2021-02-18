@@ -1,4 +1,4 @@
-function limpa_formulário_cep() {
+function clearForm() {
     //Limpa valores do formulário de cep.
     document.querySelector('#address').value = ("");
     document.querySelector('#neighborhood').value = ("");
@@ -16,12 +16,12 @@ function meu_callback(conteudo) {
     } //end if.
     else {
         //CEP não Encontrado.
-        limpa_formulário_cep();
+        clearForm();
         alert("CEP não encontrado.");
     }
 }
 
-function pesquisacep(valor) {
+function searchPostalCode(valor) {
 
     //Nova variável "cep" somente com dígitos.
     var cep = valor.replace(/\D/g, '');
@@ -53,12 +53,12 @@ function pesquisacep(valor) {
         } //end if.
         else {
             //cep é inválido.
-            limpa_formulário_cep();
+            clearForm();
             alert("Formato de CEP inválido.");
         }
     } //end if.
     else {
         //cep sem valor, limpa formulário.
-        limpa_formulário_cep();
+        clearForm();
     }
 };

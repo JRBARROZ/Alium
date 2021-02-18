@@ -23,9 +23,9 @@ $user[] = addslashes(trim($_POST['state']));
 $user[] = sha1(addslashes(trim($_POST['password'])));
 $user[] = addslashes(trim($_POST['username']));
 $user[] = addslashes(trim($_POST['cep']));
-$user[] = 'cliente';
+$user[] = isset($_POST['job']) ? 'worker' : 'client';
 
-$query = "INSERT INTO usuario (`nome`, `cpf_cnpj`, `email`, `telefone`, `logradouro`, `num_casa`, `bairro`, `municipio`, `estado`, `password`, `username`, `cep`, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+$query = "INSERT INTO users (`name`, `cpf_cnpj`, `email`, `phone`, `address`, `address_number`, `neighborhood`, `city`, `state`, `password`, `username`, `postal_code`, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $GLOBALS['pdo']->prepare($query);
 

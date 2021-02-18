@@ -8,7 +8,7 @@ if($_POST['search'] == ''){
     echo json_encode($data);
 }else{
     try{
-        $stmt = $pdo->prepare("Select * FROM tipo_servico WHERE tipo_servico LIKE ?");
+        $stmt = $pdo->prepare("SELECT * FROM `services` WHERE `service` LIKE ?");
         $stmt->execute([$search."%"]);
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($data);
