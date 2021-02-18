@@ -6,17 +6,29 @@ if(!isLogged()) {
     exit();
 }
 
-$user_id = $_SESSION['user']['id_usuario'];
+$user_id = $_SESSION['user']['id'];
 
-$query = "SELECT * FROM `usuario` WHERE `id_usuario` = ?";
+$query = "SELECT * FROM `users` WHERE `id` = ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 
-$query = "SELECT * FROM `tipo_servico`";
+$query = "SELECT * FROM `services`";
 $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute();
 $services = $stmt->fetchAll();
+
+$query= "SELECT * FROM `images` WHERE `user_id` = ?";
+$stmt= $GLOBALS["pdo"]->prepare($query);
+$stmt-> execute([$_SESSION["user"]["id"]]);
+$images = $stmt->fetchAll();
+$images_ids = [];
+if (sizeof($images > 0)) {
+    foreach ($images as $image) {
+        array_push($images_ids, $image['id']);
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -52,7 +64,7 @@ $services = $stmt->fetchAll();
                     <img src="./images/profile/perfilImage.jpg" alt="">
                 </div>
                 <br>
-                <p><span class="name"><?= $user['nome'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $user['municipio'] ?>, <?= $user['estado'] ?>, <br>Pintor</p>
+                <p><span class="name"><?= $user['name'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $user['city'] ?>, <?= $user['state'] ?>, <br>Pintor</p>
             </div>
             <div class="profile-nav">
                 <div class="profile-item">
@@ -71,7 +83,7 @@ $services = $stmt->fetchAll();
                 <div class="profile-item">
                     <h3>Contatos</h3>
                     <ul>
-                        <li><i class="fa fa-whatsapp" aria-hidden="true"></i> <?= $user['telefone'] ?></li>
+                        <li><i class="fa fa-whatsapp" aria-hidden="true"></i> <?= $user['phone'] ?></li>
                         <li><i class="fa fa-instagram" aria-hidden="true"></i> @pamisley</li>
                         <li><i class="fa fa-twitter" aria-hidden="true"></i> @pam_painter</li>
                     </ul>
@@ -88,32 +100,37 @@ $services = $stmt->fetchAll();
                         <label for="cpf_cnpj">CPF/CNPJ:</label><br>
                         <input type="text" id="cpf_cnpj" name="cpf_cnpj" onfocus="removeMask(this);" onblur="addCpfCnpjMask(this);" value="<?= $user['cpf_cnpj'] ?>" required><br>
                         <label for="name">Nome:</label><br>
-                        <input type="text" id="name" name="name" value="<?= $user['nome'] ?>" required><br>
+                        <input type="text" id="name" name="name" value="<?= $user['name'] ?>" required><br>
                         <label for="email">E-mail:</label><br>
                         <input type="email" id="email" name="email" value="<?= $user['email'] ?>" required><br>
                         <label for="phone">Telefone:</label><br>
-                        <input type="text" id="phone" name="phone" onfocus="removeMask(this);" onblur="addPhoneMask(this);" value="<?= $user['telefone'] ?>" required><br>
+                        <input type="text" id="phone" name="phone" onfocus="removeMask(this);" onblur="addPhoneMask(this);" value="<?= $user['phone'] ?>" required><br>
                         <label for="cep">CEP:</label><br>
-                        <input type="text" id="cep" name="cep" value="<?= $user['cep'] ?>"  size="10" maxlength="9" onblur="pesquisacep(this.value);" required><br>
+                        <input type="text" id="cep" name="cep" value="<?= $user['postal_code'] ?>"  size="10" maxlength="9" onblur="pesquisacep(this.value);" required><br>
                         <label for="address">Endereço:</label><br>
-                        <input type="text" id="address" name="address" value="<?= $user['logradouro'] ?>" required><br>
+                        <input type="text" id="address" name="address" value="<?= $user['address'] ?>" required><br>
                         <label for="address_number">Número:</label><br>
-                        <input type="text" id="address_number" name="address_number" value="<?= $user['num_casa'] ?>" required><br>
+                        <input type="text" id="address_number" name="address_number" value="<?= $user['address_number'] ?>" required><br>
                         <label for="neighborhood">Bairro:</label><br>
-                        <input type="text" id="neighborhood" name="neighborhood" value="<?= $user['bairro'] ?>" required><br>
+                        <input type="text" id="neighborhood" name="neighborhood" value="<?= $user['neighborhood'] ?>" required><br>
                         <label for="city">Cidade:</label><br>
-                        <input type="text" id="city" name="city" value="<?= $user['municipio'] ?>" required><br>
+                        <input type="text" id="city" name="city" value="<?= $user['city'] ?>" required><br>
                         <label for="state">Estado:</label><br>
-                        <input type="text" id="state" name="state" value="<?= $user['estado'] ?>" required><br>
-                        <input type="hidden" name="user_id" value="<?= $user['id_usuario'] ?>"><br>
+                        <input type="text" id="state" name="state" value="<?= $user['state'] ?>" required><br>
+                        <input type="hidden" name="user_id" value="<?= $user['id'] ?>"><br>
                         <!-- <label for="profession">Tipo de Serviço:</label><br> -->
-                        
+                        <?php if ($user['role'] === 'worker'): ?>
                             <?php foreach ($services as $i => $service): ?>
-                                <input id=<?=$i?> type="checkbox" name="<?= $service['tipo_servico'] ?>" value="<?=$service['tipo_servico']?>">
-                                <label for=<?=$i?>><?= $service['tipo_servico'] ?></label><br>
+                                <?php if (sizeof($images_ids) > 0 && in_array($service['id'], $images_ids)): ?>
+                                    <input id=<?=$i?> type="checkbox" name="<?= $service['service'] ?>" value="<?=$service['service']?>" checked>
+                                <?php else: ?>
+                                    <input id=<?=$i?> type="checkbox" name="<?= $service['service'] ?>" value="<?=$service['service']?>">
+                                <?php endif ?>
+                                <label for=<?=$i?>><?= $service['service'] ?></label><br>
                             <?php endforeach ?>
-                            <label for="other">Outro:</label><br>
-                            <input type="text" id="other" name="other_service">
+                        <?php endif ?>
+                        <!-- <label for="other">Outro:</label><br>
+                        <input type="text" id="other" name="other_service"> -->
                         <br>
                         <label for="portfolio">Portfólio:</label><br>
                         <input type="file" id="portfolio" name="portfolio"><br>
@@ -133,9 +150,9 @@ $services = $stmt->fetchAll();
     <script>
         function showForm(e){
             e.style.display = "none";
-            document.getElementById('text').style.display="none";
-            document.getElementById('form').style.display="block";
-            document.getElementById('edit').style.display="block";
+            document.querySelector('#text').style.display="none";
+            document.querySelector('#form').style.display="block";
+            document.querySelector('#edit').style.display="block";
         }
     </script>
 </body>

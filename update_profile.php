@@ -5,25 +5,35 @@ if (!isLogged() || !isset($_POST['name'])) {
   redirect('index.php');
 }
 
-// $query = "SELECT * FROM `tipo_servico`";
-// $stmt = $GLOBALS['pdo']->prepare($query);
-// $stmt->execute();
-// $services = $stmt->fetchAll();
+$query = "SELECT * FROM `services`";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute();
+$services = $stmt->fetchAll();
 
 
-// foreach ($services as $key => $service) {
+foreach ($services as $key => $service) {
+  $serv = str_replace(' ', '_', $service['service']);
+  if(isset(filter_input_array(INPUT_POST)[$serv])){
+
+    $query= "SELECT * FROM `images` WHERE `user_id` = ? AND `service_id` = ?";
+    $stmt= $GLOBALS["pdo"]->prepare($query);
+    $stmt-> execute([$_SESSION["user"]["id"], $service["id"]]);
+    $rows = $stmt->rowCount();
+
+    if ($rows === 0) {
+      $url = '';
+      $query= "INSERT INTO `images` (`url`, `user_id`, `service_id`) VALUES (?, ?, ?)";
+      $stmt= $GLOBALS["pdo"]->prepare($query);
+      $stmt-> execute([$url, $_SESSION["user"]["id"], $service["id"]]);
+    } else {
+      // $query= "DELETE FROM `images` WHERE `user_id` = ?";
+      // $stmt= $GLOBALS["pdo"]->prepare($query);
+      // $stmt-> execute([$_SESSION["user"]["id"]]);
+    }
+
+  }
   
-//   if(isset(filter_input_array(INPUT_POST)[$service["tipo_servico"]])){
-      
-//     $query= "INSERT INTO `servico_has_usuario` (`id_servico`, `id_usuario`) VALUES (?, ?)";
-//     $stmt= $GLOBALS["pdo"]->prepare($query);
-//     $stmt-> execute([$service["id_tp_servico"], $_SESSION["user"]["id_usuario"]]);
-//     echo $_SESSION["user"]["id_usuario"];
-//     exit();
-
-//   }
-  
-// }
+}
 
 
 $data = [];
@@ -40,7 +50,7 @@ $data[] = addslashes(trim($_POST['state']));
 $data[] = addslashes(trim($_POST['cep']));
 $data[] = addslashes(trim($_POST['user_id']));
 
-$query = "UPDATE `usuario` SET `nome` = ?, `cpf_cnpj` = ?, `email` = ?, `telefone` = ?, `logradouro` = ?, `num_casa` = ?, `bairro` = ?, `municipio` = ?, `estado` = ?, `cep` = ? WHERE `id_usuario` = ?";
+$query = "UPDATE `users` SET `name` = ?, `cpf_cnpj` = ?, `email` = ?, `phone` = ?, `address` = ?, `address_number` = ?, `neighborhood` = ?, `city` = ?, `state` = ?, `postal_code` = ? WHERE `id` = ?";
 
 $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute($data);
