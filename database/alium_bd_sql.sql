@@ -18,145 +18,101 @@ CREATE SCHEMA IF NOT EXISTS `alium` DEFAULT CHARACTER SET utf8 ;
 USE `alium` ;
 
 -- -----------------------------------------------------
--- Table `alium`.`usuario`
+-- Table `alium`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `alium`.`usuario` ;
+DROP TABLE IF EXISTS `alium`.`users` ;
 
-CREATE TABLE IF NOT EXISTS `alium`.`usuario` (
-  `id_usuario` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(60) NOT NULL,
+CREATE TABLE IF NOT EXISTS `alium`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(60) NOT NULL,
   `cpf_cnpj` VARCHAR(20) NOT NULL,
   `email` VARCHAR(70) NOT NULL,
-  `telefone` VARCHAR(20) NOT NULL,
-  `descricao` MEDIUMTEXT NULL,
-  `foto_perfil` MEDIUMTEXT NULL,
-  `logradouro` VARCHAR(45) NULL,
-  `num_casa` VARCHAR(10) NULL,
-  `bairro` VARCHAR(45) NULL,
-  `municipio` VARCHAR(45) NULL,
-  `estado` VARCHAR(45) NULL,
+  `phone` VARCHAR(20) NOT NULL,
+  `description` MEDIUMTEXT NULL,
+  `profile_picture` MEDIUMTEXT NULL,
+  `address` VARCHAR(45) NULL,
+  `address_number` VARCHAR(10) NULL,
+  `neighborhood` VARCHAR(45) NULL,
+  `city` VARCHAR(45) NULL,
+  `state` VARCHAR(45) NULL,
   `password` VARCHAR(45) NOT NULL,
   `username` VARCHAR(70) NOT NULL,
-  `cep` VARCHAR(8) NULL,
+  `postal_code` VARCHAR(8) NULL,
   `role` VARCHAR(45) NULL,
-  `redes_sociais` VARCHAR(255) NULL,
-  PRIMARY KEY (`id_usuario`),
+  `sodial_media` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`),
   UNIQUE INDEX `cpf_cnpj_UNIQUE` (`cpf_cnpj` ASC),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `alium`.`tipo_servico`
+-- Table `alium`.`services`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `alium`.`tipo_servico` ;
+DROP TABLE IF EXISTS `alium`.`services` ;
 
-CREATE TABLE IF NOT EXISTS `alium`.`tipo_servico` (
-  `id_tp_servico` INT NOT NULL AUTO_INCREMENT,
-  `tipo_servico` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`id_tp_servico`),
-  UNIQUE INDEX `tipo_servico_UNIQUE` (`tipo_servico` ASC))
+CREATE TABLE IF NOT EXISTS `alium`.`services` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `service` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `service_UNIQUE` (`service` ASC))
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
--- Table `alium`.`servico`
+-- Table `alium`.`feedbacks`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `alium`.`servico` ;
+DROP TABLE IF EXISTS `alium`.`feedbacks` ;
 
-CREATE TABLE IF NOT EXISTS `alium`.`servico` (
-  `id_servico` INT NOT NULL AUTO_INCREMENT,
-  `data_inicio` DATE NOT NULL,
-  `data_fim` DATE NOT NULL,
-  `id_tp_servico` INT NOT NULL,
-  PRIMARY KEY (`id_servico`),
-  INDEX `fk_servico_tipo_servico1_idx` (`id_tp_servico` ASC),
-  CONSTRAINT `fk_servico_tipo_servico1`
-    FOREIGN KEY (`id_tp_servico`)
-    REFERENCES `alium`.`tipo_servico` (`id_tp_servico`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `alium`.`feedback`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `alium`.`feedback` ;
-
-CREATE TABLE IF NOT EXISTS `alium`.`feedback` (
-  `id_feedback` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `alium`.`feedbacks` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `feedback` VARCHAR(200) NOT NULL,
-  `avaliacao` INT NOT NULL,
-  `titulo` VARCHAR(45) NOT NULL,
-  `id_servico` INT NOT NULL,
-  `id_usuario` INT NOT NULL,
-  PRIMARY KEY (`id_feedback`),
-  INDEX `fk_feedback_servico1_idx` (`id_servico` ASC),
-  INDEX `fk_feedback_usuario1_idx` (`id_usuario` ASC),
-  CONSTRAINT `fk_feedback_servico1`
-    FOREIGN KEY (`id_servico`)
-    REFERENCES `alium`.`servico` (`id_servico`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_feedback_usuario1`
-    FOREIGN KEY (`id_usuario`)
-    REFERENCES `alium`.`usuario` (`id_usuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `evaluation` INT NOT NULL,
+  `title` VARCHAR(45) NOT NULL,
+  `service_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_feedback_service_idx` (`service_id` ASC),
+  INDEX `fk_feedback_user_idx` (`user_id` ASC),
+  CONSTRAINT `fk_feedback_service`
+    FOREIGN KEY (`service_id`)
+    REFERENCES `alium`.`services` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_feedback_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `alium`.`users` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `alium`.`imagem`
+-- Table `alium`.`images`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `alium`.`imagem` ;
+DROP TABLE IF EXISTS `alium`.`images` ;
 
-CREATE TABLE IF NOT EXISTS `alium`.`imagem` (
-  `id_imagem` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `alium`.`images` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `url` MEDIUMTEXT NOT NULL,
-  `id_usuario` INT NOT NULL,
-  `id_tp_servico` INT NOT NULL,
-  PRIMARY KEY (`id_imagem`),
-  INDEX `fk_imagem_usuario_idx` (`id_usuario` ASC),
-  INDEX `fk_imagem_tipo_servico1_idx` (`id_tp_servico` ASC),
-  CONSTRAINT `fk_imagem_usuario`
-    FOREIGN KEY (`id_usuario`)
-    REFERENCES `alium`.`usuario` (`id_usuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_imagem_tipo_servico1`
-    FOREIGN KEY (`id_tp_servico`)
-    REFERENCES `alium`.`tipo_servico` (`id_tp_servico`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `user_id` INT NOT NULL,
+  `service_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_image_user_idx` (`user_id` ASC),
+  INDEX `fk_image_service_idx` (`service_id` ASC),
+  CONSTRAINT `fk_image_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `alium`.`users` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_image_service`
+    FOREIGN KEY (`service_id`)
+    REFERENCES `alium`.`services` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `alium`.`servico_has_usuario`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `alium`.`servico_has_usuario` ;
-
-CREATE TABLE IF NOT EXISTS `alium`.`servico_has_usuario` (
-  `id_servico` INT NOT NULL,
-  `id_usuario` INT NOT NULL,
-  PRIMARY KEY (`id_servico`, `id_usuario`),
-  INDEX `fk_servico_has_usuario_usuario1_idx` (`id_usuario` ASC),
-  INDEX `fk_servico_has_usuario_servico1_idx` (`id_servico` ASC),
-  CONSTRAINT `fk_servico_has_usuario_servico1`
-    FOREIGN KEY (`id_servico`)
-    REFERENCES `alium`.`servico` (`id_servico`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_servico_has_usuario_usuario1`
-    FOREIGN KEY (`id_usuario`)
-    REFERENCES `alium`.`usuario` (`id_usuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+INSERT INTO `services` (`service`) VALUES ('Pintor');
+INSERT INTO `services` (`service`) VALUES ('Pedreiro');
+INSERT INTO `services` (`service`) VALUES ('Eletricista');
+INSERT INTO `services` (`service`) VALUES ('Mecânico');
+INSERT INTO `services` (`service`) VALUES ('Encanador');
