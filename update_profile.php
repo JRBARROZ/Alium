@@ -10,31 +10,36 @@ $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute();
 $services = $stmt->fetchAll();
 
+// echo "<pre>";
+// var_dump(filter_input_array(INPUT_POST));
+// echo "</pre>";
+
+// exit();
 
 foreach ($services as $key => $service) {
   $serv = str_replace(' ', '_', $service['service']);
+  
   if(isset(filter_input_array(INPUT_POST)[$serv])){
 
-    $query= "SELECT * FROM `images` WHERE `user_id` = ? AND `service_id` = ?";
-    $stmt= $GLOBALS["pdo"]->prepare($query);
-    $stmt-> execute([$_SESSION["user"]["id"], $service["id"]]);
+    $query = "SELECT * FROM `images` WHERE `user_id` = ? AND `service_id` = ?";
+    $stmt = $GLOBALS['pdo']->prepare($query);
+    $stmt->execute([$_SESSION['user']['id'], $service['id']]);
     $rows = $stmt->rowCount();
 
     if ($rows === 0) {
       $url = '';
-      $query= "INSERT INTO `images` (`url`, `user_id`, `service_id`) VALUES (?, ?, ?)";
-      $stmt= $GLOBALS["pdo"]->prepare($query);
-      $stmt-> execute([$url, $_SESSION["user"]["id"], $service["id"]]);
-    } else {
-      // $query= "DELETE FROM `images` WHERE `user_id` = ?";
-      // $stmt= $GLOBALS["pdo"]->prepare($query);
-      // $stmt-> execute([$_SESSION["user"]["id"]]);
+      $query = "INSERT INTO `images` (`url`, `user_id`, `service_id`) VALUES (?, ?, ?)";
+      $stmt = $GLOBALS['pdo']->prepare($query);
+      $stmt->execute([$url, $_SESSION['user']['id'], $service['id']]);
     }
-
+    
+  } else if (!isset(filter_input_array(INPUT_POST)[$serv])) {
+    $query = "DELETE FROM `images` WHERE `user_id` = ? AND `service_id` = ?";
+    $stmt = $GLOBALS['pdo']->prepare($query);
+    $stmt->execute([$_SESSION['user']['id'], $service['id']]);
   }
   
 }
-
 
 $data = [];
 

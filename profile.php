@@ -25,7 +25,7 @@ $images = $stmt->fetchAll();
 $images_ids = [];
 if (sizeof($images > 0)) {
     foreach ($images as $image) {
-        array_push($images_ids, $image['id']);
+        array_push($images_ids, $image['service_id']);
     }
 }
 
