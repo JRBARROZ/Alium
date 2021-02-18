@@ -98,7 +98,8 @@ body {
 }
 
 /* Profile  */
-.profile-form input[type=submit] {
+.profile-form input[type=submit],
+#about-form input[type=submit] {
     width: 150px;
     height: 41px;
     color: white;
@@ -148,7 +149,7 @@ textarea,select,input[type=file]{
 }
 .perfil-provider{
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     flex-direction: column;
     text-align: left;
     padding-right: 125px;
@@ -220,7 +221,7 @@ textarea,select,input[type=file]{
     letter-spacing: 0em;
     color: #0E2548;
     /* text-align: center; */
-    margin: 10% 0 10% 0;
+    margin: 7% 0 7% 0;
 }
 .profile-item span{
     font-size: 18px;
@@ -286,4 +287,20 @@ textarea,select,input[type=file]{
 }
 .text-color-yellow{
     color:#FFC30B !important;
+}
+h3 a {
+    text-decoration: none;
+    color: inherit;
+    float: right;
+}
+#about-form {
+    display: none;
+}
+#about-form textarea {
+    max-width: 300px;
+}
+
+#hide-about-form {
+    display: none;
+    color: red;
 }

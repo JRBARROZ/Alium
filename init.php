@@ -55,14 +55,32 @@ function login($username, $password)
     $data = explode(' ', $user['name']);
 
     if (sizeof($data) > 1) {
-      $_SESSION['logged-user'] = trim($data[0]) . " " . trim($data[sizeof($data)-1]);
+      $_SESSION['logged-user'] = trim($data[0]) . " " . trim($data[sizeof($data) - 1]);
     } else {
       $_SESSION['logged-user'] = trim($data[0]);
     }
-    
+
     return true;
   }
   return false;
+}
+
+function updateLoggedUser($id)
+{
+  $query = "SELECT * FROM users WHERE `id` = ?";
+
+  $stmt = $GLOBALS['pdo']->prepare($query);
+  $stmt->execute([$id]);
+  $user = $stmt->fetch();
+
+  $_SESSION['user'] = $user;
+  $data = explode(' ', $user['name']);
+
+  if (sizeof($data) > 1) {
+    $_SESSION['logged-user'] = trim($data[0]) . " " . trim($data[sizeof($data) - 1]);
+  } else {
+    $_SESSION['logged-user'] = trim($data[0]);
+  }
 }
 
 function redirect($url)

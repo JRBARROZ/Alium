@@ -8,6 +8,8 @@ if(!isLogged()) {
 
 $user_id = $_SESSION['user']['id'];
 
+$description = $_SESSION['user']['description'] == '' ? "Você ainda não falou nada sobre você? Que tal nos contar um pouco? =)" : $_SESSION['user']['description'];
+
 $query = "SELECT * FROM `users` WHERE `id` = ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute([$user_id]);
@@ -23,7 +25,7 @@ $stmt= $GLOBALS["pdo"]->prepare($query);
 $stmt-> execute([$_SESSION["user"]["id"]]);
 $images = $stmt->fetchAll();
 $images_ids = [];
-if (sizeof($images > 0)) {
+if (sizeof($images) > 0) {
     foreach ($images as $image) {
         array_push($images_ids, $image['service_id']);
     }
@@ -68,8 +70,15 @@ if (sizeof($images > 0)) {
             </div>
             <div class="profile-nav">
                 <div class="profile-item">
-                    <h3>Sobre</h3>
-                    <p>Id et consequat sit veniam exercitation eiusmod. d et consequat sit veniam exercitation eiusmod</p>
+                    <h3>Sobre
+                        <a href="#" id="edit-button" onclick="showAboutForm()"><i class="fa fa-pencil fa-1" aria-hidden="true"></i></a>
+                        <a href="#" id="hide-about-form" onclick="hideAboutForm()"><i class="fa fa-times fa-1" aria-hidden="true"></i></a>
+                    </h3>
+                    <p id="about-content"><?= $description ?></p>
+                    <form id="about-form" action="update_profile.php" method="POST">
+                        <textarea name="about" cols="5" rows="6"><?= $description ?></textarea>
+                        <input type="submit" value="Salvar">
+                    </form>
                 </div>
                 <div class="profile-item">
                     <h3>Avaliação</h3>
@@ -153,6 +162,18 @@ if (sizeof($images > 0)) {
             document.querySelector('#text').style.display="none";
             document.querySelector('#form').style.display="block";
             document.querySelector('#edit').style.display="block";
+        }
+        function showAboutForm() {
+            document.querySelector('#about-form').style.display = "block";
+            document.querySelector('#hide-about-form').style.display = "block";
+            document.querySelector('#edit-button').style.display = "none";
+            document.querySelector('#about-content').style.display = "none";
+        }
+        function hideAboutForm() {
+            document.querySelector('#about-form').style.display = "none";
+            document.querySelector('#hide-about-form').style.display = "none";
+            document.querySelector('#edit-button').style.display = "block";
+            document.querySelector('#about-content').style.display = "block";
         }
     </script>
 </body>
