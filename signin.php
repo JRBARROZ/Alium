@@ -37,11 +37,14 @@
         <section class="conectar">
             <div class="conectar-container">
                 <h1 class="title-login">Conectar</h1>
-                <div class=></div>
                 <div class="traco-login"></div>
                 <?php if(isset($_SESSION['success'])) :?>
                     <div class="success-message">Você foi registrado com sucesso!</div>
                     <?php unset($_SESSION['success'])?>
+                <?php endif ?>
+                <?php if(isset($_SESSION['success-password-recover'])) :?>
+                    <div class="success-message">Senha recuperada com sucesso!</div>
+                    <?php unset($_SESSION['success-password-recover'])?>
                 <?php endif ?>
                 <?php if(isset($_SESSION['error-login'])) :?>
                     <div class="error-message">Credenciais inválidas!</div>

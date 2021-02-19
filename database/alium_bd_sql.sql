@@ -40,6 +40,8 @@ CREATE TABLE IF NOT EXISTS `alium`.`users` (
   `postal_code` VARCHAR(8) NULL,
   `role` VARCHAR(45) NULL,
   `sodial_media` VARCHAR(255) NULL,
+  `token` VARCHAR(255) NULL DEFAULT '',
+  `token_date` VARCHAR(255) NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `cpf_cnpj_UNIQUE` (`cpf_cnpj` ASC),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),

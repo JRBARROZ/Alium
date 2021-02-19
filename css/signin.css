@@ -37,6 +37,19 @@ body {
   /* justify-content: center; */
   height: 100%;
 }
+.content-forgot-password {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+}
+
+.traco-forgot-password {
+  position: absolute;
+  width: 265px;
+  height: 3px;
+  background: #FFC30B;
+}
 
 .footer {
   background-color: #0E2548;
