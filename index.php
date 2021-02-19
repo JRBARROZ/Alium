@@ -46,9 +46,9 @@
       <p class="titleCategory">Mais Procurados</p>
       <div class="category-icons">
         <ul>
-          <li><a href="provider_list.php"><img src="images/icons/serrote.svg" alt=""></a></li>
-          <li><a href="provider_list.php"><img src="images/icons/mechanic.svg" alt=""> </a></li>
-          <li><a href="provider_list.php"><img src="images/icons/pinter.svg" alt=""></a></li>
+          <li><a href="provider_list.php?work=marceneiro"><img src="images/icons/serrote.svg" alt=""></a></li>
+          <li><a href="provider_list.php?work=mecânico"><img src="images/icons/mechanic.svg" alt=""> </a></li>
+          <li><a href="provider_list.php?work=pintor"><img src="images/icons/pinter.svg" alt=""></a></li>
         </ul>
       </div>
     </section>

@@ -107,7 +107,7 @@
     font-size: 1.5em;
     font-family: 'Nunito-Light';
 }
-.provider-item button{
+.provider-item form button{
     width: 120px;
     padding-top:10px;
     height: 45px;
@@ -122,8 +122,9 @@
     cursor: pointer;
     transition: 1s;
     margin-bottom: 10px;
+    text-decoration: none;
 }
-.provider-item button:hover{
+.provider-item form button:hover{
     background-color: inherit;
     border: 3px solid #FFC30B;
     transition: 1s;
@@ -145,17 +146,10 @@
     display: flex;
     justify-content: center;
 }
-.provider-item p {
+.provider-item p, p {
     font-family: 'Nunito-Light';
     color: #424242;
 }
-
-
-
-
-
-
-
 .header {
     background-color: #0E2548;
     /* padding: 10px 0px 10px 0px; */

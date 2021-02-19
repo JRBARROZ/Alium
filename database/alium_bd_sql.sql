@@ -14,7 +14,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema alium
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `alium` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `alium` DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 USE `alium` ;
 
 -- -----------------------------------------------------

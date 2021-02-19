@@ -2,6 +2,9 @@
     padding: 0;
     margin: 0;
 }
+a {
+    text-decoration: none;
+}
 
 @font-face {
     font-family: 'Asgalt';
@@ -282,6 +285,7 @@ textarea,select,input[type=file]{
     border: absolute 3px;
     border-style: solid;
 }
+
 #form{
     display: none;
 }
@@ -352,4 +356,16 @@ h3 a {
 }
 .send-img input{
     cursor: pointer !important;
+}
+#back {
+    color: #0E2548;
+    opacity: 0.5;
+    text-decoration: none;
+    font-size: 2em;
+    position: absolute;
+    top: 100px;
+    left: 25%;
+}
+#back:hover {
+    opacity: initial;
 }

@@ -8,7 +8,7 @@ if(!isLogged()) {
 
 $user_id = $_SESSION['user']['id'];
 
-$description = $_SESSION['user']['description'] == '' ? "Você ainda não falou nada sobre você? Que tal nos contar um pouco? =)" : $_SESSION['user']['description'];
+$description = $_SESSION['user']['description'];
 
 $query = "SELECT * FROM `users` WHERE `id` = ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
@@ -20,7 +20,7 @@ $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute();
 $services = $stmt->fetchAll();
 
-$query= "SELECT * FROM `images` WHERE `user_id` = ?";
+$query= "SELECT * FROM `images` WHERE `user_id` = ? ORDER BY `id` DESC LIMIT 3";
 $stmt= $GLOBALS["pdo"]->prepare($query);
 $stmt-> execute([$_SESSION["user"]["id"]]);
 $images = $stmt->fetchAll();
@@ -66,7 +66,22 @@ if (sizeof($images) > 0) {
                     <img src="./images/profile/perfilImage.jpg" alt="">
                 </div>
                 <br>
-                <p><span class="name"><?= $user['name'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $user['city'] ?>, <?= $user['state'] ?>, <br>Pintor</p>
+                <p style="max-width: 250px;"><span class="name"><?= $user['name'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $user['city'] ?>, <?= $user['state'] ?>, <br>
+                <?php
+                foreach ($images_ids as $i => $id):
+                    $service = getServiceById($id);
+                    if ($i == sizeof($images_ids) - 1):
+                    ?>
+                        <a href='provider_list.php?work=<?=strtolower($service['service'])?>'><?= $service['service'] ?></a>
+                    <?php
+                    else:
+                    ?>
+                        <a href='provider_list.php?work=<?=strtolower($service['service'])?>'><?= $service['service'] ?></a> - 
+                    <?php
+                    endif;
+                endforeach;
+                ?>
+            </p>
             </div>
             <div class="profile-nav">
                 <div class="profile-item">
@@ -160,8 +175,6 @@ if (sizeof($images) > 0) {
                         <!-- <label for="other">Outro:</label><br>
                         <input type="text" id="other" name="other_service"> -->
                         <br>
-                        <label for="portfolio">Portfólio:</label><br>
-                        <input type="file" id="portfolio" name="portfolio"><br>
                         <input type="submit" value="Atualizar"><br><br>
                     </form>
                 </div>

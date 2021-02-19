@@ -83,6 +83,21 @@ function updateLoggedUser($id)
   }
 }
 
+function getUserById($id) {
+  $query = "SELECT * FROM users WHERE `id` = ?";
+  $stmt = $GLOBALS['pdo']->prepare($query);
+  $stmt->execute([$id]);
+  $user = $stmt->fetch();
+  return $user;
+}
+
+function getServiceById($id) {
+  $query = "SELECT * FROM `services` WHERE `id` = ?";
+  $stmt = $GLOBALS['pdo']->prepare($query);
+  $stmt->execute([$id]);
+  return $stmt->fetch();
+}
+
 function redirect($url)
 {
   header('location:' . $url);

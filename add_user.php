@@ -15,6 +15,7 @@ $user[] = addslashes(trim($_POST['name']));
 $user[] = addslashes(trim($_POST['cpf_cnpj']));
 $user[] = addslashes(trim($_POST['email']));
 $user[] = addslashes(trim($_POST['phone']));
+$user[] = "Você ainda não falou nada sobre você? Que tal nos contar um pouco? =)";
 $user[] = addslashes(trim($_POST['address']));
 $user[] = addslashes(trim($_POST['address_number']));
 $user[] = addslashes(trim($_POST['neighborhood']));
@@ -25,7 +26,7 @@ $user[] = addslashes(trim($_POST['username']));
 $user[] = addslashes(trim($_POST['cep']));
 $user[] = isset($_POST['job']) ? 'worker' : 'client';
 
-$query = "INSERT INTO users (`name`, `cpf_cnpj`, `email`, `phone`, `address`, `address_number`, `neighborhood`, `city`, `state`, `password`, `username`, `postal_code`, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+$query = "INSERT INTO users (`name`, `cpf_cnpj`, `email`, `phone`, `description`, `address`, `address_number`, `neighborhood`, `city`, `state`, `password`, `username`, `postal_code`, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $GLOBALS['pdo']->prepare($query);
 

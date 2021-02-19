@@ -10,13 +10,6 @@ $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute();
 $services = $stmt->fetchAll();
 
-// echo "<pre>";
-// var_dump(filter_input_array(INPUT_POST));
-// echo "</pre>";
-
-// exit();
-
-
 if (isset($_POST['name']) || isset($_POST['email'])) {
   foreach ($services as $key => $service) {
     $serv = str_replace(' ', '_', $service['service']);
