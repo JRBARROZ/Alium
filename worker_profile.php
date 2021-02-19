@@ -19,15 +19,15 @@ $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 $description = $user['description'];
 
-$query= "SELECT * FROM `images` WHERE `user_id` = ?";
-$stmt= $GLOBALS["pdo"]->prepare($query);
-$stmt-> execute([$user_id]);
+$query = "SELECT * FROM `images` WHERE `user_id` = ?";
+$stmt = $GLOBALS["pdo"]->prepare($query);
+$stmt->execute([$user_id]);
 $images = $stmt->fetchAll();
 $images_ids = [];
 if (sizeof($images) > 0) {
-    foreach ($images as $image) {
-        array_push($images_ids, $image['service_id']);
-    }
+  foreach ($images as $image) {
+    array_push($images_ids, $image['service_id']);
+  }
 }
 
 ?>
@@ -71,15 +71,18 @@ if (sizeof($images) > 0) {
         <p><span class="name"><?= $user['name'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $user['city'] ?>, <?= $user['state'] ?>, <br>
           <?php
           foreach ($images_ids as $i => $id) :
-            $service = getServiceById($id);
-            if ($i == sizeof($images_ids) - 1) :
+            $serv = getServiceById($id);
+            if ($i == sizeof($images_ids) - 1 || $i == 2) :
           ?>
-              <a href='provider_list.php?work=<?= strtolower($service['service']) ?>'><?= $service['service'] ?></a>
+              <a href='provider_list.php?work=<?= $serv['service'] ?>'><?= $serv['service'] ?></a>
             <?php
             else :
             ?>
-              <a href='provider_list.php?work=<?= strtolower($service['service']) ?>'><?= $service['service'] ?></a> -
+              <a href='provider_list.php?work=<?= $serv['service'] ?>'><?= $serv['service'] ?></a> -
           <?php
+            endif;
+            if ($i == 2) :
+              break;
             endif;
           endforeach;
           ?>

@@ -15,7 +15,7 @@ $user[] = addslashes(trim($_POST['name']));
 $user[] = addslashes(trim($_POST['cpf_cnpj']));
 $user[] = addslashes(trim($_POST['email']));
 $user[] = addslashes(trim($_POST['phone']));
-$user[] = "Você ainda não falou nada sobre você? Que tal nos contar um pouco? =)";
+$user[] = "Você ainda não falou nada sobre você. Que tal nos contar um pouco? =)";
 $user[] = addslashes(trim($_POST['address']));
 $user[] = addslashes(trim($_POST['address_number']));
 $user[] = addslashes(trim($_POST['neighborhood']));

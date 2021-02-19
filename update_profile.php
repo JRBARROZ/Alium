@@ -11,6 +11,7 @@ $stmt->execute();
 $services = $stmt->fetchAll();
 
 if (isset($_POST['name']) || isset($_POST['email'])) {
+
   foreach ($services as $key => $service) {
     $serv = str_replace(' ', '_', $service['service']);
 
@@ -33,6 +34,7 @@ if (isset($_POST['name']) || isset($_POST['email'])) {
       $stmt->execute([$_SESSION['user']['id'], $service['id']]);
     }
   }
+
   $data = [];
 
   $data[] = addslashes(trim($_POST['name']));

@@ -20,7 +20,7 @@ $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute();
 $services = $stmt->fetchAll();
 
-$query= "SELECT * FROM `images` WHERE `user_id` = ? ORDER BY `id` DESC LIMIT 3";
+$query= "SELECT * FROM `images` WHERE `user_id` = ? ORDER BY `id` DESC";
 $stmt= $GLOBALS["pdo"]->prepare($query);
 $stmt-> execute([$_SESSION["user"]["id"]]);
 $images = $stmt->fetchAll();
@@ -69,15 +69,18 @@ if (sizeof($images) > 0) {
                 <p style="max-width: 250px;"><span class="name"><?= $user['name'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $user['city'] ?>, <?= $user['state'] ?>, <br>
                 <?php
                 foreach ($images_ids as $i => $id):
-                    $service = getServiceById($id);
-                    if ($i == sizeof($images_ids) - 1):
+                    $serv = getServiceById($id);
+                    if ($i == sizeof($images_ids) - 1 || $i == 2):
                     ?>
-                        <a href='provider_list.php?work=<?=strtolower($service['service'])?>'><?= $service['service'] ?></a>
+                        <a href='provider_list.php?work=<?=$serv['service']?>'><?= $serv['service'] ?></a>
                     <?php
                     else:
                     ?>
-                        <a href='provider_list.php?work=<?=strtolower($service['service'])?>'><?= $service['service'] ?></a> - 
+                        <a href='provider_list.php?work=<?=$serv['service']?>'><?= $serv['service'] ?></a> - 
                     <?php
+                    endif;
+                    if ($i == 2) :
+                        break;
                     endif;
                 endforeach;
                 ?>
