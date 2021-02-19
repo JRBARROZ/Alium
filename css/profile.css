@@ -304,3 +304,52 @@ h3 a {
     display: none;
     color: red;
 }
+.port form {
+    display: flex;
+}
+.port form input[type="file"]{
+    /* flex: 1 1 0 !important; */
+    /* margin-left: 5px; */
+    flex-grow: 1;
+    flex-wrap: wrap;
+    position: relative;
+    /* z-index: 2; */
+    
+    opacity: 0;
+
+}
+/* .port form input[type="file"]:hover{
+    cursor: pointer;
+} */
+.send-img {
+    display: flex;
+    width: 50px;
+    margin-right: 4px;
+    flex-wrap: wrap;
+    border-radius: 10%;
+    justify-content: center;
+    border: 2px dashed #637EA6;
+    background-size: cover;
+    /* z-index: 2; */
+    /* background-color: transparent; */
+}
+.send-img::before {
+    content: '+';
+    font-family: 'Nunito-Light';
+    color: #637EA6;
+    display: flex;
+    width: 10px;
+    height: 10px;
+    position: absolute !important;
+    margin: auto;
+    margin-top: 5px;
+    /* cursor: pointer; */
+}
+.send-img:hover{
+    border: 2px dashed #225baf;
+    color: #0E2548;
+    /* cursor: pointer; */
+}
+.send-img input{
+    cursor: pointer !important;
+}

@@ -97,6 +97,25 @@ if (sizeof($images) > 0) {
                         <li><i class="fa fa-twitter" aria-hidden="true"></i> @pam_painter</li>
                     </ul>
                 </div>
+                <div class="profile-item port">
+                    <h3>Portifólio</h3>
+                    <br>
+                    <form action="">
+                        <div class="send-img">
+                            <input type="file" onchange="displayImg(this)">
+                        </div>
+                        <div class="send-img">
+                            <input type="file" onchange="displayImg(this)">
+                        </div>
+                        <div class="send-img">
+                            <input type="file" onchange="displayImg(this)">
+                        </div>
+                        <div class="send-img">
+                            <input type="file" onchange="displayImg(this)">
+                        </div>
+                    </form>
+                    <br>
+                </div>
             </div>
         </div>
         <section class="profile-edit">
@@ -149,6 +168,7 @@ if (sizeof($images) > 0) {
             </div>
         </section>
     </div>
+    <img src="" alt="" id="displayImg">
     <section class="footer">
         <div class="footer-container">
             <div class="logo-footer">
@@ -174,6 +194,15 @@ if (sizeof($images) > 0) {
             document.querySelector('#hide-about-form').style.display = "none";
             document.querySelector('#edit-button').style.display = "block";
             document.querySelector('#about-content').style.display = "block";
+        }
+
+        //Imgs
+        function displayImg(e){
+            // e.parentElement.style.backgroundImage = "";
+            let file = e;
+            let teste = URL.createObjectURL(file.files[0]);
+            e.parentElement.style.backgroundImage = "url("+teste+")";
+            
         }
     </script>
 </body>
