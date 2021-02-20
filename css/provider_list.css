@@ -1,41 +1,62 @@
-*{
-    padding:0;
-    margin:0;
+* {
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
 }
-@font-face{
-    font-family : 'Asgalt';
-    src:url('../font/Asgalt-Regular.ttf');
-}
-@font-face{
-    font-family : 'Nunito-Light';
-    src:url('../font/Nunito-LightItalic.ttf');
-}
-@font-face{
-    font-family : 'Nunito-Regular';
-    src:url('../font/Nunito-Regular.ttf');
+
+@font-face {
+    font-family: 'Asgalt';
+    src: url('../font/Asgalt-Regular.ttf');
 }
 
-.menu-container{
+@font-face {
+    font-family: 'Nunito-Light';
+    src: url('../font/Nunito-LightItalic.ttf');
+}
+
+@font-face {
+    font-family: 'Nunito-Regular';
+    src: url('../font/Nunito-Regular.ttf');
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* margin-bottom: 3.75em; */
+    min-height: 100vh;
+    display: grid;
+    /* grid-template-rows: 4.95em auto 3.75em; */
+}
+
+.menu-container {
     max-width: 1200px;
     margin: 0 auto;
 }
-.menu-container::after, .menu-container::before{
-    content:'';
+
+.menu-container::after,
+.menu-container::before {
+    content: '';
     display: table;
     clear: both;
 }
-.menu-logo{
+
+.menu-logo {
     float: left;
     margin-left: 10px;
 }
-.menu-nav{
-    float:right;
+
+.menu-nav {
+    float: right;
     margin-right: 10px;
 }
+
 .menu-nav li {
     display: inline-block;
 }
+
 .menu-nav a {
     padding: 20px;
     font-size: 3em;
@@ -45,7 +66,7 @@
     font-family: Asgalt;
 }
 
-.provider{
+.provider {
     /* padding:60px calc((100% - 1020px) / 2); */
     max-width: 1020px;
     /* background-color: red; */
@@ -54,14 +75,16 @@
     flex-wrap: wrap;
     justify-content: center;
 }
-.provider-title{
+
+.provider-title {
     padding: 20px;
     font-family: 'Asgalt';
     font-weight: normal;
     text-align: center;
-    font-size:4.5em;
+    font-size: 4.5em;
 }
-.provider-item{
+
+.provider-item {
     display: flex;
     width: 300px;
     height: 400px;
@@ -74,13 +97,15 @@
     align-items: flex-end;
     margin-bottom: 30px;
 }
-.provider-img{
+
+.provider-img {
     width: 100px;
     display: flex;
     height: 100px;
     border-radius: 90%;
     z-index: 2;
 }
+
 .provider-img img {
     background-size: cover;
     z-index: 1;
@@ -88,10 +113,11 @@
     display: flex;
     height: 100px;
     border-radius: 90%;
-    border:5px solid rgba(178, 206, 255, 0.5);
+    border: 5px solid rgba(178, 206, 255, 0.5);
     z-index: 2;
 }
-.provider-item::before{
+
+.provider-item::before {
     content: '';
     position: absolute;
     width: 300px;
@@ -103,13 +129,15 @@
     /* border: 1px solid black; */
     background-image: url('/images/img-dotted.svg');
 }
-.star-size{
+
+.star-size {
     font-size: 1.5em;
     font-family: 'Nunito-Light';
 }
-.provider-item form button{
+
+.provider-item form button {
     width: 120px;
-    padding-top:10px;
+    padding-top: 10px;
     height: 45px;
     display: flex;
     justify-content: center;
@@ -124,21 +152,25 @@
     margin-bottom: 10px;
     text-decoration: none;
 }
-.provider-item form button:hover{
+
+.provider-item form button:hover {
     background-color: inherit;
     border: 3px solid #FFC30B;
     transition: 1s;
 }
-.checked{
-    color:#FFC30B !important;
+
+.checked {
+    color: #FFC30B !important;
 }
-.provider-item h1{
+
+.provider-item h1 {
     font-family: 'Asgalt';
     display: flex;
     text-align: center;
     font-size: 3em;
     font-weight: normal;
 }
+
 .provider-title2 {
     /* background-color: red; */
     width: 300px;
@@ -146,10 +178,13 @@
     display: flex;
     justify-content: center;
 }
-.provider-item p, p {
+
+.provider-item p,
+p {
     font-family: 'Nunito-Light';
     color: #424242;
 }
+
 .header {
     background-color: #0E2548;
     /* padding: 10px 0px 10px 0px; */
@@ -168,26 +203,29 @@
     display: table;
     clear: both;
 }
-  
+
 /* Footer */
-.footer{
+.footer {
     background-color: #0E2548;
     padding: 10px 0px 10px 0px;
     width: 100%;
-    height: 3,75em;
+    height: 3, 75em;
 }
-.footer-container{
+
+.footer-container {
     margin: 0 auto;
     max-width: 1200px;
 }
-.footer-container::before, .footer-container::after{
-    content:'';
+
+.footer-container::before,
+.footer-container::after {
+    content: '';
     display: table;
     clear: both;
 }
-.text-color-yellow{
-    color:#FFC30B !important;
+
+.text-color-yellow {
+    color: #FFC30B !important;
 }
+
 /* Provider Area */
-
-

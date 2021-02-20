@@ -7,8 +7,6 @@ $query = "SELECT `token`, `token_date` FROM `users` WHERE `id` = ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute([$user['id']]);
 $result = $stmt->fetch();
-
-if (isset($_GET['user']) && $_GET['user'] === $user_id && isset($_GET['token']) && $_GET['token'] === $result['token'] && (time() - $result['token_date']) < 900) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,27 +28,40 @@ if (isset($_GET['user']) && $_GET['user'] === $user_id && isset($_GET['token']) 
     </div>
   </div>
   <div class="content-forgot-password">
-    <section class="conectar">
-      <div class="conectar-container">
-        <h1 class="title-login">Recuperar Senha</h1>
-        <div class="traco-forgot-password"></div>
-        <!-- <?php if (isset($_SESSION['success-recovery'])) : ?>
-          <div class="success-message">E-mail enviado! Verifique sua caixa de entrada.</div>
-          <?php unset($_SESSION['success-recovery']) ?>
-        <?php endif ?> -->
-        <!-- <div class="error-message">Houve um erro no seu registro</div> -->
-        <div class="conectar-form">
-          <form action="recovery_password.php" method="POST">
-            <label for="password">Senha:</label><br>
-            <input type="password" id="password" name="password" required><br>
-            <label for="confirm-password">Confirme a Senha:</label><br>
-            <input type="password" id="confirm-password" name="confirm-password" required><br>
-            <input type="hidden" name="id" value="<?= $user['id'] ?>" required><br>
-            <input type="submit" value="RECUPERAR">
-          </form>
+    <?php
+    if (isset($_GET['user']) && $_GET['user'] === $user_id && isset($_GET['token']) && $_GET['token'] === $result['token'] && (time() - $result['token_date']) < 900) {
+    ?>
+      <section class="conectar">
+        <div class="conectar-container">
+          <h1 class="title-login">Recuperar Senha</h1>
+          <div class="traco-forgot-password"></div>
+          <div class="conectar-form">
+            <form action="recovery_password.php" method="POST">
+              <label for="password">Senha:</label><br>
+              <input type="password" id="password" name="password" required><br>
+              <label for="confirm-password">Confirme a Senha:</label><br>
+              <input type="password" id="confirm-password" name="confirm-password" required><br>
+              <input type="hidden" name="id" value="<?= $user['id'] ?>" required><br>
+              <input type="submit" value="RECUPERAR">
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    <?php
+    } else {
+    ?>
+      <section class="conectar">
+        <div class="conectar-container">
+          <h1 class="title-login">Erro ao Recuperar</h1>
+          <div class="traco-forgot-password"></div>
+          <div class="conectar-form">
+            <p>O token informado é inválido ou expirou. Tente realizar o processo novamente.</p>
+          </div>
+        </div>
+      </section>
+    <?php
+    }
+    ?>
   </div>
   <section class="footer">
     <div class="footer-container">
@@ -60,11 +71,9 @@ if (isset($_GET['user']) && $_GET['user'] === $user_id && isset($_GET['token']) 
     </div>
   </section>
 </body>
+
 </html>
 <?php
-} else {
-
-}
 if (isset($_POST['password'])) {
   $password = sha1(addslashes(trim($_POST['password'])));
   $user_id = $_POST['id'];

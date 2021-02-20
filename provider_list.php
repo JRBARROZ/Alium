@@ -57,7 +57,7 @@
     <?php foreach ($users as $user) : ?>
       <?php
         $user = getUserById($user['user_id']);
-        if ($user['id'] === $_SESSION['user']['id']) {
+        if (isset($_SESSION['user']) && $user['id'] === $_SESSION['user']['id']) {
           continue;
         }
       ?>
