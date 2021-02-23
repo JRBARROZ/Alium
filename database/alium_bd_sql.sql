@@ -95,7 +95,7 @@ DROP TABLE IF EXISTS `alium`.`images` ;
 
 CREATE TABLE IF NOT EXISTS `alium`.`images` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `url` MEDIUMTEXT NOT NULL,
+  `url` VARCHAR(255) NOT NULL,
   `user_id` INT NOT NULL,
   `service_id` INT NOT NULL,
   PRIMARY KEY (`id`),

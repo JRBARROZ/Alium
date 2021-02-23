@@ -118,26 +118,45 @@ if (sizeof($images) > 0) {
                 <div class="profile-item port">
                     <h3>Portifólio</h3>
                     <br>
-                    <form action="">
+                    <form  method="POST" enctype="multipart/form-data" action="uploadImgs.php" >
+                        <!-- <div class="send-img">
+                            <input type="file" name="images[]" onchange="displayImg(this)">
+                        </div> -->
                         <div class="send-img">
-                            <input type="file" onchange="displayImg(this)">
+                            <input type="file" onchange="displayImg(this)" id='0'>
                         </div>
                         <div class="send-img">
-                            <input type="file" onchange="displayImg(this)">
+                            <input type="file" onchange="displayImg(this)" id='1'>
                         </div>
                         <div class="send-img">
-                            <input type="file" onchange="displayImg(this)">
+                            <input type="file" onchange="displayImg(this)" id='2'>
                         </div>
                         <div class="send-img">
-                            <input type="file" onchange="displayImg(this)">
+                            <input type="file" onchange="displayImg(this)" id='3'>
                         </div>
+                        <div class="send-img">
+                            <input type="file" onchange="displayImg(this)" id='4'>
+                        </div>
+                        <div class="send-img">
+                            <input type="file" onchange="displayImg(this)" id='5'>
+                        </div>
+                        <!-- <button type='submit'>Enviar Imagens</button> -->
                     </form>
+                    <button class="btn" onclick="previewShow(this)">Preview</button>
                     <br>
                 </div>
             </div>
         </div>
-        <section class="profile-edit">
-            <div class="profile-form">
+        <section class="profile-edit" >
+            <div id='profile-preview' style='display:none'>
+                <div class="profile-title">
+                    <h2 style="">Pré-visualização</h2>
+                </div>
+                <div class="profile-preview">
+                    <div class="profile-preview-item"></div>
+                </div>
+            </div>
+            <div class="profile-form" style="">
                 <div class="profile-text-edit">
                     <h3 id="text" style="max-width: 500px;line-height:2em;">Olá, <?= $_SESSION['logged-user'] ?>, seja bem-vindo(a) ao Alium :)<br>Por favor, finalize seu cadastro abaixo.<br><a href="#" class="btn" onclick="showForm(this)">Atualizar Cadastro</a></h3>
                     <h3 id="edit" style="display: none;">Editar Perfil</h3>
@@ -193,6 +212,8 @@ if (sizeof($images) > 0) {
         </div>
     </section>
     <script>
+        let imgsArray = [];
+        let clicks = 0;
         function showForm(e){
             e.style.display = "none";
             document.querySelector('#text').style.display="none";
@@ -217,8 +238,53 @@ if (sizeof($images) > 0) {
             // e.parentElement.style.backgroundImage = "";
             let file = e;
             let teste = URL.createObjectURL(file.files[0]);
+            console.log(teste);
             e.parentElement.style.backgroundImage = "url("+teste+")";
             
+            imgsArray.push(teste);
+            // console.table(imgsArray);
+            insertImg(e);
+            // previewShowImgs();
+        }
+        function insertImg(e){
+            const endPoint = 'uploadImgs.php';
+            const formData = new FormData();
+            formData.append('images[]', e.files[0]);
+            formData.append('id', e.id);            
+            fetch(endPoint, {
+                method: 'post',
+                body: formData
+            }).catch(console.error);
+        }
+
+        function previewShow(e){
+            const profileForm = document.querySelector('.profile-form');
+            const profilePreview = document.querySelector('#profile-preview');
+            // console.log(profileForm);
+            // console.log(clicks);
+            if(clicks == 0){
+                e.innerHTML = 'Cancelar Preview';
+                profileForm.style.display = "none";
+                profilePreview.style.display = "block";
+                clicks++;
+                previewShowImgs();
+            }else{
+                e.innerHTML = 'Preview';    
+                clicks = 0;
+                profileForm.style.display = "flex";
+                profilePreview.style.display = "none";
+            }
+        }
+        function previewShowImgs(){
+            // const previewData = document.querySelector('.profile-preview');
+            // previewData.innerHTML = "";
+            // for(let i = 0; i < imgsArray.length; i ++){
+            //     const div = document.createElement('div');
+            //     div.classList.add("profile-preview-item");
+            //     div.style.backgroundImage = "url("+imgsArray[i]+")";
+            //     previewData.appendChild(div);
+            // }
+            // console.table(imgsArray);
         }
     </script>
 </body>

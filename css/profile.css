@@ -369,3 +369,25 @@ h3 a {
 #back:hover {
     opacity: initial;
 }
+.profile-preview{
+    /* background-color: red; */
+    display: flex;
+    flex-wrap: wrap;
+    max-width:510px;
+    justify-content: center;
+    height: auto;
+}
+.profile-preview-item{
+    width: 135px;
+    margin: 10px;
+    height: 131px;
+    /* border: 1px solid black; */
+    background-size: cover;
+    flex-grow: 1;
+}
+.profile-title {
+    margin: 15px auto;
+    width: 200px;
+    font-family: 'Nunito-Regular';
+    color:#0E2548;
+}

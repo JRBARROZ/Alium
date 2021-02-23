@@ -11,7 +11,7 @@ function connectDatabase()
   $host = 'localhost';
   $db = 'alium';
   $user = 'root';
-  $pass = 'root';
+  $pass = 'Jhon2929@';
   $dsn = "mysql:host=$host;dbname=$db;charset=utf8";
 
   $opt = [
