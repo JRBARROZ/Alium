@@ -19,7 +19,7 @@ $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 $description = $user['description'];
 
-$query = "SELECT * FROM `images` WHERE `user_id` = ?";
+$query = "SELECT * FROM `users_has_services` WHERE `user_id` = ?";
 $stmt = $GLOBALS["pdo"]->prepare($query);
 $stmt->execute([$user_id]);
 $images = $stmt->fetchAll();
@@ -29,6 +29,11 @@ if (sizeof($images) > 0) {
     array_push($images_ids, $image['service_id']);
   }
 }
+
+$query = "SELECT * FROM `images` WHERE `user_id` = ?";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute([$user_id]);
+$portfolio_images = $stmt->fetchAll();
 
 ?>
 <!DOCTYPE html>
@@ -119,6 +124,13 @@ if (sizeof($images) > 0) {
     <div class="profile-edit">
       <div class="profile-text-edit">
         <h1>Portfólio</h1>
+        <div id='profile-preview'>
+          <div class="profile-preview">
+            <?php foreach($portfolio_images as $i => $image): ?>
+              <img class="profile-preview-item" src="images/portfolio/user_port_<?= $user_id ?>/<?= $i ?>.jpg" alt="teste">
+            <?php endforeach ?>
+          </div>
+        </div>
       </div>
     </div>
   </div>

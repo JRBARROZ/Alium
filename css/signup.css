@@ -244,3 +244,28 @@ textarea {
   border-radius:5px;
   font-family: 'Nunito-Light';
 }
+.form-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 396px;
+}
+.form-side {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+.form-side:nth-of-type(2n+2) {
+  margin-right: 0 !important;
+}
+.form-side input {
+  width: 90% !important;
+}
+#address, #city {
+  width: 265.38px !important;
+}
+#address_number, #state {
+  width: 80px !important;
+}

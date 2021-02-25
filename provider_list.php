@@ -37,29 +37,42 @@
     $rows = $stmt->rowCount();
 
     if ($rows > 0) {
-      $query = "SELECT * FROM `images` WHERE service_id=?";
+      $query = "SELECT * FROM `users_has_services` WHERE service_id=?";
       $stmt = $GLOBALS['pdo']->prepare($query);
       $stmt->execute([$service['id']]);
       $users = $stmt->fetchAll();
+      $rows_user_services = $stmt->rowCount();
     } else {
   ?>
-  <h1 class="provider-title">Erro</h1>
-  <div class="provider">
-    <p>A busca por <?= strtoupper($_GET['work']) ?> não obteve resultados! Tente novamente</p>
-  </div>
-  <?php
-    exit();
+      <h1 class="provider-title">Erro</h1>
+      <div class="provider">
+        <p class="not-found">A busca por <strong><?= strtoupper($_GET['work']) ?></strong> não obteve resultados! Tente novamente</p>
+        <!-- <img src="images/icons/Layer_4.svg" alt="404"> -->
+      </div>
+      <section class="footer">
+        <div class="footer-container">
+          <div class="logo-footer">
+            <img src="images/icons/logo-footer.svg" alt="">
+          </div>
+        </div>
+      </section>
+</body>
+
+</html>
+<?php
+      exit();
     }
   }
-  ?>
-  <h1 class="provider-title"><?= strtoupper($_GET['work']) ?></h1>
-  <div class="provider">
+?>
+<h1 class="provider-title"><?= strtoupper($_GET['work']) ?></h1>
+<div class="provider">
+  <?php if ($rows_user_services != 0) : ?>
     <?php foreach ($users as $user) : ?>
       <?php
-        $user = getUserById($user['user_id']);
-        if (isset($_SESSION['user']) && $user['id'] === $_SESSION['user']['id']) {
-          continue;
-        }
+      $user = getUserById($user['user_id']);
+      if (isset($_SESSION['user']) && $user['id'] === $_SESSION['user']['id']) {
+        continue;
+      }
       ?>
       <div class="provider-item">
         <div class="provider-img">
@@ -82,106 +95,39 @@
           <button type="submit">Contatar</button>
         </form>
       </div>
-    <?php endforeach ?>
-    <!-- <div class="provider-item">
-      <div class="provider-img">
-        <img src="./images/backgrounds/index.jpg" alt="">
-      </div>
-      <div class="provider-title2">
-        <h1>Pamela</h1>
-      </div>
-      <div class="profile-item star-size">
-        <p>4.5 / 5.0 - Ótimo</p>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
+      <?php endforeach ?>
+      <?php else : ?>
+        <p class="not-found">Não tem ninguém prestando este serviço no momento.</p>
+        <div class="teste">
+          <div class="provider-img">
+            <img src="./images/backgrounds/index.jpg" alt="">
+          </div>
+          <div class="provider-title2">
+            <h1>Teste</h1>
+          </div>
+          <div class="profile-item star-size">
+            <p>4.5 / 5.0 - Ótimo</p>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star-half-o checked"></span>
       </div>
-      <p>Magna pariatur adipisicing ea aliquip laboris labore occaecat cupidatat commodo eiusmod eu cillum irure.</p>
-      <button>Contatar</button>
+      <p>Teste</p>
+      <form action="worker_profile.php" method="POST">
+        <input type="hidden" name="id" value="teste">
+        <button type="submit">Contatar</button>
+      </form>
+    </div><br>
+  <?php endif ?>
+</div>
+<section class="footer">
+  <div class="footer-container">
+    <div class="logo-footer">
+      <img src="images/icons/logo-footer.svg" alt="">
     </div>
-    <div class="provider-item">
-      <div class="provider-img">
-        <img src="./images/backgrounds/index.jpg" alt="">
-      </div>
-      <div class="provider-title2">
-        <h1>Pamela</h1>
-      </div>
-      <div class="profile-item star-size">
-        <p>4.5 / 5.0 - Ótimo</p>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star-half-o checked"></span>
-      </div>
-      <p>Magna pariatur adipisicing ea aliquip laboris labore occaecat cupidatat commodo eiusmod eu cillum irure.</p>
-      <button>Contatar</button>
-    </div>
-    <div class="provider-item">
-      <div class="provider-img">
-        <img src="./images/backgrounds/index.jpg" alt="">
-      </div>
-      <div class="provider-title2">
-        <h1>Pamela</h1>
-      </div>
-      <div class="profile-item star-size">
-        <p>4.5 / 5.0 - Ótimo</p>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star-half-o checked"></span>
-      </div>
-      <p>Magna pariatur adipisicing ea aliquip laboris labore occaecat cupidatat commodo eiusmod eu cillum irure.</p>
-      <button>Contatar</button>
-    </div>
-    <div class="provider-item">
-      <div class="provider-img">
-        <img src="./images/backgrounds/index.jpg" alt="">
-      </div>
-      <div class="provider-title2">
-        <h1>Pamela</h1>
-      </div>
-      <div class="profile-item star-size">
-        <p>4.5 / 5.0 - Ótimo</p>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star-half-o checked"></span>
-      </div>
-      <p>Magna pariatur adipisicing ea aliquip laboris labore occaecat cupidatat commodo eiusmod eu cillum irure.</p>
-      <button>Contatar</button>
-    </div>
-    <div class="provider-item">
-      <div class="provider-img">
-        <img src="./images/backgrounds/index.jpg" alt="">
-      </div>
-      <div class="provider-title2">
-        <h1>Pamela</h1>
-      </div>
-      <div class="profile-item star-size">
-        <p>4.5 / 5.0 - Ótimo</p>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star-half-o checked"></span>
-      </div>
-      <p>Magna pariatur adipisicing ea aliquip laboris labore occaecat cupidatat commodo eiusmod eu cillum irure.</p>
-      <button>Contatar</button>
-    </div> -->
-
   </div>
-  <section class="footer">
-    <div class="footer-container">
-      <div class="logo-footer">
-        <img src="images/icons/logo-footer.svg" alt="">
-      </div>
-    </div>
-  </section>
+</section>
 </body>
 
 </html>

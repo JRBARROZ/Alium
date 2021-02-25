@@ -11,7 +11,7 @@ function connectDatabase()
   $host = 'localhost';
   $db = 'alium';
   $user = 'root';
-  $pass = 'Jhon2929@';
+  $pass = 'root';
   $dsn = "mysql:host=$host;dbname=$db;charset=utf8";
 
   $opt = [
@@ -38,14 +38,14 @@ function isAdmin()
   return isset($_SESSION['logged-user']) && isset($_SESSION['admin']);
 }
 
-function login($username, $password)
+function login($email, $password)
 {
 
-  $query = "SELECT * FROM users WHERE `username` = ? AND `password` = ? OR `email` = ? AND `password` = ?";
+  $query = "SELECT * FROM users WHERE `email` = ? AND `password` = ?";
 
   $stmt = $GLOBALS['pdo']->prepare($query);
 
-  $stmt->execute([$username, $password, $username, $password]);
+  $stmt->execute([$email, $password]);
   $user = $stmt->fetch();
 
   $row = $stmt->rowCount();

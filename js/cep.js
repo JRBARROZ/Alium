@@ -2,6 +2,7 @@ function clearForm() {
     //Limpa valores do formulário de cep.
     document.querySelector('#address').value = ("");
     document.querySelector('#neighborhood').value = ("");
+    document.querySelector('#address_complement').value = ("");
     document.querySelector('#city').value = ("");
     document.querySelector('#state').value = ("");
 }
@@ -11,6 +12,7 @@ function meu_callback(conteudo) {
         //Atualiza os campos com os valores.
         document.querySelector('#address').value = (conteudo.logradouro);
         document.querySelector('#neighborhood').value = (conteudo.bairro);
+        document.querySelector('#address_complement').value = (conteudo.complemento);
         document.querySelector('#city').value = (conteudo.localidade);
         document.querySelector('#state').value = (conteudo.uf);
     } //end if.

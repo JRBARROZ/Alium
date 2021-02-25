@@ -1,9 +1,9 @@
 <?php require_once 'init.php' ?>
 <?php
-    if (isLogged()) {
-        redirect('index.php');
-        exit();
-    }
+if (isLogged()) {
+    redirect('index.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,9 +47,9 @@
             <div>
                 <h1 class="title-signup">Registro</h1>
                 <div class="traco-signup"></div>
-                <?php if(isset($_SESSION['error'])):?>
+                <?php if (isset($_SESSION['error'])) : ?>
                     <div class="error-message">As senhas não conferem :/</div>
-                    <?php unset($_SESSION['error'])?>
+                    <?php unset($_SESSION['error']) ?>
                 <?php endif ?>
                 <div class="signup-form">
                     <form action="add_user.php" method="POST">
@@ -61,24 +61,42 @@
                         <input type="email" id="email" name="email" required><br>
                         <label for="phone">Telefone:</label><br>
                         <input type="text" id="phone" name="phone" onfocus="removeMask(this);" onblur="addPhoneMask(this);" minlength="10" maxlength="11" required><br>
-                        <label for="username">Nome de usuário:</label><br>
-                        <input type="text" id="username" name="username" required><br>
-                        <label for="password">Senha:</label><br>
-                        <input type="password" id="password" name="password" required><br>
-                        <label for="confirm_password">Repetir a Senha:</label><br>
-                        <input type="password" id="confirm_password" name="confirm_password" required><br>
                         <label for="cep">CEP:</label><br>
                         <input type="text" id="cep" name="cep" size="10" maxlength="9" onblur="searchPostalCode(this.value);" required><br>
-                        <label for="address">Rua:</label><br>
-                        <input type="text" id="address" name="address" required><br>
-                        <label for="address_number">Número:</label><br>
-                        <input type="text" id="address_number" name="address_number" required><br>
-                        <label for="neighborhood">Bairro:</label><br>
-                        <input type="text" id="neighborhood" name="neighborhood" required><br>
-                        <label for="city">Cidade:</label><br>
-                        <input type="text" id="city" name="city" required><br>
-                        <label for="state">Estado:</label><br>
-                        <input type="text" id="state" name="state" required><br><br>
+                        <div class="form-group">
+                            <div class="form-side">
+                                <label for="address">Rua:</label>
+                                <input type="text" id="address" name="address" required>
+                            </div>
+                            <div class="form-side">
+                                <label for="address_number">Número:</label>
+                                <input type="text" id="address_number" name="address_number" required>
+                            </div>
+                            <div class="form-side">
+                                <label for="address_complement">Complemento:</label>
+                                <input type="text" id="address_complement" name="address_complement" required>
+                            </div>
+                            <div class="form-side">
+                                <label for="neighborhood">Bairro:</label>
+                                <input type="text" id="neighborhood" name="neighborhood" required>
+                            </div>
+                            <div class="form-side">
+                                <label for="city">Cidade:</label>
+                                <input type="text" id="city" name="city" required>
+                            </div>
+                            <div class="form-side">
+                                <label for="state">Estado:</label>
+                                <input type="text" id="state" name="state" required>
+                            </div>
+                            <div class="form-side">
+                                <label for="password">Senha:</label>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+                            <div class="form-side">
+                                <label for="confirm_password">Repetir a Senha:</label>
+                                <input type="password" id="confirm_password" name="confirm_password" required>
+                            </div>
+                        </div>
                         <label for="job" style="font-family:Nunito-Light;font-size:16px;"> Prestador de Serviço</label>
                         <input type="checkbox" id="job" name="job"><br><br>
                         <input type="submit" value="CADASTRAR">
@@ -99,4 +117,5 @@
 </body>
 <script src="js/cep.js"></script>
 <script src="js/masks.js"></script>
+
 </html>

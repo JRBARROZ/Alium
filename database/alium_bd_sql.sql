@@ -32,11 +32,11 @@ CREATE TABLE IF NOT EXISTS `alium`.`users` (
   `profile_picture` MEDIUMTEXT NULL,
   `address` VARCHAR(45) NULL,
   `address_number` VARCHAR(10) NULL,
+  `address_complement` VARCHAR(40) NULL,
   `neighborhood` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `state` VARCHAR(45) NULL,
   `password` VARCHAR(45) NOT NULL,
-  `username` VARCHAR(70) NOT NULL,
   `postal_code` VARCHAR(8) NULL,
   `role` VARCHAR(45) NULL,
   `sodial_media` VARCHAR(255) NULL,
@@ -44,7 +44,6 @@ CREATE TABLE IF NOT EXISTS `alium`.`users` (
   `token_date` VARCHAR(255) NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `cpf_cnpj_UNIQUE` (`cpf_cnpj` ASC),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
 
@@ -58,6 +57,30 @@ CREATE TABLE IF NOT EXISTS `alium`.`services` (
   `service` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `service_UNIQUE` (`service` ASC))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `alium`.`services`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `alium`.`users_has_services` ;
+
+CREATE TABLE IF NOT EXISTS `alium`.`users_has_services` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `service_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_users_has_services_user_idx` (`user_id` ASC),
+  INDEX `fk_users_has_services_service_idx` (`service_id` ASC),
+  CONSTRAINT `fk_users_has_services_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `alium`.`users` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_users_has_services_service`
+    FOREIGN KEY (`service_id`)
+    REFERENCES `alium`.`services` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -95,20 +118,13 @@ DROP TABLE IF EXISTS `alium`.`images` ;
 
 CREATE TABLE IF NOT EXISTS `alium`.`images` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `url` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
   `user_id` INT NOT NULL,
-  `service_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_image_user_idx` (`user_id` ASC),
-  INDEX `fk_image_service_idx` (`service_id` ASC),
   CONSTRAINT `fk_image_user`
     FOREIGN KEY (`user_id`)
     REFERENCES `alium`.`users` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_image_service`
-    FOREIGN KEY (`service_id`)
-    REFERENCES `alium`.`services` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;

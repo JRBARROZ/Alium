@@ -18,7 +18,9 @@ foreach ($imgs['tmp_name'] as $key => $value) {
     }
     if(in_array($extVerify, $extensionsAccepted)){
         move_uploaded_file($imgFileTmp, './images/portfolio/'.$userFolder."/".$imgName); 
-        // $query = "INSERT INTO users (`name`, `cpf_cnpj`, `email`, `phone`, `description`, `address`, `address_number`, `neighborhood`, `city`, `state`, `password`, `username`, `postal_code`, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+        $query = "INSERT INTO images (`name`, `user_id`) VALUES (?, ?)"; 
+        $stmt = $GLOBALS['pdo']->prepare($query);
+        $stmt->execute([$imgName, $_SESSION['user']['id']]);
     }else{
         echo "Error";
     }

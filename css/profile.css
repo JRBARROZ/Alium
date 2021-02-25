@@ -256,8 +256,9 @@ textarea,select,input[type=file]{
     color: #0E2548;
 }
 .profile-form label {
-    font-family: "Gasalt-Regular";
-    font-size: 1em;
+    font-family: "Nunito-Regular";
+    font-size: 0.7em;
+    color: #0E2548;
 }
 .checked{
     color:#FFC30B !important;
@@ -391,3 +392,29 @@ h3 a {
     font-family: 'Nunito-Regular';
     color:#0E2548;
 }
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 396px;
+  }
+  .form-side {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  .form-side:nth-of-type(2n+2) {
+    margin-right: 0 !important;
+  }
+  .form-side input {
+    width: 90% !important;
+  }
+  #address, #city {
+    width: 265.38px !important;
+  }
+  #address_number, #state {
+    width: 80px !important;
+  }
