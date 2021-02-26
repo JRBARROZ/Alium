@@ -18,6 +18,11 @@
   src: url('../font/Nunito-Regular.ttf');
 }
 
+@font-face {
+  font-family: 'Gasalt-Regular';
+  src: url('../font/Gasalt-Regular.ttf');
+}
+
 html,
 body {
   height: 100%;
@@ -233,7 +238,7 @@ textarea {
   border-radius:5px;
   font-family: 'Nunito-Light';
 }
-.error-message{
+.error-message, .error-message-form {
   background-color:#ffe6e6;
   max-width: 280px;
   margin: 20px 0px 10px 0px;
@@ -243,6 +248,17 @@ textarea {
   border: 1px solid #ffcfcf;
   border-radius:5px;
   font-family: 'Nunito-Light';
+}
+.error-message-form h4 {
+  text-align: left;
+}
+.error-message-form {
+  display: none;
+  max-width: 396px !important;
+}
+.error-message-form ul {
+  text-align: left;
+  list-style: none;
 }
 .form-group {
   display: flex;
@@ -268,4 +284,18 @@ textarea {
 }
 #address_number, #state {
   width: 80px !important;
+}
+.red {
+  font-family: 'Nunito-regular';
+  color: firebrick;
+}
+.required {
+  font-size: 17px;
+}
+label #text {
+  font-family: 'Nunito-Regular' !important;
+  font-size: 15px !important;
+}
+label a {
+  text-decoration: none;
 }

@@ -8,13 +8,13 @@ if (!isLogged()) {
 $user_id = $_SESSION['user']['id'];
 $description = $_SESSION['user']['description'];
 $phone = $_SESSION['user']['phone'];
-if($_SESSION['user']['sodial_media'] == ''){
+if ($_SESSION['user']['sodial_media'] == '') {
     $insta = 'Não Informado';
     $twitter = 'Não Informado';
-}else{
+} else {
     list($insta, $twitter) = explode('.', $_SESSION['user']['sodial_media']) ?? '';
-    $insta = "@".trim($insta);
-    $twitter = "@".trim($twitter);
+    $insta = "@" . trim($insta);
+    $twitter = "@" . trim($twitter);
 }
 
 $query = "SELECT * FROM `users` WHERE `id` = ?";
@@ -131,17 +131,17 @@ if (sizeof($usr_services) > 0) {
                             <i class="fa fa-whatsapp" aria-hidden="true" id="icon"></i><input type="text" name="phone" value="<?= $phone ?>">
                         </div>
                         <div>
-                            <i class="fa fa-instagram" aria-hidden="true" id="icon"></i><input type="text" name="insta" value="<?=$insta?>" >
+                            <i class="fa fa-instagram" aria-hidden="true" id="icon"></i><input type="text" name="insta" value="<?= $insta ?>">
                         </div>
                         <div>
-                            <i class="fa fa-twitter" aria-hidden="true" id="icon"></i><input type="text" name="twitter" value="<?= $twitter?>">
+                            <i class="fa fa-twitter" aria-hidden="true" id="icon"></i><input type="text" name="twitter" value="<?= $twitter ?>">
                         </div>
                         <input type="submit" value="Salvar">
                     </form>
                     <ul id="contacts-content">
                         <li><a href="tel:<?= $phone ?>" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i> <?= $phone ?></a></li>
-                        <li><a href="https://www.instagram.com/<?= str_replace('@','',$insta) ?>" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i> <?=$insta?></a></li>
-                        <li><a href="https://twitter.com/<?= str_replace('@','',$twitter)?>" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i> <?=$twitter?></a></li>
+                        <li><a href="https://www.instagram.com/<?= str_replace('@', '', $insta) ?>" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i> <?= $insta ?></a></li>
+                        <li><a href="https://twitter.com/<?= str_replace('@', '', $twitter) ?>" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i> <?= $twitter ?></a></li>
                     </ul>
                 </div>
                 <div class="profile-item port">
@@ -149,17 +149,17 @@ if (sizeof($usr_services) > 0) {
                     <br>
                     <form method="POST" enctype="multipart/form-data" action="uploadImgs.php">
                         <?php
-                        for ($i = 0; $i < 6; $i++):
-                            if (isset($portfolio_images[$i])):
+                        for ($i = 0; $i < 6; $i++) :
+                            if (isset($portfolio_images[$i])) :
                         ?>
-                        <div class="send-img" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= $portfolio_images[$i]['name'] ?>') !important">
-                            <input type="file" onchange="displayImg(this)" id="<?= $i ?>" >
-                        </div>
-                        <?php else: ?>
-                            <div class="send-img">
-                            <input type="file" onchange="displayImg(this)" id="<?= $i ?>">
-                        </div>
-                        <?php endif ?>
+                                <div class="send-img" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= $portfolio_images[$i]['name'] ?>') !important">
+                                    <input type="file" onchange="displayImg(this)" id="<?= $i ?>">
+                                </div>
+                            <?php else : ?>
+                                <div class="send-img">
+                                    <input type="file" onchange="displayImg(this)" id="<?= $i ?>">
+                                </div>
+                            <?php endif ?>
                         <?php endfor ?>
                         <!-- <button type='submit'>Enviar Imagens</button> -->
                     </form>
@@ -174,16 +174,20 @@ if (sizeof($usr_services) > 0) {
                     <h2>Pré-visualização</h2>
                 </div>
                 <div class="profile-preview">
-                    <?php for ($i = 0; $i < 6; $i++):?>
-                        <div class="profile-preview-item" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= $portfolio_images[$i]['name'] ?>') !important" ></div>
-                    <?php endfor;?>
+                    <?php for ($i = 0; $i < 6; $i++) : ?>
+                        <div class="profile-preview-item" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= $portfolio_images[$i]['name'] ?>') !important"></div>
+                    <?php endfor; ?>
                 </div>
             </div>
             <div class="profile-form">
                 <div class="profile-text-edit">
                     <h3 id="text" style="max-width: 500px;line-height:2em;">Olá, <?= $_SESSION['logged-user'] ?>, seja bem-vindo(a) ao Alium :)<br>Por favor, finalize seu cadastro abaixo.<br><a href="#" class="btn" onclick="showForm(this)">Atualizar Cadastro</a></h3>
                     <h3 id="edit" style="display: none;">Editar Perfil</h3>
-                    <form action="update_profile.php" method="POST" id="form">
+                    <div class="error-message-form">
+                        <h4>Erros encontrados:</h4>
+                        <ul id="error-form"></ul>
+                    </div>
+                    <form action="update_profile.php" method="POST" id="form" class="form">
                         <br>
                         <label for="name">Nome:</label><br>
                         <input type="text" id="name" name="name" value="<?= $user['name'] ?>" required><br>
@@ -255,78 +259,10 @@ if (sizeof($usr_services) > 0) {
             </div>
         </div>
     </section>
-    <script>
-        let clicks = 0;
-        function showForm(e) {
-            e.style.display = "none";
-            document.querySelector('#text').style.display = "none";
-            document.querySelector('#form').style.display = "block";
-            document.querySelector('#edit').style.display = "block";
-        }
-
-        function showAboutForm() {
-            document.querySelector('#about-form').style.display = "block";
-            document.querySelector('#hide-about-form').style.display = "block";
-            document.querySelector('#edit-button').style.display = "none";
-            document.querySelector('#about-content').style.display = "none";
-        }
-
-        function hideAboutForm() {
-            document.querySelector('#about-form').style.display = "none";
-            document.querySelector('#hide-about-form').style.display = "none";
-            document.querySelector('#edit-button').style.display = "block";
-            document.querySelector('#about-content').style.display = "block";
-        }
-
-        function showContactsForm(){
-            document.querySelector('#contacts-form').style.display = "flex";
-            document.querySelector('#hide-contacts-form').style.display = "flex";
-            document.querySelector('#edit-contacts-button').style.display = "none";
-            document.querySelector('#contacts-content').style.display = "none";
-        }
-        function hideContactsForm(){
-            document.querySelector('#contacts-form').style.display = "none";
-            document.querySelector('#hide-contacts-form').style.display = "none";
-            document.querySelector('#edit-contacts-button').style.display = "block";
-            document.querySelector('#contacts-content').style.display = "block";
-        }
-        //Imgs
-        function displayImg(e) {
-            // e.parentElement.style.backgroundImage = "";
-            let file = e;
-            let teste = URL.createObjectURL(file.files[0]);
-            console.log(teste);
-            e.parentElement.style.backgroundImage = "url(" + teste + ")";
-            insertImg(e);
-        }
-        function insertImg(e) {
-            const endPoint = 'uploadImgs.php';
-            const formData = new FormData();
-            formData.append('images[]', e.files[0]);
-            formData.append('id', e.id);
-            fetch(endPoint, {
-                method: 'post',
-                body: formData
-            }).catch(console.error);
-        }
-        function previewShow(e) {
-            const profileForm = document.querySelector('.profile-form');
-            const profilePreview = document.querySelector('#profile-preview');
-            if (clicks == 0) {
-                e.innerHTML = 'Cancelar Preview';
-                profileForm.style.display = "none";
-                profilePreview.style.display = "block";
-                clicks++;
-            } else {
-                e.innerHTML = 'Preview';
-                clicks = 0;
-                profileForm.style.display = "flex";
-                profilePreview.style.display = "none";
-            }
-        }
-    </script>
 </body>
+<script src="js/profile.js"></script>
 <script src="js/cep.js"></script>
 <script src="js/masks.js"></script>
+<script src="js/validate_form.js"></script>
 
 </html>

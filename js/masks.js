@@ -9,6 +9,17 @@ function addCpfCnpjMask(element) {
     }
 }
 
+function addPostalCodeMask(element) {
+    var value = element.value;
+    var size = value.length;
+
+    if (size != 8) {
+        return;
+    }
+
+    element.value = format('xxxxx-xxx', value);
+}
+
 function addPhoneMask(element) {
     var value = element.value;
     var size = value.length;
@@ -21,7 +32,6 @@ function addPhoneMask(element) {
 }
 
 function removeMask(element) {
-    console.log(element.value);
     element.value = element.value.replaceAll('.', '');
     element.value = element.value.replaceAll('-', '');
     element.value = element.value.replaceAll('/', '');
@@ -31,10 +41,12 @@ function removeMask(element) {
 }
 
 function format(mask, number) {
-    var s = '' + number;
-    var r = '';
-    for (var im = 0, is = 0; im < mask.length && is < s.length; im++) {
-        r += mask.charAt(im) == 'x' ? s.charAt(is++) : mask.charAt(im);
+    var stringNumber = '' + number;
+    var result = '';
+    // im = index mask
+    // is = index string (number)
+    for (var im = 0, is = 0; im < mask.length && is < stringNumber.length; im++) {
+        result += mask.charAt(im) == 'x' ? stringNumber.charAt(is++) : mask.charAt(im);
     }
-    return r;
+    return result;
 }

@@ -15,6 +15,11 @@ function meu_callback(conteudo) {
         document.querySelector('#address_complement').value = (conteudo.complemento);
         document.querySelector('#city').value = (conteudo.localidade);
         document.querySelector('#state').value = (conteudo.uf);
+
+        document.querySelector('#address').setAttribute("disabled", true);
+        document.querySelector('#neighborhood').setAttribute("disabled", true);
+        document.querySelector('#city').setAttribute("disabled", true);
+        document.querySelector('#state').setAttribute("disabled", true);
     } //end if.
     else {
         //CEP não Encontrado.
@@ -23,10 +28,10 @@ function meu_callback(conteudo) {
     }
 }
 
-function searchPostalCode(valor) {
-
+function searchPostalCode(element) {
+    addPostalCodeMask(element);
     //Nova variável "cep" somente com dígitos.
-    var cep = valor.replace(/\D/g, '');
+    var cep = element.value.replace(/\D/g, '');
 
     //Verifica se campo cep possui valor informado.
     if (cep != "") {
