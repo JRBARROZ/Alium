@@ -5,7 +5,12 @@
 a {
     text-decoration: none;
 }
-
+#contacts-content li a:visited, #contacts-content li a:active, #contacts-content li a{
+    color:inherit;
+}
+#contacts-content li a:hover{
+    color:#0E2548;
+}
 @font-face {
     font-family: 'Asgalt';
     src: url('../font/Asgalt-Regular.ttf');
@@ -102,7 +107,7 @@ body {
 
 /* Profile  */
 .profile-form input[type=submit],
-#about-form input[type=submit] {
+#about-form input[type=submit], #contacts-form input[type='submit'] {
     width: 150px;
     height: 41px;
     color: white;
@@ -121,7 +126,7 @@ body {
 .profile-form form input[type=text],
 form input[type=password],  
 input[type=email],
-textarea,select,input[type=file]{
+textarea,select,input[type=file], #contacts-form div input[type="text"]{
     width: 376px;
     /* height:37px; */
     background-color: #EBF2FF;
@@ -130,6 +135,9 @@ textarea,select,input[type=file]{
     border: none;
     font-family: "Nunito-light";
     /* padding-top: 30px; */
+}
+#contacts-form div input[type="text"]{
+    margin: 10px 0px 10px 10px;
 }
 .profile-text-edit {
     font-family: "Gasalt-Regular";
@@ -298,17 +306,24 @@ h3 a {
     color: inherit;
     float: right;
 }
-#about-form {
+#about-form , #contacts-form{
     display: none;
+}
+#contacts-form {
+    flex-direction: column;
+}
+#contacts-form div{
+    display: flex;
+    align-items: center;
 }
 #about-form textarea {
     max-width: 300px;
 }
-
-#hide-about-form {
+#hide-about-form, #hide-contacts-form {
     display: none;
     color: red;
 }
+
 .port form {
     display: flex;
 }
@@ -398,23 +413,51 @@ h3 a {
     flex-direction: row;
     flex-wrap: wrap;
     max-width: 396px;
-  }
-  .form-side {
+}
+.form-side {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     flex-grow: 1;
     margin-right: 10px;
-  }
-  .form-side:nth-of-type(2n+2) {
+}
+.form-side:nth-of-type(2n+2) {
     margin-right: 0 !important;
-  }
-  .form-side input {
+}
+.form-side input {
     width: 90% !important;
-  }
-  #address, #city {
+}
+#address, #city {
     width: 265.38px !important;
-  }
-  #address_number, #state {
+}
+#address_number, #state {
     width: 80px !important;
-  }
+}
+
+.service-content {
+    display:flex;
+    flex-wrap: wrap;
+    width: 396px;
+    background-color: #EBF2FF;
+    justify-content: center;
+    align-items: center;
+    padding:20px 0;
+    overflow-y: scroll;
+}
+.service-content div {
+    margin-left: 2px;
+}
+#contacts-form{
+    font-size: 1.125em;
+}
+.service-content::-webkit-scrollbar {
+    width: 4px;
+    background-color: #4D6180;
+}
+#icon{
+    font-size: 1.5em;
+}
+.service-content::-webkit-scrollbar-thumb {
+    width: 4px;
+    background-color: #0E2548;
+}

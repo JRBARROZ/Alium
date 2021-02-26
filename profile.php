@@ -1,14 +1,21 @@
 <?php
 require_once 'init.php';
-
 if (!isLogged()) {
     redirect('signin.php');
     exit();
 }
 
 $user_id = $_SESSION['user']['id'];
-
 $description = $_SESSION['user']['description'];
+$phone = $_SESSION['user']['phone'];
+if($_SESSION['user']['sodial_media'] == ''){
+    $insta = 'Não Informado';
+    $twitter = 'Não Informado';
+}else{
+    list($insta, $twitter) = explode('.', $_SESSION['user']['sodial_media']) ?? '';
+    $insta = "@".trim($insta);
+    $twitter = "@".trim($twitter);
+}
 
 $query = "SELECT * FROM `users` WHERE `id` = ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
@@ -115,11 +122,26 @@ if (sizeof($usr_services) > 0) {
                     <span class="fa fa-star-half-o checked"></span>
                 </div>
                 <div class="profile-item">
-                    <h3>Contatos</h3>
-                    <ul>
-                        <li><i class="fa fa-whatsapp" aria-hidden="true"></i> <?= $user['phone'] ?></li>
-                        <li><i class="fa fa-instagram" aria-hidden="true"></i> @pamisley</li>
-                        <li><i class="fa fa-twitter" aria-hidden="true"></i> @pam_painter</li>
+                    <h3>Contatos
+                        <a href="#" id="edit-contacts-button" onclick="showContactsForm()"><i class="fa fa-pencil fa-1" aria-hidden="true"></i></a>
+                        <a href="#" id="hide-contacts-form" onclick="hideContactsForm()"><i class="fa fa-times fa-1" aria-hidden="true"></i></a>
+                    </h3>
+                    <form id="contacts-form" action="update_profile.php" method="POST">
+                        <div>
+                            <i class="fa fa-whatsapp" aria-hidden="true" id="icon"></i><input type="text" name="phone" value="<?= $phone ?>">
+                        </div>
+                        <div>
+                            <i class="fa fa-instagram" aria-hidden="true" id="icon"></i><input type="text" name="insta" value="<?=$insta?>" >
+                        </div>
+                        <div>
+                            <i class="fa fa-twitter" aria-hidden="true" id="icon"></i><input type="text" name="twitter" value="<?= $twitter?>">
+                        </div>
+                        <input type="submit" value="Salvar">
+                    </form>
+                    <ul id="contacts-content">
+                        <li><a href="tel:<?= $phone ?>" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i> <?= $phone ?></a></li>
+                        <li><a href="https://www.instagram.com/<?= str_replace('@','',$insta) ?>" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i> <?=$insta?></a></li>
+                        <li><a href="https://twitter.com/<?= str_replace('@','',$twitter)?>" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i> <?=$twitter?></a></li>
                     </ul>
                 </div>
                 <div class="profile-item port">
@@ -130,8 +152,8 @@ if (sizeof($usr_services) > 0) {
                         for ($i = 0; $i < 6; $i++):
                             if (isset($portfolio_images[$i])):
                         ?>
-                        <div class="send-img">
-                            <input type="file" onchange="displayImg(this)" id="<?= $i ?>" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= $portfolio_images[$i]['name'] ?>') !important">
+                        <div class="send-img" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= $portfolio_images[$i]['name'] ?>') !important">
+                            <input type="file" onchange="displayImg(this)" id="<?= $i ?>" >
                         </div>
                         <?php else: ?>
                             <div class="send-img">
@@ -152,7 +174,9 @@ if (sizeof($usr_services) > 0) {
                     <h2>Pré-visualização</h2>
                 </div>
                 <div class="profile-preview">
-                    <div class="profile-preview-item"></div>
+                    <?php for ($i = 0; $i < 6; $i++):?>
+                        <div class="profile-preview-item" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= $portfolio_images[$i]['name'] ?>') !important" ></div>
+                    <?php endfor;?>
                 </div>
             </div>
             <div class="profile-form">
@@ -199,16 +223,20 @@ if (sizeof($usr_services) > 0) {
                         </div>
                         <label for="">Serviços:</label><br>
                         <!-- <label for="profession">Tipo de Serviço:</label><br> -->
-                        <?php if ($user['role'] === 'worker') : ?>
-                            <?php foreach ($services as $i => $service) : ?>
-                                <?php if (sizeof($services_ids) > 0 && in_array($service['id'], $services_ids)) : ?>
-                                    <input id=<?= $service['service'] ?> type="checkbox" name="<?= $service['service'] ?>" value="<?= $service['service'] ?>" checked>
-                                <?php else : ?>
-                                    <input id=<?= $service['service'] ?> type="checkbox" name="<?= $service['service'] ?>" value="<?= $service['service'] ?>">
-                                <?php endif ?>
-                                <label for=<?= $service['service'] ?>><?= $service['service'] ?></label><br>
-                            <?php endforeach ?>
-                        <?php endif ?>
+                        <div class="service-content">
+                            <?php if ($user['role'] === 'worker') : ?>
+                                <?php foreach ($services as $i => $service) : ?>
+                                    <div>
+                                        <?php if (sizeof($services_ids) > 0 && in_array($service['id'], $services_ids)) : ?>
+                                            <input id=<?= $service['service'] ?> type="checkbox" name="<?= $service['service'] ?>" value="<?= $service['service'] ?>" checked>
+                                        <?php else : ?>
+                                            <input id=<?= $service['service'] ?> type="checkbox" name="<?= $service['service'] ?>" value="<?= $service['service'] ?>">
+                                        <?php endif ?>
+                                        <label for=<?= $service['service'] ?>><?= $service['service'] ?></label><br>
+                                    </div>
+                                <?php endforeach ?>
+                            <?php endif ?>
+                        </div>
                         <!-- <label for="other">Outro:</label><br>
                         <input type="text" id="other" name="other_service"> -->
                         <br>
@@ -228,9 +256,7 @@ if (sizeof($usr_services) > 0) {
         </div>
     </section>
     <script>
-        let imgsArray = [];
         let clicks = 0;
-
         function showForm(e) {
             e.style.display = "none";
             document.querySelector('#text').style.display = "none";
@@ -252,6 +278,18 @@ if (sizeof($usr_services) > 0) {
             document.querySelector('#about-content').style.display = "block";
         }
 
+        function showContactsForm(){
+            document.querySelector('#contacts-form').style.display = "flex";
+            document.querySelector('#hide-contacts-form').style.display = "flex";
+            document.querySelector('#edit-contacts-button').style.display = "none";
+            document.querySelector('#contacts-content').style.display = "none";
+        }
+        function hideContactsForm(){
+            document.querySelector('#contacts-form').style.display = "none";
+            document.querySelector('#hide-contacts-form').style.display = "none";
+            document.querySelector('#edit-contacts-button').style.display = "block";
+            document.querySelector('#contacts-content').style.display = "block";
+        }
         //Imgs
         function displayImg(e) {
             // e.parentElement.style.backgroundImage = "";
@@ -259,13 +297,8 @@ if (sizeof($usr_services) > 0) {
             let teste = URL.createObjectURL(file.files[0]);
             console.log(teste);
             e.parentElement.style.backgroundImage = "url(" + teste + ")";
-
-            imgsArray.push(teste);
-            // console.table(imgsArray);
             insertImg(e);
-            // previewShowImgs();
         }
-
         function insertImg(e) {
             const endPoint = 'uploadImgs.php';
             const formData = new FormData();
@@ -276,36 +309,20 @@ if (sizeof($usr_services) > 0) {
                 body: formData
             }).catch(console.error);
         }
-
         function previewShow(e) {
             const profileForm = document.querySelector('.profile-form');
             const profilePreview = document.querySelector('#profile-preview');
-            // console.log(profileForm);
-            // console.log(clicks);
             if (clicks == 0) {
                 e.innerHTML = 'Cancelar Preview';
                 profileForm.style.display = "none";
                 profilePreview.style.display = "block";
                 clicks++;
-                previewShowImgs();
             } else {
                 e.innerHTML = 'Preview';
                 clicks = 0;
                 profileForm.style.display = "flex";
                 profilePreview.style.display = "none";
             }
-        }
-
-        function previewShowImgs() {
-            // const previewData = document.querySelector('.profile-preview');
-            // previewData.innerHTML = "";
-            // for(let i = 0; i < imgsArray.length; i ++){
-            //     const div = document.createElement('div');
-            //     div.classList.add("profile-preview-item");
-            //     div.style.backgroundImage = "url("+imgsArray[i]+")";
-            //     previewData.appendChild(div);
-            // }
-            // console.table(imgsArray);
         }
     </script>
 </body>

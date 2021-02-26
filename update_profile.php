@@ -61,6 +61,33 @@ if (isset($_POST['about'])) {
   $stmt->execute([$about, $_SESSION['user']['id']]);
 }
 
+if (isset($_POST['phone'])) {
+  $phone = addslashes(trim($_POST['phone']));
+  $insta = addslashes(trim($_POST['insta']));
+  $twitter = addslashes(trim($_POST['twitter']));
+  $instaAndTwitter = $insta.".".$twitter;
+  $queryUpdate = "UPDATE `users` SET `phone` = ? WHERE `id` = ?";
+  $stmt = $GLOBALS['pdo']->prepare($queryUpdate);
+  $stmt->execute([$phone, $_SESSION['user']['id']]);
+
+  $queryVerifyIfExists = "SELECT `sodial_media` FROM `users` WHERE `id` = ? ";
+  $stmt = $GLOBALS['pdo']->prepare($queryVerifyIfExists);
+  $stmt->execute([$_SESSION['user']['id']]);
+  $data = $stmt->fetch();
+  $row = $stmt->rowCount();
+  if($row === 1){
+    $queryUpdate = "UPDATE `users` SET `sodial_media` = ? WHERE `id` = ?";
+    $stmt = $GLOBALS['pdo']->prepare($queryUpdate);
+    $stmt->execute([$instaAndTwitter, $_SESSION['user']['id']]);
+  }else{
+    $queryInsert = "INSERT INTO `users` (`sodial_media`) VALUES (?) WHERE `id` = ?";
+    $stmt = $GLOBALS['pdo']->prepare($queryInsert);
+    $stmt->execute([$instaAndTwitter, $_SESSION['user']['id']]);
+  }
+
+}
+
+
 updateLoggedUser($_SESSION['user']['id']);
 
 redirect('profile.php');

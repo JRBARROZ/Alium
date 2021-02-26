@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `alium`.`users` (
   `password` VARCHAR(45) NOT NULL,
   `postal_code` VARCHAR(8) NULL,
   `role` VARCHAR(45) NULL,
-  `sodial_media` VARCHAR(255) NULL,
+  `social_media` VARCHAR(255) NULL,
   `token` VARCHAR(255) NULL DEFAULT '',
   `token_date` VARCHAR(255) NULL DEFAULT '',
   PRIMARY KEY (`id`),
