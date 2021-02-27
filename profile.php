@@ -8,13 +8,13 @@ if (!isLogged()) {
 $user_id = $_SESSION['user']['id'];
 $description = $_SESSION['user']['description'];
 $phone = $_SESSION['user']['phone'];
-if ($_SESSION['user']['sodial_media'] == '') {
+if ($_SESSION['user']['social_media'] == '') {
     $insta = 'Não Informado';
     $twitter = 'Não Informado';
 } else {
-    list($insta, $twitter) = explode('.', $_SESSION['user']['sodial_media']) ?? '';
-    $insta = "@" . trim($insta);
-    $twitter = "@" . trim($twitter);
+    list($insta, $twitter) = explode('.', $_SESSION['user']['social_media']) ?? '';
+    $insta = $insta[0] == '@' ? trim($insta) : "@" . trim($insta);
+    $twitter = $twitter[0] == '@' ? trim($twitter) : "@" . trim($twitter);
 }
 
 $query = "SELECT * FROM `users` WHERE `id` = ?";

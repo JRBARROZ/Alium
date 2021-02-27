@@ -16,10 +16,10 @@ function meu_callback(conteudo) {
         document.querySelector('#city').value = (conteudo.localidade);
         document.querySelector('#state').value = (conteudo.uf);
 
-        document.querySelector('#address').setAttribute("disabled", true);
-        document.querySelector('#neighborhood').setAttribute("disabled", true);
-        document.querySelector('#city').setAttribute("disabled", true);
-        document.querySelector('#state').setAttribute("disabled", true);
+        document.querySelector('#address').setAttribute("readonly", true);
+        document.querySelector('#neighborhood').setAttribute("readonly", true);
+        document.querySelector('#city').setAttribute("readonly", true);
+        document.querySelector('#state').setAttribute("readonly", true);
     } //end if.
     else {
         //CEP não Encontrado.

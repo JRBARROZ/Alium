@@ -34,6 +34,17 @@ $query = "SELECT * FROM `images` WHERE `user_id` = ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute([$user_id]);
 $portfolio_images = $stmt->fetchAll();
+$phone = $user['phone'];
+$whatsappPhone = str_replace(['(',')',' ','-'], '', $phone);
+
+if ( $user['social_media'] == '') {
+  $insta = 'Não Informado';
+  $twitter = 'Não Informado';
+} else {
+  list($insta, $twitter) = explode('.', $user['social_media']) ?? '';
+  $insta = $insta[0] == '@' ? trim($insta) : "@" . trim($insta);
+  $twitter = $twitter[0] == '@' ? trim($twitter) : "@" . trim($twitter);
+}
 
 ?>
 <!DOCTYPE html>
@@ -102,21 +113,37 @@ $portfolio_images = $stmt->fetchAll();
             <input type="submit" value="Salvar">
           </form>
         </div>
+
         <div class="profile-item">
-          <h3>Avaliação</h3>
-          <p>4.5 / 5.0 - Ótimo</p>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star-half-o checked"></span>
+          <h3>Avaliar</h3>
+            <form id="rating" action="feedback.php" method="POST">
+              <div class="star-widget">
+                <input type="radio" name="rate" id="rate-5" value="5"> 
+                <label for="rate-5" class="fa fa-star"></label>
+                <input type="radio" name="rate" id="rate-4" value="4"> 
+                <label for="rate-4" class="fa fa-star"></label>
+                <input type="radio" name="rate" id="rate-3" value="3"> 
+                <label for="rate-3" class="fa fa-star"></label>
+                <input type="radio" name="rate" id="rate-2" value="2"> 
+                <label for="rate-2" class="fa fa-star"></label>
+                <input type="radio" name="rate" id="rate-1" value="1"> 
+                <label for="rate-1" class="fa fa-star"></label>
+              </div>
+              <input type="hidden" name="worker_id" value="<?= $user['id']?>">
+              <label for="title">Título</label><br>
+              <input type="text" name="title" id="title" placeholder="Ex: Profissional excelente!"><br>
+              <label for="feedback">Feedback</label><br>
+              <textarea id="feedback" name="feedback" cols="5" rows="6" placeholder="Conte-nos sobre sua experiência com o(a) <?=$user['name']?>"></textarea>
+              <input type="submit" value="Salvar">
+            </form>
         </div>
+        
         <div class="profile-item">
           <h3>Contatos</h3>
-          <ul>
-            <li><i class="fa fa-whatsapp" aria-hidden="true"></i> <?= $user['phone'] ?></li>
-            <li><i class="fa fa-instagram" aria-hidden="true"></i> @pamisley</li>
-            <li><i class="fa fa-twitter" aria-hidden="true"></i> @pam_painter</li>
+          <ul id="contacts-content">
+            <li><a href="https://wa.me/+55<?= $whatsappPhone ?>" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i> Entre em contato </a></li>
+            <li><a href="https://www.instagram.com/<?= str_replace('@', '', $insta) ?>" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i> <?= $insta ?></a></li>
+            <li><a href="https://twitter.com/<?= str_replace('@', '', $twitter) ?>" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i> <?= $twitter ?></a></li>
           </ul>
         </div>
       </div>

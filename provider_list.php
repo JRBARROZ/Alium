@@ -73,6 +73,19 @@
       if (isset($_SESSION['user']) && $user['id'] === $_SESSION['user']['id']) {
         continue;
       }
+      $query = "SELECT `evaluation` FROM `feedbacks` WHERE `worker_id` = ? ";
+      $stmt = $GLOBALS['pdo']->prepare($query);
+      $stmt->execute([$user['id']]); 
+      $evaluations = $stmt->fetchAll();
+      $row = $stmt->rowCount();
+      $rate = 0;
+        if($row > 0){
+          $sum = 0;
+          foreach($evaluations as $evaluation){
+            $sum+= $evaluation['evaluation'];
+          }
+          $rate = $sum/$row;
+        }
       ?>
       <div class="provider-item">
         <div class="provider-img">
@@ -82,7 +95,7 @@
           <h1><?= $user['name'] ?></h1>
         </div>
         <div class="profile-item star-size">
-          <p>4.5 / 5.0 - Ótimo</p>
+          <p><?= $rate?>/5.0</p>
           <span class="fa fa-star checked"></span>
           <span class="fa fa-star checked"></span>
           <span class="fa fa-star checked"></span>

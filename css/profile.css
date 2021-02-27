@@ -122,7 +122,8 @@ body {
 
 .profile-form input[type=submit],
 #about-form input[type=submit],
-#contacts-form input[type='submit'] {
+#contacts-form input[type='submit'], 
+#rating input[type='submit']{
     width: 150px;
     height: 41px;
     color: white;
@@ -139,6 +140,7 @@ body {
 }
 
 .profile-form form input[type=text],
+#rating input[type=text],
 form input[type=password],
 input[type=email],
 textarea,
@@ -556,3 +558,23 @@ h3 a {
     text-align: left;
     list-style: none;
 }
+
+.star-widget input{
+    display: none;
+}
+  .star-widget label{
+    font-size: 40px;
+    color: #444;
+    padding: 10px;
+    float: right;
+    transition: all 0.2s ease;
+}
+  input:not(:checked) ~ label:hover,
+  input:not(:checked) ~ label:hover ~label{
+    color: #FFC30B;
+    cursor: pointer;
+}
+  input:checked ~ label{
+    color: #FFC30B;
+}
+

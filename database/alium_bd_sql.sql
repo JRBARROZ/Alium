@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `alium`.`users` (
   `city` VARCHAR(45) NULL,
   `state` VARCHAR(45) NULL,
   `password` VARCHAR(45) NOT NULL,
-  `postal_code` VARCHAR(8) NULL,
+  `postal_code` VARCHAR(9) NULL,
   `role` VARCHAR(45) NULL,
   `social_media` VARCHAR(255) NULL,
   `token` VARCHAR(255) NULL DEFAULT '',
@@ -93,18 +93,18 @@ CREATE TABLE IF NOT EXISTS `alium`.`feedbacks` (
   `feedback` VARCHAR(200) NOT NULL,
   `evaluation` INT NOT NULL,
   `title` VARCHAR(45) NOT NULL,
-  `service_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
+  `client_id` INT NOT NULL,
+  `worker_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_feedback_service_idx` (`service_id` ASC),
-  INDEX `fk_feedback_user_idx` (`user_id` ASC),
-  CONSTRAINT `fk_feedback_service`
-    FOREIGN KEY (`service_id`)
-    REFERENCES `alium`.`services` (`id`)
+  INDEX `fk_feedback_client_idx` (`client_id` ASC),
+  INDEX `fk_feedback_worker_idx` (`worker_id` ASC),
+  CONSTRAINT `fk_feedback_client`
+    FOREIGN KEY (`client_id`)
+    REFERENCES `alium`.`users` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_feedback_user`
-    FOREIGN KEY (`user_id`)
+    CONSTRAINT `fk_feedback_worker`
+    FOREIGN KEY (`worker_id`)
     REFERENCES `alium`.`users` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
