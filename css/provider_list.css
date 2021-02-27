@@ -250,3 +250,9 @@ p {
 .not-found {
     margin-top: 30px;
 }
+.empty-star {
+    color: #C3CDDD;
+}
+.count-evaluations {
+    font-size: 15px;
+}

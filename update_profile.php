@@ -65,7 +65,7 @@ if (isset($_POST['insta'])) {
   $phone = addslashes(trim($_POST['phone']));
   $insta = addslashes(trim($_POST['insta']));
   $twitter = addslashes(trim($_POST['twitter']));
-  $instaAndTwitter = $insta.".".$twitter;
+  $instaAndTwitter = $insta . ";" . $twitter;
   $queryUpdate = "UPDATE `users` SET `phone` = ? WHERE `id` = ?";
   $stmt = $GLOBALS['pdo']->prepare($queryUpdate);
   $stmt->execute([$phone, $_SESSION['user']['id']]);

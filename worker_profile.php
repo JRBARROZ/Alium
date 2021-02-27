@@ -113,7 +113,6 @@ if ( $user['social_media'] == '') {
             <input type="submit" value="Salvar">
           </form>
         </div>
-
         <div class="profile-item">
           <h3>Avaliar</h3>
             <form id="rating" action="feedback.php" method="POST">
@@ -130,6 +129,7 @@ if ( $user['social_media'] == '') {
                 <label for="rate-1" class="fa fa-star"></label>
               </div>
               <input type="hidden" name="worker_id" value="<?= $user['id']?>">
+              <input type="hidden" name="service" value="<?= $_POST['service']?>">
               <label for="title">Título</label><br>
               <input type="text" name="title" id="title" placeholder="Ex: Profissional excelente!"><br>
               <label for="feedback">Feedback</label><br>

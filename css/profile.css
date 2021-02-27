@@ -547,6 +547,7 @@ h3 a {
 
 .error-message-form h4 {
     text-align: left;
+    font-size: 19px;
 }
 
 .error-message-form {
@@ -558,13 +559,15 @@ h3 a {
     text-align: left;
     list-style: none;
 }
-
+.error-message-form ul li {
+    font-size: 15px;
+}
 .star-widget input{
     display: none;
 }
   .star-widget label{
     font-size: 40px;
-    color: #444;
+    color: #C3CDDD;
     padding: 10px;
     float: right;
     transition: all 0.2s ease;

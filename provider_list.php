@@ -29,6 +29,9 @@
     </div>
   </div>
   <?php
+  if (!isset($_GET['work'])) {
+    redirect('profile.php');
+  }
   if (isset($_GET['work'])) {
     $query = "SELECT * FROM `services` WHERE `service` = ?";
     $stmt = $GLOBALS['pdo']->prepare($query);
@@ -82,9 +85,13 @@
         if($row > 0){
           $sum = 0;
           foreach($evaluations as $evaluation){
-            $sum+= $evaluation['evaluation'];
+            $sum += $evaluation['evaluation'];
           }
-          $rate = $sum/$row;
+          $rate = round($sum/$row, 1);
+          $rate_size = strlen((string)$rate);
+          if ($rate_size == 1) {
+            $rate = '' . $rate . '.0';
+          }
         }
       ?>
       <div class="provider-item">
@@ -95,16 +102,36 @@
           <h1><?= $user['name'] ?></h1>
         </div>
         <div class="profile-item star-size">
+        <?php if ($rate == 0): ?>
+          <p>Sem avaliações</p>
+        <?php else: ?>
           <p><?= $rate?>/5.0</p>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star-half-o checked"></span>
+          <?php
+          $rate = (string)$rate;
+          $eval = explode('.', $rate);
+          $int_rate = (int)$eval[0];
+          $dec_rate = (int)$eval[1];
+          for ($i = 0; $i < 5; $i++):
+          ?>
+            <?php if ($i <= $int_rate-1): ?>
+            <span class="fa fa-star checked"></span>
+            <?php elseif ($i == $int_rate && $dec_rate >= 3): ?>
+              <span class="fa fa-star-half-o checked"></span>
+            <?php else: ?>
+              <span class="fa fa-star empty-star"></span>
+            <?php endif ?>
+          <?php endfor ?>
+          <?php if ($row == 1): ?>
+            <br><span class="count-evaluations"><?= $row ?> avaliação</span>
+            <?php else: ?>
+              <br><span class="count-evaluations"><?= $row ?> avaliações</span>
+          <?php endif ?>
+        <?php endif ?>
         </div>
         <p><?= $user['description'] ?></p>
         <form action="worker_profile.php" method="POST">
           <input type="hidden" name="id" value="<?= $user['id'] ?>">
+          <input type="hidden" name="service" value="<?= $_GET['work'] ?>">
           <button type="submit">Contatar</button>
         </form>
       </div>

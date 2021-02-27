@@ -11,12 +11,11 @@ form.onsubmit = function(event) {
     let phone = document.querySelector('#phone').value;
     let cep = document.querySelector('#cep').value;
     let address = document.querySelector('#address').value;
-    let address_complement = document.querySelector('#address_complement').value;
     let neighborhood = document.querySelector('#neighborhood').value;
     let city = document.querySelector('#city').value;
     let state = document.querySelector('#state').value;
-    let password = document.querySelector('#password').value;
-    let confirm_password = document.querySelector('#confirm_password').value;
+    let password = document.querySelector('#password') == null ? 'test' : document.querySelector('#password').value;
+    let confirm_password = document.querySelector('#confirm_password') == null ? 'test' : document.querySelector('#confirm_password').value;
 
     const regexName = /[^A-Za-z\s]/g;
     const regexOnlyNumbers = /[A-Za-z]/g;

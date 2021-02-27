@@ -12,9 +12,9 @@ if ($_SESSION['user']['social_media'] == '') {
     $insta = 'Não Informado';
     $twitter = 'Não Informado';
 } else {
-    list($insta, $twitter) = explode('.', $_SESSION['user']['social_media']) ?? '';
-    $insta = $insta[0] == '@' ? trim($insta) : "@" . trim($insta);
-    $twitter = $twitter[0] == '@' ? trim($twitter) : "@" . trim($twitter);
+    list($insta, $twitter) = explode(';', $_SESSION['user']['social_media']) ?? '';
+    $insta = $insta[0] == '@' ? $insta : "@" . $insta;
+    $twitter = $twitter[0] == '@' ? $twitter : "@" . $twitter;
 }
 
 $query = "SELECT * FROM `users` WHERE `id` = ?";
@@ -139,7 +139,7 @@ if (sizeof($usr_services) > 0) {
                         <input type="submit" value="Salvar">
                     </form>
                     <ul id="contacts-content">
-                        <li><a href="tel:<?= $phone ?>" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i> <?= $phone ?></a></li>
+                        <li><i class="fa fa-whatsapp" aria-hidden="true"></i> <?= $phone ?></li>
                         <li><a href="https://www.instagram.com/<?= str_replace('@', '', $insta) ?>" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i> <?= $insta ?></a></li>
                         <li><a href="https://twitter.com/<?= str_replace('@', '', $twitter) ?>" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i> <?= $twitter ?></a></li>
                     </ul>
@@ -197,8 +197,8 @@ if (sizeof($usr_services) > 0) {
                         <input type="email" id="email" name="email" value="<?= $user['email'] ?>" required><br>
                         <label for="phone">Telefone:</label><br>
                         <input type="text" id="phone" name="phone" onfocus="removeMask(this);" onblur="addPhoneMask(this);" minlength="10" maxlength="11" value="<?= $user['phone'] ?>" required><br>
-                        <label for="cep">CEP:</label><br>
-                        <input type="text" id="cep" name="cep" size="10" maxlength="9" onblur="searchPostalCode(this.value);" value="<?= $user['postal_code'] ?>" required><br>
+                        <label for="cep">CEP:<span id="text">(Não sabe o CEP? <a href="https://buscacepinter.correios.com.br/app/endereco/index.php?t" target="_blank">Clique aqui</a>) </span></label><br>
+                        <input type="text" id="cep" name="cep" size="10" maxlength="9" onblur="searchPostalCode(this);" value="<?= $user['postal_code'] ?>" required><br>
                         <div class="form-group">
                             <div class="form-side">
                                 <label for="address">Rua:</label>
@@ -261,8 +261,8 @@ if (sizeof($usr_services) > 0) {
     </section>
 </body>
 <script src="js/profile.js"></script>
-<script src="js/cep.js"></script>
 <script src="js/masks.js"></script>
+<script src="js/cep.js"></script>
 <script src="js/validate_form.js"></script>
 
 </html>
