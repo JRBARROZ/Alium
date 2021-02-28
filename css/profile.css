@@ -562,7 +562,7 @@ h3 a {
 .error-message-form ul li {
     font-size: 15px;
 }
-.star-widget input{
+.star-widget input[type=radio]{
     display: none;
 }
   .star-widget label{
@@ -572,12 +572,12 @@ h3 a {
     float: right;
     transition: all 0.2s ease;
 }
-  input:not(:checked) ~ label:hover,
-  input:not(:checked) ~ label:hover ~label{
+  input[type=radio]:not(:checked) ~ label:hover,
+  input[type=radio]:not(:checked) ~ label:hover ~label{
     color: #FFC30B;
     cursor: pointer;
 }
-  input:checked ~ label{
+  input[type=radio]:checked ~ label{
     color: #FFC30B;
 }
 

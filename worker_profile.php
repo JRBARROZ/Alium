@@ -46,6 +46,20 @@ if ( $user['social_media'] == '') {
   $twitter = $twitter[0] == '@' ? trim($twitter) : "@" . trim($twitter);
 }
 
+$query = "SELECT * FROM `feedbacks` WHERE `client_id` = ? AND `worker_id` = ?";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute([$_SESSION['user']['id'], $user['id']]);
+$rows = $stmt->rowCount();
+$evaluation = $stmt->fetch();
+$already_evaluated = false;
+
+if ($rows != 0) {
+  $already_evaluated = true;
+}
+
+$title = $already_evaluated ? $evaluation['title'] : '';
+$feedback = $already_evaluated ? $evaluation['feedback'] : '';
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -117,23 +131,22 @@ if ( $user['social_media'] == '') {
           <h3>Avaliar</h3>
             <form id="rating" action="feedback.php" method="POST">
               <div class="star-widget">
-                <input type="radio" name="rate" id="rate-5" value="5"> 
-                <label for="rate-5" class="fa fa-star"></label>
-                <input type="radio" name="rate" id="rate-4" value="4"> 
-                <label for="rate-4" class="fa fa-star"></label>
-                <input type="radio" name="rate" id="rate-3" value="3"> 
-                <label for="rate-3" class="fa fa-star"></label>
-                <input type="radio" name="rate" id="rate-2" value="2"> 
-                <label for="rate-2" class="fa fa-star"></label>
-                <input type="radio" name="rate" id="rate-1" value="1"> 
-                <label for="rate-1" class="fa fa-star"></label>
+              <?php for ($i = 5; $i > 0; $i--): ?>
+                <?php if ($already_evaluated && $i == $evaluation['evaluation']): ?>
+                  <input type="radio" name="rate" id="rate-<?= $i ?>" value="<?= $i ?>" checked> 
+                  <label for="rate-<?= $i ?>" class="fa fa-star"></label>
+                <?php else: ?>
+                  <input type="radio" name="rate" id="rate-<?= $i ?>" value="<?= $i ?>"> 
+                  <label for="rate-<?= $i ?>" class="fa fa-star"></label>
+                <?php endif ?>
+              <?php endfor ?>
               </div>
               <input type="hidden" name="worker_id" value="<?= $user['id']?>">
               <input type="hidden" name="service" value="<?= $_POST['service']?>">
               <label for="title">Título</label><br>
-              <input type="text" name="title" id="title" placeholder="Ex: Profissional excelente!"><br>
+              <input type="text" name="title" id="title" placeholder="Ex: Profissional excelente!" value="<?= $title ?>"><br>
               <label for="feedback">Feedback</label><br>
-              <textarea id="feedback" name="feedback" cols="5" rows="6" placeholder="Conte-nos sobre sua experiência com o(a) <?=$user['name']?>"></textarea>
+              <textarea id="feedback" name="feedback" cols="5" rows="6" placeholder="Conte-nos sobre sua experiência com o(a) <?=$user['name']?>"><?= $feedback ?></textarea>
               <input type="submit" value="Salvar">
             </form>
         </div>

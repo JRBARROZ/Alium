@@ -31,7 +31,7 @@
         <p class='title'>ALIUM, Encontre o seu cliente <br>ou prestador de serviços.</p>
         <p class='subtitle'>Ser contratado/contratar nunca foi tão fácil.</p>
         <form action="searching.php" id="formSearch" method="post">
-          <input type="text" class="inputBox" name="search" placeholder="Procurar Profissional ou trabalho..."  oninput=procurar(this.value)>
+          <input type="text" class="inputBox" name="search" autocomplete="off" placeholder="Procurar Profissional ou trabalho..."  oninput=procurar(this.value)>
           <button type="submit"  class="inputButton">PROCURAR</button>
         </form>
         <ul class='listSearch'>
