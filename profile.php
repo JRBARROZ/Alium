@@ -197,7 +197,7 @@ if (sizeof($usr_services) > 0) {
                         <input type="email" id="email" name="email" value="<?= $user['email'] ?>" required><br>
                         <label for="phone">Telefone:</label><br>
                         <input type="text" id="phone" name="phone" onfocus="removeMask(this);" onblur="addPhoneMask(this);" minlength="10" maxlength="11" value="<?= $user['phone'] ?>" required><br>
-                        <label for="cep">CEP:<span id="text">(Não sabe o CEP? <a href="https://buscacepinter.correios.com.br/app/endereco/index.php?t" target="_blank">Clique aqui</a>) </span></label><br>
+                        <label for="cep">CEP: <span id="text">(Não sabe o CEP? <a href="https://buscacepinter.correios.com.br/app/endereco/index.php?t" target="_blank">Clique aqui</a>) </span></label><br>
                         <input type="text" id="cep" name="cep" size="10" maxlength="9" onblur="searchPostalCode(this);" value="<?= $user['postal_code'] ?>" required><br>
                         <div class="form-group">
                             <div class="form-side">
@@ -225,10 +225,10 @@ if (sizeof($usr_services) > 0) {
                                 <input type="text" id="state" name="state" value="<?= $user['state'] ?>" required>
                             </div>
                         </div>
-                        <label for="">Serviços:</label><br>
                         <!-- <label for="profession">Tipo de Serviço:</label><br> -->
-                        <div class="service-content">
-                            <?php if ($user['role'] === 'worker') : ?>
+                        <?php if ($user['role'] === 'worker') : ?>
+                            <label for="">Serviços:</label><br>
+                            <div class="service-content">
                                 <?php foreach ($services as $i => $service) : ?>
                                     <div>
                                         <?php if (sizeof($services_ids) > 0 && in_array($service['id'], $services_ids)) : ?>
@@ -236,13 +236,11 @@ if (sizeof($usr_services) > 0) {
                                         <?php else : ?>
                                             <input id=<?= $service['service'] ?> type="checkbox" name="<?= $service['service'] ?>" value="<?= $service['service'] ?>">
                                         <?php endif ?>
-                                        <label for=<?= $service['service'] ?>><?= $service['service'] ?></label><br>
+                                        <label for=<?= $service['service'] ?>><?= $service['service'] ?> </label><br>
                                     </div>
                                 <?php endforeach ?>
-                            <?php endif ?>
-                        </div>
-                        <!-- <label for="other">Outro:</label><br>
-                        <input type="text" id="other" name="other_service"> -->
+                            </div>
+                        <?php endif ?>
                         <br>
                         <input type="hidden" name="user_id" value="<?= $user_id ?>">
                         <input type="submit" value="Atualizar">

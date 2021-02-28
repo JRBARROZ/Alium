@@ -11,17 +11,17 @@ if (!isset($_POST['id'])) {
   exit();
 }
 
-$user_id = $_POST['id'];
+$worker_id = $_POST['id'];
 
 $query = "SELECT * FROM `users` WHERE `id` = ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
-$stmt->execute([$user_id]);
-$user = $stmt->fetch();
-$description = $user['description'];
+$stmt->execute([$worker_id]);
+$worker = $stmt->fetch();
+$description = $worker['description'];
 
 $query = "SELECT * FROM `users_has_services` WHERE `user_id` = ?";
 $stmt = $GLOBALS["pdo"]->prepare($query);
-$stmt->execute([$user_id]);
+$stmt->execute([$worker_id]);
 $images = $stmt->fetchAll();
 $images_ids = [];
 if (sizeof($images) > 0) {
@@ -32,23 +32,23 @@ if (sizeof($images) > 0) {
 
 $query = "SELECT * FROM `images` WHERE `user_id` = ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
-$stmt->execute([$user_id]);
+$stmt->execute([$worker_id]);
 $portfolio_images = $stmt->fetchAll();
-$phone = $user['phone'];
+$phone = $worker['phone'];
 $whatsappPhone = str_replace(['(',')',' ','-'], '', $phone);
 
-if ( $user['social_media'] == '') {
+if ( $worker['social_media'] == '') {
   $insta = 'Não Informado';
   $twitter = 'Não Informado';
 } else {
-  list($insta, $twitter) = explode('.', $user['social_media']) ?? '';
+  list($insta, $twitter) = explode('.', $worker['social_media']) ?? '';
   $insta = $insta[0] == '@' ? trim($insta) : "@" . trim($insta);
   $twitter = $twitter[0] == '@' ? trim($twitter) : "@" . trim($twitter);
 }
 
 $query = "SELECT * FROM `feedbacks` WHERE `client_id` = ? AND `worker_id` = ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
-$stmt->execute([$_SESSION['user']['id'], $user['id']]);
+$stmt->execute([$_SESSION['user']['id'], $worker['id']]);
 $rows = $stmt->rowCount();
 $evaluation = $stmt->fetch();
 $already_evaluated = false;
@@ -98,7 +98,7 @@ $feedback = $already_evaluated ? $evaluation['feedback'] : '';
           <img src="./images/profile/perfilImage.jpg" alt="">
         </div>
         <br>
-        <p><span class="name"><?= $user['name'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $user['city'] ?>, <?= $user['state'] ?>, <br>
+        <p><span class="name"><?= $worker['name'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $worker['city'] ?>, <?= $worker['state'] ?>, <br>
           <?php
           foreach ($images_ids as $i => $id) :
             $serv = getServiceById($id);
@@ -127,8 +127,18 @@ $feedback = $already_evaluated ? $evaluation['feedback'] : '';
             <input type="submit" value="Salvar">
           </form>
         </div>
-        <div class="profile-item">
-          <h3>Avaliar</h3>
+        <?php if ($already_evaluated): ?>
+          <div class="profile-item">
+            <h3>Você já avaliou <?= $worker['name'] ?></h3>
+            <button type="button" href="#" class="btn" onclick="showEvaluateForm()">Editar Avaliação</button>
+          </div>
+          <?php else: ?>
+            <div class="profile-item">
+              <h3>Avaliar <?= $worker['name'] ?></h3>
+              <button type="button" href="#" class="btn" onclick="showEvaluateForm()">Avaliar Prestador</button>
+            </div>
+          <?php endif ?>
+        <div class="profile-item evaluate">
             <form id="rating" action="feedback.php" method="POST">
               <div class="star-widget">
               <?php for ($i = 5; $i > 0; $i--): ?>
@@ -141,13 +151,14 @@ $feedback = $already_evaluated ? $evaluation['feedback'] : '';
                 <?php endif ?>
               <?php endfor ?>
               </div>
-              <input type="hidden" name="worker_id" value="<?= $user['id']?>">
+              <input type="hidden" name="worker_id" value="<?= $worker['id']?>">
               <input type="hidden" name="service" value="<?= $_POST['service']?>">
               <label for="title">Título</label><br>
               <input type="text" name="title" id="title" placeholder="Ex: Profissional excelente!" value="<?= $title ?>"><br>
               <label for="feedback">Feedback</label><br>
-              <textarea id="feedback" name="feedback" cols="5" rows="6" placeholder="Conte-nos sobre sua experiência com o(a) <?=$user['name']?>"><?= $feedback ?></textarea>
-              <input type="submit" value="Salvar">
+              <textarea id="feedback" name="feedback" cols="5" rows="6" placeholder="Conte-nos sobre sua experiência com o(a) <?=$worker['name']?>"><?= $feedback ?></textarea>
+              <input type="submit" value="Avaliar">
+              <button type="button" href="#" class="btn cancel-button" onclick="hideEvaluateForm()">Cancelar</button>
             </form>
         </div>
         
@@ -167,7 +178,7 @@ $feedback = $already_evaluated ? $evaluation['feedback'] : '';
         <div id='profile-preview'>
           <div class="profile-preview">
             <?php foreach($portfolio_images as $i => $image): ?>
-              <img class="profile-preview-item" src="images/portfolio/user_port_<?= $user_id ?>/<?= $i ?>.jpg" alt="teste">
+              <img class="profile-preview-item" src="images/portfolio/user_port_<?= $worker_id ?>/<?= $i ?>.jpg" alt="teste">
             <?php endforeach ?>
           </div>
         </div>
@@ -184,5 +195,5 @@ $feedback = $already_evaluated ? $evaluation['feedback'] : '';
 </body>
 <script src="js/cep.js"></script>
 <script src="js/masks.js"></script>
-
+<script src="js/profile.js"></script>
 </html>

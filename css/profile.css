@@ -122,8 +122,8 @@ body {
 
 .profile-form input[type=submit],
 #about-form input[type=submit],
-#contacts-form input[type='submit'], 
-#rating input[type='submit']{
+#contacts-form input[type=submit], 
+#rating input[type=submit]{
     width: 150px;
     height: 41px;
     color: white;
@@ -368,6 +368,7 @@ h3 a {
 }
 
 #hide-about-form,
+#hide-evaluate-form,
 #hide-contacts-form {
     display: none;
     color: red;
@@ -581,3 +582,16 @@ h3 a {
     color: #FFC30B;
 }
 
+.evaluate {
+    display: none;
+}
+.cancel-button {
+    float: right;
+    background-color: #994b4b;
+    margin-left: 5px;
+    width: 130px !important;
+}
+.cancel-button:hover {
+    background-color: #772929;
+    opacity: 0.7;
+}
