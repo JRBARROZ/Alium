@@ -78,21 +78,21 @@
       }
       $query = "SELECT `evaluation` FROM `feedbacks` WHERE `worker_id` = ? ";
       $stmt = $GLOBALS['pdo']->prepare($query);
-      $stmt->execute([$user['id']]); 
+      $stmt->execute([$user['id']]);
       $evaluations = $stmt->fetchAll();
       $row = $stmt->rowCount();
       $rate = 0;
-        if($row > 0){
-          $sum = 0;
-          foreach($evaluations as $evaluation){
-            $sum += $evaluation['evaluation'];
-          }
-          $rate = round($sum/$row, 1);
-          $rate_size = strlen((string)$rate);
-          if ($rate_size == 1) {
-            $rate = '' . $rate . '.0';
-          }
+      if ($row > 0) {
+        $sum = 0;
+        foreach ($evaluations as $evaluation) {
+          $sum += $evaluation['evaluation'];
         }
+        $rate = round($sum / $row, 1);
+        $rate_size = strlen((string)$rate);
+        if ($rate_size == 1) {
+          $rate = '' . $rate . '.0';
+        }
+      }
       ?>
       <div class="provider-item">
         <div class="provider-img">
@@ -102,31 +102,31 @@
           <h1><?= $user['name'] ?></h1>
         </div>
         <div class="profile-item star-size">
-        <?php if ($rate == 0): ?>
-          <p>Sem avaliações</p>
-        <?php else: ?>
-          <p><?= $rate?>/5.0</p>
-          <?php
-          $rate = (string)$rate;
-          $eval = explode('.', $rate);
-          $int_rate = (int)$eval[0];
-          $dec_rate = (int)$eval[1];
-          for ($i = 0; $i < 5; $i++):
-          ?>
-            <?php if ($i <= $int_rate-1): ?>
-            <span class="fa fa-star checked"></span>
-            <?php elseif ($i == $int_rate && $dec_rate >= 3): ?>
-              <span class="fa fa-star-half-o checked"></span>
-            <?php else: ?>
-              <span class="fa fa-star empty-star"></span>
-            <?php endif ?>
-          <?php endfor ?>
-          <?php if ($row == 1): ?>
-            <br><span class="count-evaluations"><?= $row ?> avaliação</span>
-            <?php else: ?>
+          <?php if ($rate == 0) : ?>
+            <p>Sem avaliações</p>
+          <?php else : ?>
+            <p><?= $rate ?>/5.0</p>
+            <?php
+            $rate = (string)$rate;
+            $eval = explode('.', $rate);
+            $int_rate = (int)$eval[0];
+            $dec_rate = (int)$eval[1];
+            for ($i = 0; $i < 5; $i++) :
+            ?>
+              <?php if ($i <= $int_rate - 1) : ?>
+                <span class="fa fa-star checked"></span>
+              <?php elseif ($i == $int_rate && $dec_rate >= 3) : ?>
+                <span class="fa fa-star-half-o checked"></span>
+              <?php else : ?>
+                <span class="fa fa-star empty-star"></span>
+              <?php endif ?>
+            <?php endfor ?>
+            <?php if ($row == 1) : ?>
+              <br><span class="count-evaluations"><?= $row ?> avaliação</span>
+            <?php else : ?>
               <br><span class="count-evaluations"><?= $row ?> avaliações</span>
+            <?php endif ?>
           <?php endif ?>
-        <?php endif ?>
         </div>
         <p><?= $user['description'] ?></p>
         <form action="worker_profile.php" method="POST">
@@ -135,21 +135,21 @@
           <button type="submit">Contatar</button>
         </form>
       </div>
-      <?php endforeach ?>
-      <?php else : ?>
-        <p class="not-found">Não tem ninguém prestando este serviço no momento.</p>
-        <div class="teste">
-          <div class="provider-img">
-            <img src="./images/backgrounds/index.jpg" alt="">
-          </div>
-          <div class="provider-title2">
-            <h1>Teste</h1>
-          </div>
-          <div class="profile-item star-size">
-            <p>4.5 / 5.0 - Ótimo</p>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
+    <?php endforeach ?>
+  <?php else : ?>
+    <p class="not-found">Não tem ninguém prestando este serviço no momento.</p>
+    <div class="teste">
+      <div class="provider-img">
+        <img src="./images/backgrounds/index.jpg" alt="">
+      </div>
+      <div class="provider-title2">
+        <h1>Teste</h1>
+      </div>
+      <div class="profile-item star-size">
+        <p>4.5 / 5.0 - Ótimo</p>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star-half-o checked"></span>
       </div>

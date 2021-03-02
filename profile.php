@@ -43,6 +43,23 @@ if (sizeof($usr_services) > 0) {
     }
 }
 
+$query = "SELECT `evaluation` FROM `feedbacks` WHERE `worker_id` = ? ";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute([$user['id']]);
+$evaluations = $stmt->fetchAll();
+$row = $stmt->rowCount();
+$rate = 0;
+if ($row > 0) {
+    $sum = 0;
+    foreach ($evaluations as $evaluation) {
+        $sum += $evaluation['evaluation'];
+    }
+    $rate = round($sum / $row, 1);
+    $rate_size = strlen((string)$rate);
+    if ($rate_size == 1) {
+        $rate = '' . $rate . '.0';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -112,7 +129,7 @@ if (sizeof($usr_services) > 0) {
                         <input type="submit" value="Salvar">
                     </form>
                 </div>
-                <div class="profile-item">
+                <!-- <div class="profile-item">
                     <h3>Avaliação</h3>
                     <p>4.5 / 5.0 - Ótimo</p>
                     <span class="fa fa-star checked"></span>
@@ -120,6 +137,33 @@ if (sizeof($usr_services) > 0) {
                     <span class="fa fa-star checked"></span>
                     <span class="fa fa-star checked"></span>
                     <span class="fa fa-star-half-o checked"></span>
+                </div> -->
+                <div class="profile-item star-size">
+                    <?php if ($rate == 0) : ?>
+                        <p>Sem avaliações</p>
+                    <?php else : ?>
+                        <p><?= $rate ?>/5.0</p>
+                        <?php
+                        $rate = (string)$rate;
+                        $eval = explode('.', $rate);
+                        $int_rate = (int)$eval[0];
+                        $dec_rate = (int)$eval[1];
+                        for ($i = 0; $i < 5; $i++) :
+                        ?>
+                            <?php if ($i <= $int_rate - 1) : ?>
+                                <span class="fa fa-star checked"></span>
+                            <?php elseif ($i == $int_rate && $dec_rate >= 3) : ?>
+                                <span class="fa fa-star-half-o checked"></span>
+                            <?php else : ?>
+                                <span class="fa fa-star empty-star"></span>
+                            <?php endif ?>
+                        <?php endfor ?>
+                        <?php if ($row == 1) : ?>
+                            <br><span class="count-evaluations"><?= $row ?> avaliação</span>
+                        <?php else : ?>
+                            <br><span class="count-evaluations"><?= $row ?> avaliações</span>
+                        <?php endif ?>
+                    <?php endif ?>
                 </div>
                 <div class="profile-item">
                     <h3>Contatos

@@ -41,7 +41,7 @@ if ( $worker['social_media'] == '') {
   $insta = 'Não Informado';
   $twitter = 'Não Informado';
 } else {
-  list($insta, $twitter) = explode('.', $worker['social_media']) ?? '';
+  list($insta, $twitter) = explode(';', $worker['social_media']) ?? '';
   $insta = $insta[0] == '@' ? trim($insta) : "@" . trim($insta);
   $twitter = $twitter[0] == '@' ? trim($twitter) : "@" . trim($twitter);
 }

@@ -66,7 +66,7 @@ try {
   $mail->Username   = 'project.alium@gmail.com';              //SMTP username
   $mail->Password   = 'alium1973';                            //SMTP password
   $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-  $mail->WordWrap = 55;
+  $mail->WordWrap   = 55;
   $mail->Port       = 587;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
   //Recipients
