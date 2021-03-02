@@ -101,7 +101,7 @@
     margin-bottom: 10px;
 }
 
-.menu .inputBox {
+.menu .inputBox, .userSearchBox {
     width: 420px;
     height: 41px;
     outline: none;
@@ -114,12 +114,21 @@
     font-family: 'Nunito-Regular';
 }
 
+.menu #searchUsers {
+    display: none;
+}
+
+
+.menu #formSearch {
+    display: block;
+}
+
 .inputBox::placeholder {
     color: #4D6180;
 }
 
 .menu-content-container {
-    max-width: 700px;
+    max-width: 900px;
     margin: 100px auto;
 }
 
@@ -142,7 +151,7 @@
     background-color: #4D6180;
 }
 
-.listSearch {
+.listSearch, .userListSearch{
     background-color: #4D6180;
     font-family: 'Nunito-Light';
     max-width: 450px;
@@ -157,6 +166,7 @@
     padding: 5px 32px;
     color: white;
 }
+
 
 .listSearch li:hover {
     cursor: pointer;
@@ -173,6 +183,25 @@
     background-color: #0E2548;
 }
 
+.userListSearch li{
+    padding: 5px 32px;
+    color: white;
+}
+
+.userListSearch li:hover{
+    cursor: pointer;
+    background-color: rgba(167, 186, 214, 0.2);
+}
+
+.userListSearch::-webkit-scrollbar {
+    width: 4px;
+    background-color: #4D6180;
+}
+
+.userListSearch::-webkit-scrollbar-thumb {
+    width: 4px;
+    background-color: #0E2548;
+}
 
 /* Category */
 

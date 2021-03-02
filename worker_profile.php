@@ -1,11 +1,6 @@
 <?php
 require_once 'init.php';
 
-if (!isLogged()) {
-  redirect('signin.php');
-  exit();
-}
-
 if (!isset($_POST['id'])) {
   redirect('provider_list.php');
   exit();
@@ -46,6 +41,7 @@ if ( $worker['social_media'] == '') {
   $twitter = $twitter[0] == '@' ? trim($twitter) : "@" . trim($twitter);
 }
 
+if(isLogged()){
 $query = "SELECT * FROM `feedbacks` WHERE `client_id` = ? AND `worker_id` = ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute([$_SESSION['user']['id'], $worker['id']]);
@@ -59,7 +55,7 @@ if ($rows != 0) {
 
 $title = $already_evaluated ? $evaluation['title'] : '';
 $feedback = $already_evaluated ? $evaluation['feedback'] : '';
-
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -127,6 +123,7 @@ $feedback = $already_evaluated ? $evaluation['feedback'] : '';
             <input type="submit" value="Salvar">
           </form>
         </div>
+        <?php if(isLogged()): ?>
         <?php if ($already_evaluated): ?>
           <div class="profile-item">
             <h3>Você já avaliou <?= $worker['name'] ?></h3>
@@ -161,7 +158,12 @@ $feedback = $already_evaluated ? $evaluation['feedback'] : '';
               <button type="button" href="#" class="btn cancel-button" onclick="hideEvaluateForm()">Cancelar</button>
             </form>
         </div>
-        
+        <?php else: ?>
+          <div class="profile-item">
+            <h3>Entre para avaliar este profissional</h3>
+            <a href="signin.php" class="btn">Entrar</a>
+          </div>
+        <?php endif ?>
         <div class="profile-item">
           <h3>Contatos</h3>
           <ul id="contacts-content">

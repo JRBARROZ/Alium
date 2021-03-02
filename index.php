@@ -30,12 +30,21 @@
       <div class="menu-content-container">
         <p class='title'>ALIUM, Encontre o seu cliente <br>ou prestador de serviços.</p>
         <p class='subtitle'>Ser contratado/contratar nunca foi tão fácil.</p>
+        <input type="checkbox" id="checkbox" onclick="showUsersForm()">
+        <label class='subtitle' for="checkbox">Procurar prestadores de serviço</label><br>
         <form action="searching.php" id="formSearch" method="post">
-          <input type="text" class="inputBox" name="search" autocomplete="off" placeholder="Procurar Profissional ou trabalho..."  oninput=procurar(this.value)>
+          <input type="text" class="inputBox" name="search" autocomplete="off" placeholder="Procurar Trabalho..."  oninput=procurar(this.value)>
           <button type="submit"  class="inputButton">PROCURAR</button>
         </form>
         <ul class='listSearch'>
+        </ul>
          
+        <form action="worker_profile.php" id="searchUsers" method="post">
+          <input type="text" class="userSearchBox" name="searchUser" autocomplete="off" placeholder="Procurar Profissional..."  oninput=procurarUsuarios(this.value)>
+          <input type="hidden" name="id" id="userSearchId" value="">
+          <button type="submit"  class="inputButton">PROCURAR</button>
+        </form>
+        <ul class='userListSearch'>
         </ul>
       </div>
     </div>
@@ -152,6 +161,57 @@
     }
     
   }
+  function procurarUsuarios(value) {
+    fetch('search_users.php',{
+      method:   'POST',
+      body: new URLSearchParams('searchUser='+value)
+    })
+      .then(res=> res.json())
+      .then(res=>showUsers(res))
+      .catch(e => console.error('Error:'+ e))
+
+  }
+  function showUsers(value){
+    const userContainer = document.querySelector('.userListSearch');
+    userContainer.style.display="block";
+    userContainer.innerHTML = "";
+    for(let i = 0; i <value.length;i++){
+      const li = document.createElement("li");
+      li.innerHTML = value[i]['name'];
+      userContainer.appendChild(li);
+      li.onclick = function (){
+        document.querySelector('.userSearchBox').value = this.innerHTML;
+        document.querySelector('#userSearchId').value = value[i]['id'];
+        document.querySelector('#searchUsers').submit();
+      }
+
+    }
+    
+  }
+
+  function showUsersForm(){
+    const checkbox = document.querySelector('#checkbox');
+    const searchUsersForm = document.querySelector('#searchUsers');
+    const searchForm = document.querySelector('#formSearch');
+    const dataContainer = document.querySelector('.listSearch');
+    const userContainer = document.querySelector('.userListSearch');
+
+    if(checkbox.checked == true){
+     searchUsersForm.style.display = "block";
+     searchForm.style.display = "none";
+     dataContainer.style.display = "none";
+     searchUsersForm[0].value = searchForm[0].value;
+    }
+    else if(checkbox.checked == false){
+      searchForm.style.display ="block";
+      searchUsersForm.style.display = "none";
+      dataContainer.style.display = "block";
+      userContainer.style.display = "none";
+      searchForm[0].value = searchUsersForm[0].value;
+
+    }
+  }
+
   </script>
 </body>
 
