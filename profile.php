@@ -129,19 +129,11 @@ if ($row > 0) {
                         <input type="submit" value="Salvar">
                     </form>
                 </div>
-                <!-- <div class="profile-item">
-                    <h3>Avaliação</h3>
-                    <p>4.5 / 5.0 - Ótimo</p>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star-half-o checked"></span>
-                </div> -->
                 <div class="profile-item star-size">
                     <?php if ($rate == 0) : ?>
-                        <p>Sem avaliações</p>
+                        <h3>Sem avaliações</h3>
                     <?php else : ?>
+                        <h3>Avaliação</h3>
                         <p><?= $rate ?>/5.0</p>
                         <?php
                         $rate = (string)$rate;
@@ -158,11 +150,6 @@ if ($row > 0) {
                                 <span class="fa fa-star empty-star"></span>
                             <?php endif ?>
                         <?php endfor ?>
-                        <?php if ($row == 1) : ?>
-                            <br><span class="count-evaluations"><?= $row ?> avaliação</span>
-                        <?php else : ?>
-                            <br><span class="count-evaluations"><?= $row ?> avaliações</span>
-                        <?php endif ?>
                     <?php endif ?>
                 </div>
                 <div class="profile-item">
