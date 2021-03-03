@@ -205,7 +205,7 @@ if ($row > 0) {
                     <h2>Pré-visualização</h2>
                 </div>
                 <div class="profile-preview">
-                    <?php for ($i = 0; $i < 6; $i++) : ?>
+                    <?php for ($i = 0; $i < sizeof($portfolio_images); $i++) : ?>
                         <div class="profile-preview-item" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= $portfolio_images[$i]['name'] ?>') !important"></div>
                     <?php endfor; ?>
                 </div>
