@@ -399,6 +399,7 @@ h3 a {
     margin-right: 4px;
     flex-wrap: wrap;
     border-radius: 10%;
+
     justify-content: center;
     border: 2px dashed #637EA6;
     background-size: cover;
@@ -418,7 +419,42 @@ h3 a {
     margin-top: 5px;
     /* cursor: pointer; */
 }
+img {
+    max-width: 100%;
+}
+.send-profile-img {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    margin-right: 4px;
+    flex-wrap: wrap;
+    border-radius: 100%;
+    justify-content: center;
+    border: 2px dashed #637EA6;
+    background-size: cover;
+    /* z-index: 2; */
+    /* background-color: transparent; */
+}
 
+.send-profile-img::before {
+    content: '+';
+    font-family: 'Nunito-Light';
+    color: #637EA6;
+    display: flex;
+    width: 10px;
+    height: 10px;
+    font-size: 2em;
+    position: absolute !important;
+    margin: auto;
+    margin-top:27px;
+    margin-left: -10px;
+    /* cursor: pointer; */
+}
+.send-profile-img:hover {
+    border: 2px dashed #225baf;
+    color: #0E2548;
+    /* cursor: pointer; */
+}
 .send-img:hover {
     border: 2px dashed #225baf;
     color: #0E2548;
@@ -594,4 +630,15 @@ h3 a {
 .cancel-button:hover {
     background-color: #772929;
     opacity: 0.7;
+}
+.success-message{
+    background-color:#e7ffe6;
+    max-width: 280px;
+    margin: 20px 0px 10px 0px;
+    color: #4e994b;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #cfffcf;
+    border-radius:5px;
+    font-family: 'Nunito-Light';
 }

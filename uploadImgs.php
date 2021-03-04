@@ -1,11 +1,11 @@
 <?php 
-
 require_once('init.php');
 $imgs = $_FILES['images']; 
-$id = $_POST['id'];
+$id = trim($_POST['id']);
 
 $extensionsAccepted = ['jpg', 'png'];
 $userFolder = "user_port_".$_SESSION['user']['id'];
+$userPerfilFolder = "perfil";
 foreach ($imgs['tmp_name'] as $key => $value) {
     $extToRename = explode(".", $imgs['name'][$key]);
     $imgName = $id.".".end($extToRename);
@@ -13,6 +13,19 @@ foreach ($imgs['tmp_name'] as $key => $value) {
     $extVerify = pathinfo($imgName, PATHINFO_EXTENSION);
     if(!is_dir("./images/portfolio/".$userFolder)){
         mkdir("./images/portfolio/".$userFolder);
+    }
+    if(!is_dir("./images/portfolio/".$userFolder."/".$userPerfilFolder)){
+        mkdir("./images/portfolio/".$userFolder."/".$userPerfilFolder);
+    }
+    if($id == 'perfil'){
+        $userPerfilImg = scandir("./images/portfolio/".$userFolder."/".$userPerfilFolder);
+        $fileToVerify = "./images/portfolio/".$userFolder."/".$userPerfilFolder."/".$imgName;
+        for($i = 0; $i < sizeof($userPerfilImg); $i++){
+            $userPerfil = explode('.', $userPerfilImg[$i]);
+            if($userPerfil[0] == 'perfil'){
+                unlink('./images/portfolio/'.$userFolder."/".$userPerfilFolder."/".$userPerfilImg[$i]);
+            }
+        }
     }else{
         $allUserImgs = scandir("./images/portfolio/".$userFolder);
         $fileToVerify = "./images/portfolio/".$userFolder."/".$imgName;
@@ -25,7 +38,11 @@ foreach ($imgs['tmp_name'] as $key => $value) {
         }
     }
     if(in_array($extVerify, $extensionsAccepted)){
-        move_uploaded_file($imgFileTmp, './images/portfolio/'.$userFolder."/".$imgName); 
+        if($id == "perfil"){
+            move_uploaded_file($imgFileTmp, './images/portfolio/'.$userFolder."/".$userPerfilFolder."/".$imgName); 
+        }else{
+            move_uploaded_file($imgFileTmp, './images/portfolio/'.$userFolder."/".$imgName); 
+        }
         $queryVerifyIfExists = "SELECT * FROM `images` WHERE `name` LIKE ? AND `user_id` = ?";
         $stmt = $GLOBALS['pdo']->prepare($queryVerifyIfExists);
         $stmt->execute([$id."%", $_SESSION['user']['id']]);

@@ -41,13 +41,52 @@ function hideEvaluateForm() {
     document.querySelector('.btn').style.display = "block";   
 }
 //Imgs
+function requestData(){
+    fetch('getProfileImgs.php')
+    .then(res=> res.json())
+    .then((res) => {
+        showImgsData(res);
+    })
+    .catch((error) => console.log(error))
+}
+function showImgsData(value){
+    const profilePreview = document.querySelector('.profile-preview');
+    profilePreview.innerHTML = "";
+    console.log(value);
+    if(value == ""){
+        const p = document.createElement("p")
+        p.innerHTML = "Você ainda não adicionou nenhuma imagem.";
+        profilePreview.appendChild(p);
+    }else{
+        profilePreview.innerHTML = "";
+        for(let i = 0; i < value.length; i++){
+            let mynum = Math.floor(Math.random() * 50000000000000);
+            // console.log(mynum);
+            const div = document.createElement('div');
+            div.style.backgroundImage = "";
+            div.className = "profile-preview-item";
+            div.style.backgroundImage = `url(./images/portfolio/user_port_${value[i]['user_id']}/${value[i]['name']}?random=${mynum})`;
+            profilePreview.appendChild(div);
+        }
+    }
+}
 function displayImg(e) {
-    // e.parentElement.style.backgroundImage = "";
+    
+    e.parentElement.style.backgroundImage = "";
     let file = e;
     let teste = URL.createObjectURL(file.files[0]);
+    let feedback = document.querySelector('#perfil-feed');
     console.log(teste);
     e.parentElement.style.backgroundImage = "url(" + teste + ")";
+    feedback.style.display = "block";
+    setTimeout(function(){ 
+        feedback.style.display = "none";
+    }, 3000);
     insertImg(e);
+    requestData();
+    // setTimeout(function(){ 
+    // }, 1000);
+    
 }
 function insertImg(e) {
     const endPoint = 'uploadImgs.php';
@@ -67,10 +106,12 @@ function previewShow(e) {
         profileForm.style.display = "none";
         profilePreview.style.display = "block";
         clicks++;
+        requestData()
     } else {
         e.innerHTML = 'Preview';
         clicks = 0;
         profileForm.style.display = "flex";
         profilePreview.style.display = "none";
     }
+    
 }

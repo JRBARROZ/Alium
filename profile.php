@@ -22,15 +22,20 @@ $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 
-$query = "SELECT * FROM `images` WHERE `user_id` = ?";
+$query = "SELECT * FROM `images` WHERE `name` NOT LIKE ? AND `user_id` = ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
-$stmt->execute([$user_id]);
+$stmt->execute(['perfil%',$user_id]);
 $portfolio_images = $stmt->fetchAll();
 
 $query = "SELECT * FROM `services`";
 $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute();
 $services = $stmt->fetchAll();
+
+$query = "SELECT * FROM `images` WHERE `name` LIKE ? AND `user_id` = ?";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute(['perfil%',$user_id]);
+$perfil_img = $stmt->fetch();
 
 $query = "SELECT * FROM `users_has_services` WHERE `user_id` = ? ORDER BY `id` DESC";
 $stmt = $GLOBALS["pdo"]->prepare($query);
@@ -92,9 +97,21 @@ if ($row > 0) {
     </div>
     <div class="content-profile">
         <div class="perfil-provider">
-            <div class="perfil-img">
+            <div class="success-message" id="perfil-feed" style="display:none;">Imagem Enviada com sucesso!!</div>
+            <div class="perfil-img port">
                 <div class="img">
-                    <img src="./images/profile/perfilImage.jpg" alt="">
+                    <!-- <img src="./images/profile/perfilImage.jpg" alt=""> -->
+                    <form method="POST" enctype="multipart/form-data" action="uploadImgs.php">
+                        <?php if($perfil_img) :?>
+                            <div class="send-profile-img" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= "perfil" ?>/<?=$perfil_img['name']?> ') !important">
+                                <input type="file" onchange="displayImg(this)" id="perfil">
+                            </div>
+                        <?php else : ?>
+                            <div class="send-profile-img" style="background-image: url('./images/profile/profile.png') !important">
+                                <input type="file" onchange="displayImg(this)" id="perfil">
+                            </div>
+                        <?php endif; ?>
+                    </form>
                 </div>
                 <br>
                 <p style="max-width: 250px;"><span class="name"><?= $user['name'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $user['city'] ?>, <?= $user['state'] ?>, <br>
@@ -183,9 +200,9 @@ if ($row > 0) {
                         for ($i = 0; $i < 6; $i++) :
                             if (isset($portfolio_images[$i])) :
                         ?>
-                                <div class="send-img" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= $portfolio_images[$i]['name'] ?>') !important">
-                                    <input type="file" onchange="displayImg(this)" id="<?= $i ?>">
-                                </div>
+                            <div class="send-img" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= $portfolio_images[$i]['name'] ?>') !important">
+                                <input type="file" onchange="displayImg(this)" id="<?= $i ?>">
+                            </div>
                             <?php else : ?>
                                 <div class="send-img">
                                     <input type="file" onchange="displayImg(this)" id="<?= $i ?>">
@@ -194,7 +211,7 @@ if ($row > 0) {
                         <?php endfor ?>
                         <!-- <button type='submit'>Enviar Imagens</button> -->
                     </form>
-                    <button class="btn" onclick="previewShow(this)">Preview</button>
+                    <button class="btn" onclick="previewShow(this)">Ver Portfólio</button>
                     <br>
                 </div>
             </div>
@@ -205,9 +222,9 @@ if ($row > 0) {
                     <h2>Pré-visualização</h2>
                 </div>
                 <div class="profile-preview">
-                    <?php for ($i = 0; $i < sizeof($portfolio_images); $i++) : ?>
-                        <div class="profile-preview-item" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= $portfolio_images[$i]['name'] ?>') !important"></div>
-                    <?php endfor; ?>
+                    <?php //for ($i = 0; $i < sizeof($portfolio_images); $i++) : ?>
+                        <!-- style="background-image: url('images/portfolio/user_port_<?php //$user_id ?>/<?php //$portfolio_images[$i]['name'] ?>') !important" -->
+                    <?php // endfor; ?>
                 </div>
             </div>
             <div class="profile-form">
@@ -293,5 +310,4 @@ if ($row > 0) {
 <script src="js/masks.js"></script>
 <script src="js/cep.js"></script>
 <script src="js/validate_form.js"></script>
-
 </html>
