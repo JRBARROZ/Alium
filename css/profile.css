@@ -181,6 +181,12 @@ input[type=file],
     /* flex-direction: row; */
     justify-content: space-around;
 }
+.content-profile-error {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
 
 .perfil-provider {
     display: flex;
@@ -544,8 +550,9 @@ img {
     background-color: #EBF2FF;
     justify-content: center;
     align-items: center;
-    padding: 20px 0;
+    padding: 22px 0px;
     overflow-y: scroll;
+    max-height: 14px;
 }
 
 .service-content div {
@@ -641,4 +648,26 @@ img {
     border: 1px solid #cfffcf;
     border-radius:5px;
     font-family: 'Nunito-Light';
+}
+.not-found {
+    font-family: 'Nunito-Light';
+    margin-top: -24px;
+    color: #424242;
+}
+.provider {
+    /* padding:60px calc((100% - 1020px) / 2); */
+    max-width: 1020px;
+    /* background-color: red; */
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: flex;
+    justify-content: center;
+}
+
+.provider-title {
+    padding: 20px;
+    font-family: 'Asgalt';
+    font-weight: normal;
+    text-align: center;
+    font-size: 4.5em;
 }

@@ -55,6 +55,10 @@ if (isLogged()) {
                     <div class="error-message">As senhas não conferem :/</div>
                     <?php unset($_SESSION['error']) ?>
                 <?php endif ?>
+                <?php if (isset($_SESSION['already_exists'])) : ?>
+                    <div class="error-message">O e-mail ou CPF/CNPJ informado já está em uso.</div>
+                    <?php unset($_SESSION['already_exists']) ?>
+                <?php endif ?>
                 <div class="signup-form">
                     <form action="add_user.php" method="POST" class="form">
                         <label for="name">Nome:<span class="red required">*</span></label><br>

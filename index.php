@@ -38,6 +38,12 @@
         </form>
         <ul class='listSearch'>
         </ul>
+
+          <?php if (isset($_SESSION['user_not_exists'])) : ?>
+              <script>alert("Usuário não encontrado.")</script>
+              <?php unset($_SESSION['user_not_exists']) ?>
+          <?php endif ?>
+  
          
         <form action="worker_profile.php" id="searchUsers" method="post">
           <input type="text" class="userSearchBox" name="searchUser" autocomplete="off" placeholder="Procurar Profissional..."  oninput=procurarUsuarios(this.value)>

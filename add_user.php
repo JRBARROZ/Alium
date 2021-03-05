@@ -26,6 +26,16 @@ $user[] = sha1(addslashes(trim($_POST['password'])));
 $user[] = addslashes(trim($_POST['cep']));
 $user[] = isset($_POST['job']) ? 'worker' : 'client';
 
+$query = "SELECT * FROM `users` WHERE `email`= ? OR `cpf_cnpj`= ?";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute([$user[2], $user[1]]);
+$rows = $stmt->rowCount();
+
+if($rows != 0){
+    $_SESSION['already_exists'] = true;
+    redirect('signup.php');
+}
+
 $query = "INSERT INTO `users` (`name`, `cpf_cnpj`, `email`, `phone`, `description`, `address`, `address_number`, `address_complement`, `neighborhood`, `city`, `state`, `password`, `postal_code`, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $GLOBALS['pdo']->prepare($query);

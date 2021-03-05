@@ -83,9 +83,9 @@ function displayImg(e) {
         feedback.style.display = "none";
     }, 3000);
     insertImg(e);
-    requestData();
-    // setTimeout(function(){ 
-    // }, 1000);
+    setTimeout(function(){ 
+         requestData();
+     }, 1000);
     
 }
 function insertImg(e) {
