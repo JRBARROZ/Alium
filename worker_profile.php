@@ -1,14 +1,14 @@
 <?php
 require_once 'init.php';
 
-if (!isset($_POST['id'])) {
+if (!isset($_POST['id']) && !isset($_GET['id'])) {
   redirect('provider_list.php');
   exit();
 }
 
 
 $user_not_exists = false;
-$worker_id = $_POST['id'];
+$worker_id = $_POST['id'] ?? $_GET['id'];
 if ($worker_id == "") {
   $user_not_exists = true;
 }
@@ -38,6 +38,12 @@ if (!$user_not_exists) {
   $portfolio_images = $stmt->fetchAll();
   $phone = $worker['phone'];
   $whatsappPhone = str_replace(['(', ')', ' ', '-'], '', $phone);
+
+  $query = "SELECT * FROM `images` WHERE `name` LIKE ? AND `user_id` = ?";
+  $stmt = $GLOBALS['pdo']->prepare($query);
+  $stmt->execute(["perfil%",$worker_id]);
+  $perfil = $stmt->fetch();
+
 
   if ($worker['social_media'] == '') {
     $insta = 'Não Informado';
@@ -102,7 +108,7 @@ if (!$user_not_exists) {
         <a id="back" href="javascript:history.go(-1)"><i class="fa fa-arrow-left fa-4" aria-hidden="true"></i></a>
         <div class="perfil-img">
           <div class="img">
-            <img src="./images/profile/perfilImage.jpg" alt="">
+            <img src="./images/portfolio/user_port_<?=$worker_id?>/perfil/<?=$perfil['name']?>" alt="">
           </div>
           <br>
           <p><span class="name"><?= $worker['name'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $worker['city'] ?>, <?= $worker['state'] ?>, <br>
@@ -191,7 +197,9 @@ if (!$user_not_exists) {
           <div id='profile-preview'>
             <div class="profile-preview">
               <?php foreach ($portfolio_images as $i => $image) : ?>
-                <img class="profile-preview-item" src="images/portfolio/user_port_<?= $worker_id ?>/<?= $i ?>.jpg" alt="teste">
+                <?php if(strpos($image['name'],"perfil") === false):?>
+                  <img class="profile-preview-item" src="./images/portfolio/user_port_<?= $worker_id ?>/<?= $image['name'] ?>" alt="">
+                <?php endif?>
               <?php endforeach ?>
             </div>
           </div>
@@ -200,14 +208,10 @@ if (!$user_not_exists) {
 
 
     </div>
-  <?php else : ?>
-    <div class="content-profile-error">
-      <h1 class="provider-title">Erro</h1>
-      <div class="provider">
-        <p class="not-found">A busca por <strong><?= strtoupper($_POST['searchUser']) ?></strong> não obteve resultados! Tente novamente</p>
-        <!-- <img src="images/icons/Layer_4.svg" alt="404"> -->
-      </div>
-    </div>
+  <?php else :
+    $_SESSION['userNotFound'] =strtoupper($_POST['searchUser']);
+    redirect('index.php'); 
+  ?>
   <?php endif ?>
   <section class="footer">
     <div class="footer-container">

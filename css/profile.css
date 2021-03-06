@@ -236,7 +236,14 @@ input[type=file],
     margin-left: 20px;
     /* flex: 1 1 260px; */
 }
-
+.img img{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+.profile-item h3{
+    margin-top: 50px;
+}
 .perfil-img p {
     margin-left: 26px;
     color: #637EA6;
@@ -320,12 +327,12 @@ input[type=file],
     width: 150px;
     height: 41px;
     color: white;
-    font-family: 'Nunito-Regular';
-    font-size: .8em;
-    padding: 8px;
+    font-family: 'Nunito-Light';
+    font-size: 0.8em;
     outline: none;
     cursor: pointer;
     transition: 1s;
+    /* font-style: italic; */
     margin-top: 10px;
     border-color: transparent;
     border: absolute 3px;
@@ -333,7 +340,6 @@ input[type=file],
     background-color: #0E2548;
     text-decoration: none;
 }
-
 .btn:hover {
     background-color: #4D6180;
     border-color: #FFC30B;
@@ -670,4 +676,20 @@ img {
     font-weight: normal;
     text-align: center;
     font-size: 4.5em;
+}
+.submit-limit{
+    width: 320px;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.submit-limit span{
+    color: #0E2548;
+    align-self: flex-end;
+}
+.yellow {
+    color: #FFC30B !important;
+}
+.red {
+    color: tomato !important;
 }

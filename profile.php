@@ -142,8 +142,11 @@ if ($row > 0) {
                     </h3>
                     <p id="about-content"><?= $description ?></p>
                     <form id="about-form" action="update_profile.php" method="POST">
-                        <textarea name="about" cols="5" rows="6"><?= $description ?></textarea>
-                        <input type="submit" value="Salvar">
+                        <textarea name="about" cols="5" rows="6" id="about-textarea" maxlength="200" oninput="countCharacters(this.value.length)"><?= $description ?></textarea>
+                        <div class="submit-limit">
+                            <input type="submit" value="Salvar">
+                            <span class="text-limit"></span>
+                        </div>
                     </form>
                 </div>
                 <div class="profile-item star-size">
@@ -310,4 +313,34 @@ if ($row > 0) {
 <script src="js/masks.js"></script>
 <script src="js/cep.js"></script>
 <script src="js/validate_form.js"></script>
+<script>
+    let aboutTotalLength = document.querySelector('#about-textarea');
+    let showLength = document.querySelector('.text-limit')
+    showLength.innerHTML = `${aboutTotalLength.value.length} / 200`;
+    if(aboutTotalLength.value.length >= 150 && aboutTotalLength.value.length < 200){
+        showLength.classList.remove('red');
+        showLength.classList.add('yellow');
+    }else if (aboutTotalLength.value.length == 200){
+        showLength.classList.remove('yellow');
+        showLength.classList.add('red');
+    }else{
+        showLength.classList.remove('yellow');
+        showLength.classList.remove('red');
+    }
+    // console.log(aboutTotalLength.value.length);
+    function countCharacters(value){
+        showLength.innerHTML = `${value}/200`;
+        // console.log(value);
+        if(value >= 150 && value < 200){
+            showLength.classList.remove('red');
+            showLength.classList.add('yellow');
+        }else if (value == 200){
+            showLength.classList.remove('yellow');
+            showLength.classList.add('red');
+        }else{
+            showLength.classList.remove('yellow');
+            showLength.classList.remove('red');
+        }
+    }
+</script>
 </html>

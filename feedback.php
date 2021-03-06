@@ -32,4 +32,4 @@ if (isset($_POST['worker_id'])) {
     $stmt->execute([$feedback, $title, $evaluation, $client_id, $worker_id]);
   }
 }
-redirect('provider_list.php?work=' . $service);
+redirect('worker_profile.php?id=' . $worker_id);

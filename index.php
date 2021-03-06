@@ -10,6 +10,39 @@
 </head>
 
 <body>
+  <?php if(isset($_SESSION['work'])) :?>
+    <div class="modal-index">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div></div>
+          <p>Equipe Alium Alerta</p>
+          <span id="close-modal" onclick="closeModal()" >X</span>
+        </div>
+        <div class="modal-body">
+          <h2>Erro</h2>
+          <p>Ninguém está prestando o serviço : <span><?= $_SESSION['work'] ?><span></p>
+        </div>
+      </div>
+    </div>
+  <?php unset($_SESSION['work'])?>
+  <?php endif ?>
+
+  <?php if(isset($_SESSION['userNotFound'])) :?>
+    <div class="modal-index">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div></div>
+          <p>Equipe Alium Alerta</p>
+          <span id="close-modal" onclick="closeModal()" >X</span>
+        </div>
+        <div class="modal-body">
+          <h2>Erro</h2>
+          <p>Não foi encontrado nenhum prestador chamado : <span><?= $_SESSION['userNotFound'] ?><span></p>
+        </div>
+      </div>
+    </div>
+  <?php unset($_SESSION['userNotFound'])?>
+  <?php endif ?>
   <header class="menu">
     <div class="overlay-content">
       <div class="menu-container">
@@ -37,14 +70,7 @@
           <button type="submit"  class="inputButton">PROCURAR</button>
         </form>
         <ul class='listSearch'>
-        </ul>
-
-          <?php if (isset($_SESSION['user_not_exists'])) : ?>
-              <script>alert("Usuário não encontrado.")</script>
-              <?php unset($_SESSION['user_not_exists']) ?>
-          <?php endif ?>
-  
-         
+        </ul>         
         <form action="worker_profile.php" id="searchUsers" method="post">
           <input type="text" class="userSearchBox" name="searchUser" autocomplete="off" placeholder="Procurar Profissional..."  oninput=procurarUsuarios(this.value)>
           <input type="hidden" name="id" id="userSearchId" value="">
@@ -58,7 +84,7 @@
   <div class="container">
 
     <section class="category">
-      <p class="titleCategory">Mais Procurados</p>
+      <h2 class="titleCategory">Mais Procurados</h1>
       <div class="category-icons">
         <ul>
           <li><a href="provider_list.php?work=marceneiro"><img src="images/icons/serrote.svg" alt=""></a></li>
@@ -67,7 +93,7 @@
         </ul>
       </div>
     </section>
-    <section class="info">
+    <!-- <section class="info">
       <div class="info-container">
         <div class="info-item">
           <img src="images/backgrounds/slide_1.png" alt="" class="slide">
@@ -91,8 +117,8 @@
           </ul>
         </div>
       </div>
-    </section>
-    <section class="feedback-container">
+    </section> -->
+    <!-- <section class="feedback-container">
       <div class="feedback-title">
         <p>Feedbacks</p>
       </div>
@@ -109,7 +135,7 @@
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
       </div>
-    </section>
+    </section> -->
     <section class="contact">
       <div class="contact-container">
         <div class="contact-form">
@@ -217,7 +243,21 @@
 
     }
   }
-
+  //Modal
+  const body = document.querySelector("body");
+  const modal = document.querySelector('.modal-index');
+  if(modal == null){
+    body.style.overflowY = "scroll";
+  }else{
+    body.style.overflowY = "hidden";
+  }
+  // body.style.overflowY = "scroll";
+  function closeModal(){
+    // const body = document.querySelector("body");
+    body.style.overflowY = "scroll";
+    modal.style.display = "none";
+    // console.log(element);
+  }
   </script>
 </body>
 

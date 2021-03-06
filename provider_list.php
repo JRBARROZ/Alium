@@ -1,4 +1,16 @@
 <?php require_once 'init.php' ?>
+<?php 
+
+$query = "SELECT images.name, users.id FROM images INNER JOIN users ON users.id = images.user_id WHERE images.name LIKE ?";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute(["perfil%"]);
+$perfil = $stmt->fetchAll();
+$perfilPicArray = [];
+foreach($perfil as $key => $value){
+  array_push($perfilPicArray, $value['name']);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -46,19 +58,9 @@
       $users = $stmt->fetchAll();
       $rows_user_services = $stmt->rowCount();
     } else {
+      redirect('index.php');
+      $_SESSION['work'] =  strtoupper($_GET['work']);
   ?>
-      <h1 class="provider-title">Erro</h1>
-      <div class="provider">
-        <p class="not-found">A busca por <strong><?= strtoupper($_GET['work']) ?></strong> não obteve resultados! Tente novamente</p>
-        <!-- <img src="images/icons/Layer_4.svg" alt="404"> -->
-      </div>
-      <section class="footer">
-        <div class="footer-container">
-          <div class="logo-footer">
-            <img src="images/icons/logo-footer.svg" alt="">
-          </div>
-        </div>
-      </section>
 </body>
 
 </html>
@@ -70,7 +72,7 @@
 <h1 class="provider-title"><?= strtoupper($_GET['work']) ?></h1>
 <div class="provider">
   <?php if ($rows_user_services != 0) : ?>
-    <?php foreach ($users as $user) : ?>
+    <?php foreach ($users as $key => $user) : ?>
       <?php
       $user = getUserById($user['user_id']);
       if (isset($_SESSION['user']) && $user['id'] === $_SESSION['user']['id']) {
@@ -96,7 +98,7 @@
       ?>
       <div class="provider-item">
         <div class="provider-img">
-          <img src="./images/backgrounds/index.jpg" alt="">
+          <img src="./images/portfolio/user_port_<?= $user['id']?>/perfil/<?= $perfilPicArray[$key]?>" alt="">
         </div>
         <div class="provider-title2">
           <h1><?= $user['name'] ?></h1>
