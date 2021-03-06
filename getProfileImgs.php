@@ -2,7 +2,7 @@
 require_once 'init.php';
 $user_id = $_SESSION['user']['id'];
 try{
-    $query = "SELECT * FROM `images` WHERE `name` NOT LIKE ? AND `user_id` = ?";
+    $query = "SELECT * FROM `images` WHERE `name` NOT LIKE ? AND `user_id` = ? ORDER BY `name` ASC";
     $stmt = $GLOBALS['pdo']->prepare($query);
     $stmt->execute(['perfil%',$user_id]);
     $perfil_img = $stmt->fetchAll();

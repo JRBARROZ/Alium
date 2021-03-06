@@ -22,7 +22,7 @@ $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 
-$query = "SELECT * FROM `images` WHERE `name` NOT LIKE ? AND `user_id` = ?";
+$query = "SELECT * FROM `images` WHERE `name` NOT LIKE ? AND `user_id` = ? ORDER BY `name` ASC";
 $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute(['perfil%',$user_id]);
 $portfolio_images = $stmt->fetchAll();
@@ -203,7 +203,7 @@ if ($row > 0) {
                         for ($i = 0; $i < 6; $i++) :
                             if (isset($portfolio_images[$i])) :
                         ?>
-                            <div class="send-img" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= $portfolio_images[$i]['name'] ?>') !important">
+                            <div class="send-img" style="background-image: url('images/portfolio/user_port_<?= $user_id ?>/<?= $portfolio_images[$i]['name'] ?>?<?= $portfolio_images[$i]['updated_at'] ?>') !important">
                                 <input type="file" onchange="displayImg(this)" id="<?= $i ?>">
                             </div>
                             <?php else : ?>

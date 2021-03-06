@@ -49,7 +49,7 @@ foreach ($imgs['tmp_name'] as $key => $value) {
         $data = $stmt->fetch();
         $row = $stmt->rowCount();
         if($row == 1){
-            $queryUpdate = "UPDATE `images` SET `name` = ? WHERE `id` = ? AND `user_id`= ?"; 
+            $queryUpdate = "UPDATE `images` SET `name` = ?, `updated_at` = NOW() WHERE `id` = ? AND `user_id`= ?"; 
             $stmt = $GLOBALS['pdo']->prepare($queryUpdate);
             $stmt->execute([$imgName, $data['id'], $_SESSION['user']['id']]);
         }else{

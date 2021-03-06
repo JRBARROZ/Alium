@@ -120,6 +120,7 @@ CREATE TABLE IF NOT EXISTS `alium`.`images` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `user_id` INT NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT NOW,
   PRIMARY KEY (`id`),
   INDEX `fk_image_user_idx` (`user_id` ASC),
   CONSTRAINT `fk_image_user`

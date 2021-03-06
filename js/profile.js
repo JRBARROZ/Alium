@@ -60,12 +60,10 @@ function showImgsData(value){
     }else{
         profilePreview.innerHTML = "";
         for(let i = 0; i < value.length; i++){
-            let mynum = Math.floor(Math.random() * 50000000000000);
-            // console.log(mynum);
             const div = document.createElement('div');
             div.style.backgroundImage = "";
             div.className = "profile-preview-item";
-            div.style.backgroundImage = `url(./images/portfolio/user_port_${value[i]['user_id']}/${value[i]['name']}?random=${mynum})`;
+            div.style.backgroundImage = `url('./images/portfolio/user_port_${value[i]['user_id']}/${value[i]['name']}?${value[i]['updated_at']}')`;
             profilePreview.appendChild(div);
         }
     }
