@@ -32,10 +32,11 @@ if (!$user_not_exists) {
     }
   }
 
-  $query = "SELECT * FROM `images` WHERE `user_id` = ?";
+  $query = "SELECT * FROM `images` WHERE `name` NOT LIKE ? AND `user_id` = ?";
   $stmt = $GLOBALS['pdo']->prepare($query);
-  $stmt->execute([$worker_id]);
+  $stmt->execute(["perfil%", $worker_id]);
   $portfolio_images = $stmt->fetchAll();
+  $imagesCount = $stmt->rowCount();
   $phone = $worker['phone'];
   $whatsappPhone = str_replace(['(', ')', ' ', '-'], '', $phone);
 
@@ -70,6 +71,13 @@ if (!$user_not_exists) {
     $feedback = $already_evaluated ? $evaluation['feedback'] : '';
   }
 }
+
+  $query = "SELECT feedback, evaluation, title, name FROM users INNER JOIN feedbacks ON users.id = feedbacks.client_id WHERE feedbacks.worker_id = ?";
+  $stmt = $GLOBALS['pdo']->prepare($query);
+  $stmt->execute([$worker['id']]);
+  $feedbackCount = $stmt->rowCount();
+  $allFeedbacks = $stmt->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
@@ -107,9 +115,15 @@ if (!$user_not_exists) {
       <div class="perfil-provider">
         <a id="back" href="javascript:history.go(-1)"><i class="fa fa-arrow-left fa-4" aria-hidden="true"></i></a>
         <div class="perfil-img">
-          <div class="img">
-            <img src="./images/portfolio/user_port_<?=$worker_id?>/perfil/<?=$perfil['name']?>" alt="">
-          </div>
+        <?php if($perfil != NULL): ?>
+            <div class="img">
+              <img src="./images/portfolio/user_port_<?=$worker_id?>/perfil/<?=$perfil['name']?>" alt="">
+            </div>
+          <?php else: ?>
+              <div class="profile-img">
+                  <p id="prof-pic-letter"><?= strtoupper($worker["name"][0]) ?></p>
+              </div>
+          <?php endif ?>
           <br>
           <p><span class="name"><?= $worker['name'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $worker['city'] ?>, <?= $worker['state'] ?>, <br>
             <?php
@@ -168,7 +182,7 @@ if (!$user_not_exists) {
                 <input type="hidden" name="worker_id" value="<?= $worker['id'] ?>">
                 <input type="hidden" name="service" value="<?= $_POST['service'] ?>">
                 <label for="title">Título</label><br>
-                <input type="text" name="title" id="title" placeholder="Ex: Profissional excelente!" value="<?= $title ?>"><br>
+                <input type="text" name="title" id="title" maxlength="20" placeholder="Ex: Profissional excelente!" value="<?= $title ?>"><br>
                 <label for="feedback">Feedback</label><br>
                 <textarea id="feedback" name="feedback" cols="5" rows="6" placeholder="Conte-nos sobre sua experiência com o(a) <?= $worker['name'] ?>"><?= $feedback ?></textarea>
                 <input type="submit" value="Avaliar">
@@ -191,22 +205,46 @@ if (!$user_not_exists) {
           </div>
         </div>
       </div>
+      
       <div class="profile-edit">
         <div class="profile-text-edit">
           <h1>Portfólio</h1>
-          <div id='profile-preview'>
             <div class="profile-preview">
+            <?php if(sizeof($portfolio_images) > 0): ?>
               <?php foreach ($portfolio_images as $i => $image) : ?>
-                <?php if(strpos($image['name'],"perfil") === false):?>
                   <img class="profile-preview-item" src="./images/portfolio/user_port_<?= $worker_id ?>/<?= $image['name'] ?>" alt="">
-                <?php endif?>
               <?php endforeach ?>
+              <?php else: ?>
+                <div class="profile-preview">
+                    <h3>Não há imagens disponíveis para este usuário</h3>
+                </div>  
+            <?php endif ?>
             </div>
           </div>
+
+      <?php if($feedbackCount > 0): ?> 
+        <div class="feedback-content">
+          <h1>Avaliações dos usuários:</h1>
+          <?php foreach($allFeedbacks as $feedback): ?>
+            <div class="feedback">
+              <div class="feedback-img">
+                  <p id="prof-pic-letter"><?= strtoupper($feedback["name"][0]) ?></p>
+              </div>
+              <p>
+                <span class="name"><?= $feedback["name"] ?></span><br>
+                <span id="title"><?= $feedback["title"] ?></span><br>
+                <span><?= $feedback["feedback"] ?></span>
+              </p>
+            </div>
+          <?php endforeach ?>   
         </div>
-      </div>
-
-
+        <?php else: ?>
+          <div class="feedback-content">
+            <h1>Avaliações dos usuários:</h1>
+            <h2>Não há avaliações disponíveis para este usuário</h2>
+          </div>
+      <?php endif ?>         
+    </div>
     </div>
   <?php else :
     $_SESSION['userNotFound'] =strtoupper($_POST['searchUser']);

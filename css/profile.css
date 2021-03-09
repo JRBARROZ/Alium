@@ -169,6 +169,8 @@ input[type=file],
     line-height: 1em;
     letter-spacing: 0em;
     text-align: left;
+    min-height: 150px;
+    margin-left: 10px;
 }
 
 .content-profile {
@@ -394,6 +396,7 @@ h3 a {
     /* flex: 1 1 0 !important; */
     /* margin-left: 5px; */
     flex-grow: 1;
+    overflow: hidden;
     flex-wrap: wrap;
     position: relative;
     /* z-index: 2; */
@@ -693,3 +696,104 @@ img {
 .red {
     color: tomato !important;
 }
+
+.feedback-content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-width: 510px;
+    max-height: 1000px;
+}
+
+.feedback-content h1 {
+    font-family: 'Nunito-Regular';
+    color: #0E2548;
+    margin-left: 10px;
+    font-size: 2em;
+}
+
+.feedback-content h2 {
+    font-family: 'Nunito-Regular';
+    color: #0E2548;
+    margin-left: 10px;
+    font-size: 1.25em;
+}
+
+.feedback {
+    display: flex;
+    flex-direction: left;
+    background-color: #EBF2FF;
+    margin: 10px;
+    padding: 10px;
+}
+
+.feedback-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    background-color: #0E2548;
+}
+
+.feedback-img p{
+    color: white; 
+    text-align: center;
+    font-size: 4em;
+    font-family: 'Nunito-Regular';
+    margin: 3px;
+}
+
+.feedback p{
+    max-width: 350px;
+    margin: 3px;
+}
+
+.feedback p span:nth-of-type(3){
+    font-family: 'Nunito-Light';
+    color: #637EA6;
+}
+
+.feedback p span:nth-of-type(1){
+    font-family: 'Nunito-Regular';
+    color: #0E2548;
+}
+
+#title{
+    font-family: 'Nunito-Regular';
+    font-size: 1.25em;
+}
+
+.profile-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    background-color: #0E2548;
+}
+
+.profile-img p{
+    color: white; 
+    font-size: 4em;
+    font-family: 'Nunito-Regular';
+    margin: 3px;
+}
+
+
+.perfil-img {
+    display: flex;
+    /* flex:2; */
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 40px;
+    /* flex-basis: 2 1 300px; */
+    /* max-width: 300px; */
+    height: 100px;
+    margin-left: 20px;
+    /* flex: 1 1 260px; */
+}
+

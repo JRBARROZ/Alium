@@ -139,13 +139,15 @@
     <section class="contact">
       <div class="contact-container">
         <div class="contact-form">
-          <form>
+          <form action="contact_us.php" method="post">
             <label for="Nome">Nome:</label><br>
             <input type="text" id="Nome" name="Nome" value=""><br>
-            <label for="Email">Email:</label><br>
-            <input type="text" id="Email" name="Email" value=""><br><br>
+            <label for="email">E-mail:</label><br>
+            <input type="text" id="email" name="email" value=""><br><br>
+            <label for="assunto">Assunto:</label><br>
+            <input type="text" id="assunto" name="assunto" value=""><br><br>
             <label for="message">Mensagem:</label><br>
-            <textarea name="" id="message" cols="30" rows="10"></textarea>
+            <textarea name="message" id="message" cols="30" rows="10"></textarea>
             <br>
             <input type="submit" value="Enviar">
           </form>

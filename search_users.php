@@ -8,7 +8,7 @@ if($_POST['searchUser'] == ''){
     echo json_encode($data);
 }else{
     try{
-        $stmt = $GLOBALS['pdo']->prepare("SELECT * FROM `users` WHERE `name` LIKE ?");
+        $stmt = $GLOBALS['pdo']->prepare("SELECT * FROM `users` WHERE `name` LIKE ? AND `role` = 'worker'");
         $stmt->execute([$searchUsers."%"]);
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($data);
