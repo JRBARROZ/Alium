@@ -142,7 +142,7 @@ if ($row > 0) {
                     </h3>
                     <p id="about-content"><?= $description ?></p>
                     <form id="about-form" action="update_profile.php" method="POST">
-                        <textarea name="about" cols="5" rows="6" id="about-textarea" maxlength="200" oninput="countCharacters(this.value.length)"><?= $description ?></textarea>
+                        <textarea name="about" cols="5" rows="6" id="about-textarea" maxlength="150" oninput="countCharacters(this.value.length)"><?= $description ?></textarea>
                         <div class="submit-limit">
                             <input type="submit" value="Salvar">
                             <span class="text-limit"></span>
@@ -295,6 +295,7 @@ if ($row > 0) {
                         <br>
                         <input type="hidden" name="user_id" value="<?= $user_id ?>">
                         <input type="submit" value="Atualizar">
+                        <button type="button" href="#" class="btn cancel-button" onclick="hideEvaluateForm()">Cancelar</button>
                     </form>
                 </div>
             </div>
@@ -316,11 +317,11 @@ if ($row > 0) {
 <script>
     let aboutTotalLength = document.querySelector('#about-textarea');
     let showLength = document.querySelector('.text-limit')
-    showLength.innerHTML = `${aboutTotalLength.value.length} / 200`;
-    if(aboutTotalLength.value.length >= 150 && aboutTotalLength.value.length < 200){
+    showLength.innerHTML = `${aboutTotalLength.value.length} / 150`;
+    if(aboutTotalLength.value.length >= 100 && aboutTotalLength.value.length < 150){
         showLength.classList.remove('red');
         showLength.classList.add('yellow');
-    }else if (aboutTotalLength.value.length == 200){
+    }else if (aboutTotalLength.value.length == 150){
         showLength.classList.remove('yellow');
         showLength.classList.add('red');
     }else{
@@ -329,12 +330,12 @@ if ($row > 0) {
     }
     // console.log(aboutTotalLength.value.length);
     function countCharacters(value){
-        showLength.innerHTML = `${value}/200`;
+        showLength.innerHTML = `${value}/150`;
         // console.log(value);
-        if(value >= 150 && value < 200){
+        if(value >= 100 && value < 150){
             showLength.classList.remove('red');
             showLength.classList.add('yellow');
-        }else if (value == 200){
+        }else if (value == 150){
             showLength.classList.remove('yellow');
             showLength.classList.add('red');
         }else{

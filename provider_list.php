@@ -1,12 +1,12 @@
 <?php require_once 'init.php' ?>
-<?php 
+<?php
 
 $query = "SELECT images.name, users.id FROM images INNER JOIN users ON users.id = images.user_id WHERE images.name LIKE ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute(["perfil%"]);
 $perfil = $stmt->fetchAll();
 $perfilPicArray = [];
-foreach($perfil as $key => $value){
+foreach ($perfil as $key => $value) {
   array_push($perfilPicArray, $value['name']);
 }
 ?>
@@ -75,6 +75,7 @@ foreach($perfil as $key => $value){
     <?php foreach ($users as $key => $user) : ?>
       <?php
       $user = getUserById($user['user_id']);
+      $user_id = $user['id'];
       if (isset($_SESSION['user']) && $user['id'] === $_SESSION['user']['id']) {
         continue;
       }
@@ -98,7 +99,19 @@ foreach($perfil as $key => $value){
       ?>
       <div class="provider-item">
         <div class="provider-img">
-          <img src="./images/portfolio/user_port_<?= $user['id']?>/perfil/<?= $perfilPicArray[$key]?>" alt="">
+          <?php if (sizeof($perfilPicArray) > 0) : ?>
+            <?php if (is_dir("./images/portfolio/user_port_$user_id/perfil/")) : ?>
+              <img src="./images/portfolio/user_port_<?= $user['id'] ?>/perfil/<?= $perfilPicArray[$key] ?>" alt="">
+            <?php else : ?>
+              <div class="profile-img">
+                <p id="prof-pic-letter"><?= strtoupper($user["name"][0]) ?></p>
+              </div>
+            <?php endif ?>
+          <?php else : ?>
+            <div class="profile-img">
+              <p id="prof-pic-letter"><?= strtoupper($user["name"][0]) ?></p>
+            </div>
+          <?php endif ?>
         </div>
         <div class="provider-title2">
           <h1><?= $user['name'] ?></h1>

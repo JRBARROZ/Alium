@@ -169,8 +169,12 @@ input[type=file],
     line-height: 1em;
     letter-spacing: 0em;
     text-align: left;
-    min-height: 150px;
+    min-height: 130px;
     margin-left: 10px;
+}
+
+.profile-text-edit h1 {
+    margin-bottom: 15px;
 }
 
 .content-profile {
@@ -244,7 +248,7 @@ input[type=file],
     height: 150px;
 }
 .profile-item h3{
-    margin-top: 50px;
+    margin-top: 30px;
 }
 .perfil-img p {
     margin-left: 26px;
@@ -347,6 +351,9 @@ input[type=file],
     border-color: #FFC30B;
     border: absolute 3px;
     border-style: solid;
+}
+.signin-btn {
+    padding: 5px 14px;
 }
 
 #form {
@@ -732,8 +739,8 @@ img {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     margin: 10px;
     background-color: #0E2548;
 }
@@ -741,7 +748,7 @@ img {
 .feedback-img p{
     color: white; 
     text-align: center;
-    font-size: 4em;
+    font-size: 2em;
     font-family: 'Nunito-Regular';
     margin: 3px;
 }
@@ -763,7 +770,7 @@ img {
 
 #title{
     font-family: 'Nunito-Regular';
-    font-size: 1.25em;
+    font-size: 1em;
 }
 
 .profile-img{
@@ -771,14 +778,14 @@ img {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    width: 150px;
-    height: 150px;
+    width: 110px;
+    height: 110px;
     background-color: #0E2548;
 }
 
 .profile-img p{
     color: white; 
-    font-size: 4em;
+    font-size: 3.75em;
     font-family: 'Nunito-Regular';
     margin: 3px;
 }
@@ -797,3 +804,28 @@ img {
     /* flex: 1 1 260px; */
 }
 
+.pagination {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.pagination .page-btn {
+    font-family: 'Nunito-Regular';
+    text-decoration: none;
+    border: 1px solid #0E2548;
+    background-color: #EBF2FF;
+    color: #0E2548;
+    font-size: 14px;
+    padding: 5px 8px;
+    border-radius: 3px;
+    margin: 0 5px;
+}
+.pagination .page-btn:hover {
+    background-color: #DAE1EE;
+}
+.active {
+    z-index: -2;
+    background-color: lightgray !important;
+}

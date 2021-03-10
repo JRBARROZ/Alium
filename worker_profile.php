@@ -2,82 +2,95 @@
 require_once 'init.php';
 
 if (!isset($_POST['id']) && !isset($_GET['id'])) {
-  redirect('provider_list.php');
+  redirect('index.php');
   exit();
 }
 
-
 $user_not_exists = false;
-$worker_id = $_POST['id'] ?? $_GET['id'];
-if ($worker_id == "") {
-  $user_not_exists = true;
+$worker_id = isset($_POST['id']) ? $_POST['id'] : addslashes(trim($_GET['id']));
+
+$query = "SELECT `name` FROM `users` WHERE `id` = ?";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute([$worker_id]);
+$rows = $stmt->rowCount();
+
+if ($rows == 0) {
+  redirect('index.php');
+  exit();
 }
-if (!$user_not_exists) {
 
+$query = "SELECT * FROM `users` WHERE `id` = ?";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute([$worker_id]);
+$worker = $stmt->fetch();
+$description = $worker['description'];
 
-  $query = "SELECT * FROM `users` WHERE `id` = ?";
-  $stmt = $GLOBALS['pdo']->prepare($query);
-  $stmt->execute([$worker_id]);
-  $worker = $stmt->fetch();
-  $description = $worker['description'];
-
-  $query = "SELECT * FROM `users_has_services` WHERE `user_id` = ?";
-  $stmt = $GLOBALS["pdo"]->prepare($query);
-  $stmt->execute([$worker_id]);
-  $images = $stmt->fetchAll();
-  $images_ids = [];
-  if (sizeof($images) > 0) {
-    foreach ($images as $image) {
-      array_push($images_ids, $image['service_id']);
-    }
-  }
-
-  $query = "SELECT * FROM `images` WHERE `name` NOT LIKE ? AND `user_id` = ?";
-  $stmt = $GLOBALS['pdo']->prepare($query);
-  $stmt->execute(["perfil%", $worker_id]);
-  $portfolio_images = $stmt->fetchAll();
-  $imagesCount = $stmt->rowCount();
-  $phone = $worker['phone'];
-  $whatsappPhone = str_replace(['(', ')', ' ', '-'], '', $phone);
-
-  $query = "SELECT * FROM `images` WHERE `name` LIKE ? AND `user_id` = ?";
-  $stmt = $GLOBALS['pdo']->prepare($query);
-  $stmt->execute(["perfil%",$worker_id]);
-  $perfil = $stmt->fetch();
-
-
-  if ($worker['social_media'] == '') {
-    $insta = 'Não Informado';
-    $twitter = 'Não Informado';
-  } else {
-    list($insta, $twitter) = explode(';', $worker['social_media']) ?? '';
-    $insta = $insta[0] == '@' ? trim($insta) : "@" . trim($insta);
-    $twitter = $twitter[0] == '@' ? trim($twitter) : "@" . trim($twitter);
-  }
-
-  if (isLogged()) {
-    $query = "SELECT * FROM `feedbacks` WHERE `client_id` = ? AND `worker_id` = ?";
-    $stmt = $GLOBALS['pdo']->prepare($query);
-    $stmt->execute([$_SESSION['user']['id'], $worker['id']]);
-    $rows = $stmt->rowCount();
-    $evaluation = $stmt->fetch();
-    $already_evaluated = false;
-
-    if ($rows != 0) {
-      $already_evaluated = true;
-    }
-
-    $title = $already_evaluated ? $evaluation['title'] : '';
-    $feedback = $already_evaluated ? $evaluation['feedback'] : '';
+$query = "SELECT * FROM `users_has_services` WHERE `user_id` = ?";
+$stmt = $GLOBALS["pdo"]->prepare($query);
+$stmt->execute([$worker_id]);
+$images = $stmt->fetchAll();
+$images_ids = [];
+if (sizeof($images) > 0) {
+  foreach ($images as $image) {
+    array_push($images_ids, $image['service_id']);
   }
 }
 
-  $query = "SELECT feedback, evaluation, title, name FROM users INNER JOIN feedbacks ON users.id = feedbacks.client_id WHERE feedbacks.worker_id = ?";
-  $stmt = $GLOBALS['pdo']->prepare($query);
-  $stmt->execute([$worker['id']]);
-  $feedbackCount = $stmt->rowCount();
-  $allFeedbacks = $stmt->fetchAll();
+$query = "SELECT * FROM `images` WHERE `name` NOT LIKE ? AND `user_id` = ?";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute(["perfil%", $worker_id]);
+$portfolio_images = $stmt->fetchAll();
+$imagesCount = $stmt->rowCount();
+$phone = $worker['phone'];
+$whatsappPhone = str_replace(['(', ')', ' ', '-'], '', $phone);
 
+$query = "SELECT * FROM `images` WHERE `name` LIKE ? AND `user_id` = ?";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute(["perfil%", $worker_id]);
+$perfil = $stmt->fetch();
+
+
+if ($worker['social_media'] == '') {
+  $insta = 'Não Informado';
+  $twitter = 'Não Informado';
+} else {
+  list($insta, $twitter) = explode(';', $worker['social_media']) ?? '';
+  $insta = $insta[0] == '@' ? trim($insta) : "@" . trim($insta);
+  $twitter = $twitter[0] == '@' ? trim($twitter) : "@" . trim($twitter);
+}
+
+if (isLogged()) {
+  $query = "SELECT * FROM `feedbacks` WHERE `client_id` = ? AND `worker_id` = ?";
+  $stmt = $GLOBALS['pdo']->prepare($query);
+  $stmt->execute([$_SESSION['user']['id'], $worker['id']]);
+  $rows = $stmt->rowCount();
+  $evaluation = $stmt->fetch();
+  $already_evaluated = false;
+
+  if ($rows != 0) {
+    $already_evaluated = true;
+  }
+
+  $title = $already_evaluated ? $evaluation['title'] : '';
+  $feedback = $already_evaluated ? $evaluation['feedback'] : '';
+}
+$maxResults = 3;
+
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$start = $page - 1;
+$start = $maxResults * $start;
+
+$query = "SELECT feedbacks.feedback, feedbacks.evaluation, feedbacks.title, users.name FROM users INNER JOIN feedbacks ON users.id = feedbacks.client_id WHERE feedbacks.worker_id = ?";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute([$worker['id']]);
+$feedbackCount = $stmt->rowCount();
+
+$query = "SELECT feedbacks.feedback, feedbacks.evaluation, feedbacks.title, users.name FROM users INNER JOIN feedbacks ON users.id = feedbacks.client_id WHERE feedbacks.worker_id = ? LIMIT ?, ?";
+$stmt = $GLOBALS['pdo']->prepare($query);
+$stmt->execute([$worker['id'], $start, $maxResults]);
+$allFeedbacks = $stmt->fetchAll();
+
+$totalPages = $feedbackCount%$maxResults == 0 ? (int)$feedbackCount/$maxResults : intdiv($feedbackCount, $maxResults) + 1;
 ?>
 
 <!DOCTYPE html>
@@ -109,20 +122,19 @@ if (!$user_not_exists) {
       </nav>
     </div>
   </div>
-
   <?php if (!$user_not_exists) : ?>
     <div class="content-profile">
       <div class="perfil-provider">
         <a id="back" href="javascript:history.go(-1)"><i class="fa fa-arrow-left fa-4" aria-hidden="true"></i></a>
         <div class="perfil-img">
-        <?php if($perfil != NULL): ?>
+          <?php if ($perfil !== false) : ?>
             <div class="img">
-              <img src="./images/portfolio/user_port_<?=$worker_id?>/perfil/<?=$perfil['name']?>" alt="">
+              <img src="./images/portfolio/user_port_<?= $worker_id ?>/perfil/<?= $perfil['name'] ?>" alt="">
             </div>
-          <?php else: ?>
-              <div class="profile-img">
-                  <p id="prof-pic-letter"><?= strtoupper($worker["name"][0]) ?></p>
-              </div>
+          <?php else : ?>
+            <div class="profile-img">
+              <p id="prof-pic-letter"><?= strtoupper($worker["name"][0]) ?></p>
+            </div>
           <?php endif ?>
           <br>
           <p><span class="name"><?= $worker['name'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $worker['city'] ?>, <?= $worker['state'] ?>, <br>
@@ -192,7 +204,7 @@ if (!$user_not_exists) {
           <?php else : ?>
             <div class="profile-item">
               <h3>Entre para avaliar este profissional</h3>
-              <a href="signin.php" class="btn">Entrar</a>
+              <a href="signin.php" class="btn signin-btn">Entrar</a>
             </div>
           <?php endif ?>
           <div class="profile-item">
@@ -205,50 +217,59 @@ if (!$user_not_exists) {
           </div>
         </div>
       </div>
-      
+
       <div class="profile-edit">
         <div class="profile-text-edit">
           <h1>Portfólio</h1>
-            <div class="profile-preview">
-            <?php if(sizeof($portfolio_images) > 0): ?>
+          <div class="profile-preview">
+            <?php if (sizeof($portfolio_images) > 0) : ?>
               <?php foreach ($portfolio_images as $i => $image) : ?>
-                  <img class="profile-preview-item" src="./images/portfolio/user_port_<?= $worker_id ?>/<?= $image['name'] ?>" alt="">
+                <img class="profile-preview-item" src="./images/portfolio/user_port_<?= $worker_id ?>/<?= $image['name'] ?>" alt="">
               <?php endforeach ?>
-              <?php else: ?>
-                <div class="profile-preview">
-                    <h3>Não há imagens disponíveis para este usuário</h3>
-                </div>  
+            <?php else : ?>
+              <div class="profile-preview">
+                <h3>Este usuário ainda não inseriu nenhuma imagem de portfólio</h3>
+              </div>
             <?php endif ?>
+          </div>
+        </div>
+
+        <?php if ($feedbackCount > 0) : ?>
+          <div class="feedback-content">
+            <h1>Avaliações dos usuários:</h1>
+            <?php foreach ($allFeedbacks as $feedback) : ?>
+              <div class="feedback">
+                <div class="feedback-img">
+                  <p id="prof-pic-letter"><?= strtoupper($feedback["name"][0]) ?></p>
+                </div>
+                <p>
+                  <span class="name"><?= $feedback["name"] ?></span><br>
+                  <span id="title"><?= $feedback["title"] ?></span><br>
+                  <span><?= $feedback["feedback"] ?></span>
+                </p>
+              </div>
+            <?php endforeach ?>
+            <div class="pagination">
+              <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                <?php if ($i == $page): ?>
+                  <a class="page-btn active" href="worker_profile.php?id=<?= $worker_id ?>&page=<?= $i ?>"><?= $i ?></a>
+                  <?php else: ?>
+                    <a class="page-btn" href="worker_profile.php?id=<?= $worker_id ?>&page=<?= $i ?>"><?= $i ?></a>
+                <?php endif ?>
+              <?php endfor ?>
             </div>
           </div>
-
-      <?php if($feedbackCount > 0): ?> 
-        <div class="feedback-content">
-          <h1>Avaliações dos usuários:</h1>
-          <?php foreach($allFeedbacks as $feedback): ?>
-            <div class="feedback">
-              <div class="feedback-img">
-                  <p id="prof-pic-letter"><?= strtoupper($feedback["name"][0]) ?></p>
-              </div>
-              <p>
-                <span class="name"><?= $feedback["name"] ?></span><br>
-                <span id="title"><?= $feedback["title"] ?></span><br>
-                <span><?= $feedback["feedback"] ?></span>
-              </p>
-            </div>
-          <?php endforeach ?>   
-        </div>
-        <?php else: ?>
+        <?php else : ?>
           <div class="feedback-content">
             <h1>Avaliações dos usuários:</h1>
             <h2>Não há avaliações disponíveis para este usuário</h2>
           </div>
-      <?php endif ?>         
-    </div>
+        <?php endif ?>
+      </div>
     </div>
   <?php else :
-    $_SESSION['userNotFound'] =strtoupper($_POST['searchUser']);
-    redirect('index.php'); 
+    $_SESSION['userNotFound'] = strtoupper($_POST['searchUser']);
+    redirect('index.php');
   ?>
   <?php endif ?>
   <section class="footer">

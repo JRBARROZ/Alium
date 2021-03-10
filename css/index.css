@@ -356,6 +356,7 @@ textarea {
     outline: none;
     border: none;
     font-family: "Nunito-light";
+    padding: 0 7px;
 }
 
 .contact-form label {
@@ -365,6 +366,7 @@ textarea {
 
 .contact-form textarea {
     height: 100px;
+    padding: 7px;
 }
 
 .contact-form input[type=submit] {
