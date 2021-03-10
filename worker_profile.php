@@ -80,17 +80,19 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $start = $page - 1;
 $start = $maxResults * $start;
 
-$query = "SELECT feedbacks.feedback, feedbacks.evaluation, feedbacks.title, users.name FROM users INNER JOIN feedbacks ON users.id = feedbacks.client_id WHERE feedbacks.worker_id = ?";
-$stmt = $GLOBALS['pdo']->prepare($query);
-$stmt->execute([$worker['id']]);
-$feedbackCount = $stmt->rowCount();
-
+if ($page == 1) {
+  $query = "SELECT feedbacks.feedback, feedbacks.evaluation, feedbacks.title, users.name FROM users INNER JOIN feedbacks ON users.id = feedbacks.client_id WHERE feedbacks.worker_id = ?";
+  $stmt = $GLOBALS['pdo']->prepare($query);
+  $stmt->execute([$worker['id']]);
+  $_SESSION['rows_feedback'] = $stmt->rowCount();
+}
+$feedbackCount = $_SESSION['rows_feedback'];
 $query = "SELECT feedbacks.feedback, feedbacks.evaluation, feedbacks.title, users.name FROM users INNER JOIN feedbacks ON users.id = feedbacks.client_id WHERE feedbacks.worker_id = ? LIMIT ?, ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute([$worker['id'], $start, $maxResults]);
 $allFeedbacks = $stmt->fetchAll();
 
-$totalPages = $feedbackCount%$maxResults == 0 ? (int)$feedbackCount/$maxResults : intdiv($feedbackCount, $maxResults) + 1;
+$totalPages = $feedbackCount % $maxResults == 0 ? (int)$feedbackCount / $maxResults : intdiv($feedbackCount, $maxResults) + 1;
 ?>
 
 <!DOCTYPE html>
@@ -137,7 +139,7 @@ $totalPages = $feedbackCount%$maxResults == 0 ? (int)$feedbackCount/$maxResults 
             </div>
           <?php endif ?>
           <br>
-          <p><span class="name"><?= $worker['name'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $worker['city'] ?>, <?= $worker['state'] ?>, <br>
+          <p><span class="name"><?= $worker['name'] ?></span><br><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $worker['city'] ?>, <?= $worker['state'] ?> <br>
             <?php
             foreach ($images_ids as $i => $id) :
               $serv = getServiceById($id);
@@ -183,10 +185,10 @@ $totalPages = $feedbackCount%$maxResults == 0 ? (int)$feedbackCount/$maxResults 
                 <div class="star-widget">
                   <?php for ($i = 5; $i > 0; $i--) : ?>
                     <?php if ($already_evaluated && $i == $evaluation['evaluation']) : ?>
-                      <input type="radio" name="rate" id="rate-<?= $i ?>" value="<?= $i ?>" checked>
+                      <input type="radio" name="rate" id="rate-<?= $i ?>" value="<?= $i ?>" checked required>
                       <label for="rate-<?= $i ?>" class="fa fa-star"></label>
                     <?php else : ?>
-                      <input type="radio" name="rate" id="rate-<?= $i ?>" value="<?= $i ?>">
+                      <input type="radio" name="rate" id="rate-<?= $i ?>" value="<?= $i ?>" required>
                       <label for="rate-<?= $i ?>" class="fa fa-star"></label>
                     <?php endif ?>
                   <?php endfor ?>
@@ -242,6 +244,18 @@ $totalPages = $feedbackCount%$maxResults == 0 ? (int)$feedbackCount/$maxResults 
                 <div class="feedback-img">
                   <p id="prof-pic-letter"><?= strtoupper($feedback["name"][0]) ?></p>
                 </div>
+                <div class="profile-item star-size evaluation">
+                  <?php
+                  $rate = $feedback['evaluation'];
+                  for ($i = 0; $i < 5; $i++) :
+                  ?>
+                    <?php if ($i <= $rate) : ?>
+                      <span class="fa fa-star checked"></span>
+                    <?php else : ?>
+                      <span class="fa fa-star empty-star"></span>
+                    <?php endif ?>
+                  <?php endfor ?>
+                </div>
                 <p>
                   <span class="name"><?= $feedback["name"] ?></span><br>
                   <span id="title"><?= $feedback["title"] ?></span><br>
@@ -251,10 +265,10 @@ $totalPages = $feedbackCount%$maxResults == 0 ? (int)$feedbackCount/$maxResults 
             <?php endforeach ?>
             <div class="pagination">
               <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-                <?php if ($i == $page): ?>
+                <?php if ($i == $page) : ?>
                   <a class="page-btn active" href="worker_profile.php?id=<?= $worker_id ?>&page=<?= $i ?>"><?= $i ?></a>
-                  <?php else: ?>
-                    <a class="page-btn" href="worker_profile.php?id=<?= $worker_id ?>&page=<?= $i ?>"><?= $i ?></a>
+                <?php else : ?>
+                  <a class="page-btn" href="worker_profile.php?id=<?= $worker_id ?>&page=<?= $i ?>"><?= $i ?></a>
                 <?php endif ?>
               <?php endfor ?>
             </div>

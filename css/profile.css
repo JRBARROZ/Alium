@@ -162,7 +162,7 @@ input[type=file],
 }
 
 .profile-text-edit {
-    font-family: "Gasalt-Regular";
+    font-family: "Nunito-Regular";
     font-size: 1.75em;
     font-style: normal;
     font-weight: 400;
@@ -175,6 +175,9 @@ input[type=file],
 
 .profile-text-edit h1 {
     margin-bottom: 15px;
+    font-family: "Nunito-Regular";
+    font-size: 1.25em !important;
+    color: #0E2548;
 }
 
 .content-profile {
@@ -258,7 +261,7 @@ input[type=file],
 }
 
 .name {
-    font-size: 1.25rem;
+    font-size: 0.8em;
     color: #0E2548;
 }
 
@@ -316,7 +319,9 @@ input[type=file],
 .profile-text-edit h3 {
     font-family: "Nunito-Regular";
     font-size: .8em;
-    color: #0E2548;
+    color: #637EA6;
+    font-style: italic;
+    font-weight: normal;
 }
 
 .profile-form label {
@@ -494,7 +499,7 @@ img {
     font-size: 2em;
     position: absolute;
     top: 100px;
-    left: 25%;
+    left: 60px;
 }
 
 #back:hover {
@@ -729,9 +734,13 @@ img {
 .feedback {
     display: flex;
     flex-direction: left;
-    background-color: #EBF2FF;
+    background-color: rgba(235, 242, 255, 0.5);
+    /* background-color: transparent; */
+    border-left: 4px solid #0E2548 ;
+    /* border-radius: 5px; */
     margin: 10px;
     padding: 10px;
+    position: relative;
 }
 
 .feedback-img{
@@ -770,6 +779,8 @@ img {
 
 #title{
     font-family: 'Nunito-Regular';
+    font-weight: 600;
+    color: #0E2548;
     font-size: 1em;
 }
 
@@ -820,7 +831,7 @@ img {
     font-size: 14px;
     padding: 5px 8px;
     border-radius: 3px;
-    margin: 0 5px;
+    margin: 10px 5px;
 }
 .pagination .page-btn:hover {
     background-color: #DAE1EE;
@@ -828,4 +839,13 @@ img {
 .active {
     z-index: -2;
     background-color: lightgray !important;
+}
+.evaluation {
+    position: absolute;
+    top: -25px;
+    right: 10px;
+}
+
+.empty-star {
+    color: #C3CDDD !important;
 }

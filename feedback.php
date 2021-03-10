@@ -10,7 +10,26 @@ if (!isLogged()) {
 if (isset($_POST['worker_id'])) {
   $feedback = addslashes(trim($_POST['feedback']));
   $evaluation = (int)$_POST['rate'];
-  $title = addslashes(trim($_POST['title']));
+  $genericTitle = '';
+
+  switch($evaluation) {
+    case 1:
+    case 2:
+      $genericTitle = "Profissional Ruim";
+      break;
+    case 3:
+    case 4:
+      $genericTitle = "Bom Profissional";
+      break;
+    case 5:
+      $genericTitle = "Ótimo Profissional";
+      break;
+      default:
+      $genericTitle = "Não informado";
+      break;
+  }
+  
+  $title = addslashes(trim($_POST['title'])) == '' ? $genericTitle : addslashes(trim($_POST['title']));
   $client_id = $_SESSION['user']['id'];
   $worker_id = addslashes(trim($_POST['worker_id']));
 

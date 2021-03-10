@@ -158,8 +158,12 @@
           <form action="contact_us.php" method="post">
             <label for="name">Nome:</label><br>
             <input type="text" id="name" name="name" value=""><br>
-            <label for="email">E-mail:</label><br>
-            <input type="text" id="email" name="email" value=""><br>
+            <?php if (isLogged()): ?>
+              <input type="hidden" name="email" value="<?= $_SESSION['user']['email'] ?>">
+            <?php else: ?>
+              <label for="email">E-mail:</label><br>
+              <input type="text" id="email" name="email" value=""><br>
+            <?php endif ?>
             <label for="assunto">Assunto:</label><br>
             <input type="text" id="assunto" name="assunto" value=""><br>
             <label for="message">Mensagem:</label><br>
