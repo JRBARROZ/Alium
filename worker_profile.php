@@ -247,7 +247,7 @@ $totalPages = $feedbackCount % $maxResults == 0 ? (int)$feedbackCount / $maxResu
                 <div class="profile-item star-size evaluation">
                   <?php
                   $rate = $feedback['evaluation'];
-                  for ($i = 0; $i < 5; $i++) :
+                  for ($i = 1; $i <= 5; $i++) :
                   ?>
                     <?php if ($i <= $rate) : ?>
                       <span class="fa fa-star checked"></span>

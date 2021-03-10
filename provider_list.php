@@ -90,7 +90,7 @@ foreach ($perfil as $key => $value) {
         foreach ($evaluations as $evaluation) {
           $sum += $evaluation['evaluation'];
         }
-        $rate = round($sum / $row, 1);
+        $rate = round(($sum / $row), 1);
         $rate_size = strlen((string)$rate);
         if ($rate_size == 1) {
           $rate = '' . $rate . '.0';
