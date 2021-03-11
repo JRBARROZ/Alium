@@ -849,3 +849,23 @@ img {
 .empty-star {
     color: #C3CDDD !important;
 }
+.user-profile-img {
+    width: 60px;
+    display: flex;
+    height: 60px;
+    border-radius: 50%;
+    z-index: 2;
+    margin: 10px;
+}
+
+.user-profile-img img{
+    background-size: cover;
+    z-index: 1;
+    width: 60px;
+    display: flex;
+    height: 60px;
+    border-radius: 50%;
+    /* border: 5px solid rgba(178, 206, 255, 0.5); */
+    z-index: 2;
+    margin: 3px;
+}

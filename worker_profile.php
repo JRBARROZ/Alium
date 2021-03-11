@@ -87,7 +87,7 @@ if ($page == 1) {
   $_SESSION['rows_feedback'] = $stmt->rowCount();
 }
 $feedbackCount = $_SESSION['rows_feedback'];
-$query = "SELECT feedbacks.feedback, feedbacks.evaluation, feedbacks.title, users.name FROM users INNER JOIN feedbacks ON users.id = feedbacks.client_id WHERE feedbacks.worker_id = ? LIMIT ?, ?";
+$query = "SELECT feedbacks.feedback, feedbacks.evaluation, feedbacks.title, users.name, feedbacks.client_id FROM users INNER JOIN feedbacks ON users.id = feedbacks.client_id WHERE feedbacks.worker_id = ? LIMIT ?, ?";
 $stmt = $GLOBALS['pdo']->prepare($query);
 $stmt->execute([$worker['id'], $start, $maxResults]);
 $allFeedbacks = $stmt->fetchAll();
@@ -240,10 +240,23 @@ $totalPages = $feedbackCount % $maxResults == 0 ? (int)$feedbackCount / $maxResu
           <div class="feedback-content">
             <h1>Avaliações dos usuários:</h1>
             <?php foreach ($allFeedbacks as $feedback) : ?>
+              <?php
+              $query = "SELECT * FROM `images` WHERE `name` LIKE ? AND `user_id` = ?";
+              $stmt = $GLOBALS['pdo']->prepare($query);
+              $stmt->execute(["perfil%", $feedback['client_id']]);
+              $rows = $stmt->rowCount();
+              $perfil = $stmt->fetch();
+              ?>
               <div class="feedback">
-                <div class="feedback-img">
-                  <p id="prof-pic-letter"><?= strtoupper($feedback["name"][0]) ?></p>
-                </div>
+                <?php if ($rows == 0): ?>
+                  <div class="feedback-img">
+                    <p id="prof-pic-letter"><?= strtoupper($feedback["name"][0]) ?></p>
+                  </div>
+                  <?php else: ?>
+                    <div class="user-profile-img">
+                      <img src="./images/portfolio/user_port_<?= $feedback['client_id'] ?>/perfil/<?= $perfil['name'] ?>" alt="">
+                    </div>
+                      <?php endif ?>
                 <div class="profile-item star-size evaluation">
                   <?php
                   $rate = $feedback['evaluation'];
