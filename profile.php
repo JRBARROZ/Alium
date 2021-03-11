@@ -232,7 +232,7 @@ if ($row > 0) {
             </div>
             <div class="profile-form">
                 <div class="profile-text-edit">
-                    <h3 id="text" style="max-width: 500px;line-height:2em;">Olá, <?= $_SESSION['logged-user'] ?>, seja bem-vindo(a) ao Alium :)<br>Por favor, finalize seu cadastro abaixo.<br><a href="#" class="btn" onclick="showForm(this)">Atualizar Cadastro</a></h3>
+                    <h3 id="text" style="max-width: 500px;line-height:2em;">Olá, <?= $_SESSION['logged-user'] ?>, seja bem-vindo(a) ao Alium :) Por favor, finalize seu cadastro abaixo.<br><a href="#" class="btn" id="show-form" onclick="showForm(this)">Atualizar Cadastro</a></h3>
                     <h3 id="edit" style="display: none;">Editar Perfil</h3>
                     <div class="error-message-form">
                         <h4>Erros encontrados:</h4>
@@ -295,7 +295,7 @@ if ($row > 0) {
                         <br>
                         <input type="hidden" name="user_id" value="<?= $user_id ?>">
                         <input type="submit" value="Atualizar">
-                        <button type="button" href="#" class="btn cancel-button" onclick="hideEvaluateForm()">Cancelar</button>
+                        <button type="button" href="#" class="btn cancel-button" onclick="hideForm()">Cancelar</button>
                     </form>
                 </div>
             </div>

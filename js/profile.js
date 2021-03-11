@@ -6,6 +6,13 @@ function showForm(e) {
     document.querySelector('#edit').style.display = "block";
 }
 
+function hideForm(e) {
+    document.querySelector('#text').style.display = "block";
+    document.querySelector('#show-form').style.display = "block";
+    document.querySelector('#form').style.display = "none";
+    document.querySelector('#edit').style.display = "none";
+}
+
 function showAboutForm() {
     document.querySelector('#about-form').style.display = "block";
     document.querySelector('#hide-about-form').style.display = "block";
