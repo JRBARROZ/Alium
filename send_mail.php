@@ -34,23 +34,48 @@ $body = "
   <meta charset='UTF-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link href='https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap' rel='stylesheet'>
   <style>
-    p, a {
-      font-family: 'Nunito-Regular';
-      font-size: 1.25em;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 1em;
-      letter-spacing: 0em;
-      text-align: left;
-    }
+
+  .inputButton {
+    width: 200px;
+    height: 41px;
+    background-color: #0E2548;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 24px;
+    border: none;
+    padding: 8px 8px;
+    outline: none;
+    cursor: pointer;
+    transition: 1s;
+}
+  h1{
+    color: rgb(77 ,97,128);
+    font-family: 'Nunito', sans-serif;
+    font-size: 35px;
+}
+  h2{
+    font-family: 'Nunito', sans-serif;
+    font-size: 24px;
+}
+a{
+color: white !important;
+text-decoration:none;
+}
   </style>
 </head>
 <body>
-  <h2>Olá, " . $user['name'] . "</h2>
-  <p>Você está recebendo este e-mail porque solicitou recuperação da senha.<br>
-  Clique no link abaixo para iniciar o processo de recuperação.</p>
-  <a href='http://localhost:8000/recovery_password.php?user=" . md5($user['id']) . $user['id'] . "&token=" . $token . "'>Clique aqui para recuperar a senha</a>
+  <img src='aliumLogo.png' alt=''>
+  <h1>Recuperação de Senha</h1>
+  <h2>Olá, " . $user['name'] . "</h2><br>
+  <h2>Verificamos que você solicitou a troca de sua<br>
+  senha. Para continuar, clique no botão abaixo.<br>
+  O link para redefinição irá expirar em 15 minutos.
+  </h2>
+  <button class='inputButton'>
+  <a href='http://localhost:8000/recovery_password.php?user=" . md5($user['id']) . $user['id'] . '&token=' . $token . "'>Redefinir Senha</a> 
+  </button>
 </body>
 
 </html>
