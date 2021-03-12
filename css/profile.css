@@ -243,7 +243,7 @@ input[type=file],
     /* max-width: 300px; */
     height: 100px;
     margin-left: 20px;
-    /* flex: 1 1 260px; */
+    flex: 1 1 130px;
 }
 .img img{
     border-radius: 50%;
