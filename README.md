@@ -1,5 +1,5 @@
 #  ALIUM
-
+![Captura de tela 2021-03-13 193138](https://user-images.githubusercontent.com/40250320/111051562-c4ce0780-8432-11eb-8eb8-e2e68aac9fc4.png)
 ## STARTING
 
 Follow the instructions here to exec perfect our project :D .
