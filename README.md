@@ -1,5 +1,5 @@
 #  ALIUM
-Alium is a project give you a match when you have a worker and a person looking for kind of service, you can get the contact from the worker and talk what do yu want =).
+### Alium is a project give you a match when you have a worker and a person looking for kind of service, you can get the contact from the worker and talk what do yu want =).
 ![Captura de tela 2021-03-13 193138](https://user-images.githubusercontent.com/40250320/111051562-c4ce0780-8432-11eb-8eb8-e2e68aac9fc4.png)
 ## STARTING
 
